@@ -5,6 +5,7 @@ use App\Especialidad;
 use App\Hospital;
 use App\Pais;
 use App\Persona;
+use App\Provincia;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -176,6 +177,11 @@ function avatar($id){
     function departamentos(){
         $departamentos = Departamento::all();
         return $departamentos;
+    }
+
+    function provincias(){
+        $provincias = Provincia::all();
+        return $provincias;
     }
 
     // Trae las provincias de un departamento

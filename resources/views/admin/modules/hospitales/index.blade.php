@@ -66,7 +66,7 @@
                                   </td>
                                       @include('admin.modules.hospitales.imagen')
                                   <td>
-                                      <a href="{{ route('planta.index', ['id'=>$hospital->id]) }}" type="button" class="btn btn-sm btn-primary">
+                                      <a href="{{ route('hospital.show', ['id'=>$hospital->id]) }}" type="button" class="btn btn-sm btn-primary">
                                           <i class="fas fa-eye"></i>
                                       </a> 
                                     
@@ -93,5 +93,4 @@
     </div>
   </div>
 </div>
-@livewire('usuario')
 @endsection

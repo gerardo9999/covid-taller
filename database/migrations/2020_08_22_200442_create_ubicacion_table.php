@@ -4,31 +4,29 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePlantasTable extends Migration
+class CreateUbicacionTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
-        Schema::create('plantas', function (Blueprint $table) {
+        Schema::create('ubicacion', function (Blueprint $table) {
+            
             $table->increments('id');
-            $table->string('nombre',50);
+            $table->string('numero_sala');
+            $table->string('numero_cama');
+
+            $table->integer('paciente_id')->unsigned();
             $table->integer('hospital_id')->unsigned();
+
+            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
             $table->foreign('hospital_id')->references('id')->on('hospitales')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+
     public function down()
     {
-        Schema::dropIfExists('plantas');
+        Schema::dropIfExists('ubicacion');
     }
 }

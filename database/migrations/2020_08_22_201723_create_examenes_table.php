@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTiposHabitacionesTable extends Migration
+class CreateExamenesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateTiposHabitacionesTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipos_habitaciones', function (Blueprint $table) {
+        Schema::create('examenes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre',50);
+            $table->string('resultado');
+            $table->string('tipo');
+            $table->integer('consulta_id')->unsigned();
+            $table->foreign('consulta_id')->references('id')->on('consultas')->onDelete('cascade');            
             $table->timestamps();
         });
     }
@@ -27,6 +30,6 @@ class CreateTiposHabitacionesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipos_habitaciones');
+        Schema::dropIfExists('examenes');
     }
 }

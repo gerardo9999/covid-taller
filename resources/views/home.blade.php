@@ -32,7 +32,7 @@
         <!-- /.info-box-content -->
       </div>
       <!-- /.info-box -->
-    </div>
+    </div> 
     <!-- /.col -->
 
     <!-- fix for small devices only -->

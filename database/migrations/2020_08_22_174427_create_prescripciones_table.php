@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBloquesTable extends Migration
+class CreatePrescripcionesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateBloquesTable extends Migration
      */
     public function up()
     {
-        Schema::create('bloques', function (Blueprint $table) {
+        Schema::create('prescripciones', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('nombre',100);
-            
-            $table->integer('planta_id')->unsigned();
-            $table->foreign('planta_id')->references('id')->on('plantas')->onDelete('cascade');
+            $table->integer('cantidad_producto')->unsigned();
+            $table->string('indicaciones');
+            $table->integer('consulta_id')->unsigned();
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateBloquesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bloques');
+        Schema::dropIfExists('prescripciones');
     }
 }

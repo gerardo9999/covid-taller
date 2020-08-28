@@ -15,7 +15,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'WebController@intro')->name('intro.index');
+Route::get('/covid', 'WebController@covid')->name('covid.index');
 
+Route::get('/cuestionario', 'WebController@cuestionario')->name('cuestionario.index');
+Route::get('/preguntas', 'CuestionarioController@preguntas')->name('cuestionario.preguntas');
+
+
+
+Route::post('/cuestionario/store', 'CuestionarioController@store')->name('cuestionario.store');
 
 
 
@@ -66,41 +73,20 @@ Route::post('/pacientes/update/{id}', 'PacienteController@pacienteUpdate')->name
 Route::get('/hospitales', 'HospitalController@hospitales')->name('hospital.index');
 Route::get('/hospitales/create', 'HospitalController@hospitalCreate')->name('hospital.create');
 Route::get('/hospitales/edit/{id}', 'HospitalController@hospitalEdit')->name('hospital.edit');
+Route::get('/hospitales/show/{id}', 'HospitalController@hospitalShow')->name('hospital.show');
+
 Route::post('/hospitales/store', 'HospitalController@hospitalStore')->name('hospital.store');
 Route::post('/hospitales/destroy/{id}', 'HospitalController@hospitalDestroy')->name('hospital.destroy');
 Route::post('/hospitales/update/{id}', 'HospitalController@hospitalUpdate')->name('hospital.update');
 
 
 
-Route::get('/hospitales/plantas/{id}', 'HospitalController@plantas')->name('planta.index');
-Route::post('/plantas/store', 'HospitalController@plantaStore')->name('planta.store');
-Route::post('/planta/update/{id}', 'HospitalController@plantaUpdate')->name('planta.update');
-Route::post('/planta/destroy/{id}', 'HospitalController@plantaDestroy')->name('planta.destroy');
-
-
-
-Route::get('/hospitales/bloques/{id}', 'HospitalController@bloques')->name('sala.index');
-Route::post('/bloques/store', 'HospitalController@bloqueStore')->name('bloque.store');
 
 
 
 
 
-// Route::post('/plantas/destroy/{id}', 'HospitalController@plantaDestroy')->name('planta.destroy');
-// Route::post('/plantas/update/{id}', 'HospitalController@plantaUpdate')->name('planta.update');
 
-
-
-
-
-Route::get('/tipoHabitaciones', 'HospitalController@tipoHabitaciones')->name('tipoHabitacion.index');
-Route::post('/tiposHabitaciones/store', 'HospitalController@tipoHabitacionesStore')->name('tipoHabitacion.store');
-Route::post('/tiposHabitaciones/destroy/{id}', 'HospitalController@tipoHabitacionesDestroy')->name('tipoHabitacion.destroy');
-Route::post('/tiposHabitaciones/update/{id}', 'HospitalController@tipoHabitacionesUpdate')->name('tipoHabitacion.update');
-
-
-Route::get('/hospitales/habitaciones/{id}', 'HospitalController@habitaciones')->name('habitacion.index');
-Route::post('/hospitales/habitaciones/store', 'HospitalController@habitacionStore')->name('habitacion.store');
 
 
 

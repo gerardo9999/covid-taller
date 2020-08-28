@@ -10,6 +10,8 @@ class CreatePersonasTable extends Migration
     {
         Schema::create('personas', function (Blueprint $table) {
             
+
+
             $table->increments('id');
             $table->string('nombre',50)->nullable();
             $table->string('apellidos',50)->nullable();
@@ -23,6 +25,8 @@ class CreatePersonasTable extends Migration
             $table->integer('direccion_id')->unsigned();
             $table->foreign('direccion_id')->references('id')->on('direcciones')->onDelete('cascade');
             $table->timestamps();
+        
+        
         });
     }
     public function down()

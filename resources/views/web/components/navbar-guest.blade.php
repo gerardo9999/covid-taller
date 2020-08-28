@@ -5,7 +5,7 @@
        <li class="menu-has-children"><a href="">INFORMACION GENERAL</a>
            <ul>
            <li><a href="#">Dasboard</a></li>
-           <li><a href="#">Covid-19</a></li>
+           <li><a href="{{ route('covid.index') }}">Covid-19</a></li>
            </ul>
        </li>
            <li class="menu-has-children"><a href="#">LOGIN</a>

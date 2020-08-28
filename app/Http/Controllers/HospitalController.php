@@ -19,10 +19,6 @@ use Laravel\Ui\Presets\React;
 class HospitalController extends Controller
 {
     
-    /*
-    /
-    /    Modulo de Hospitales
-    */
     public function hospitales(Request $request){
         
         if($request){
@@ -58,7 +54,6 @@ class HospitalController extends Controller
         return view('admin.modules.hospitales.create');
     }
     public function hospitalStore(Request $request){
-        
         $this->validacionHospital($request);
         try{
             DB::beginTransaction();
@@ -162,183 +157,9 @@ class HospitalController extends Controller
         $hospital->delete();
         return Redirect::to('/hospitales')->with('delete','El registro se ha elimindado correctamente');
     }
-
-
-    /*
-    /
-    /    Modulo de Plantas
-    */    
-    public function plantas(int $id){
-        $hospital = Hospital::where('id','=',$id)->get();
-
-
-        $plantas = Planta::join('hospitales','hospitales.id','=','plantas.hospital_id')
-                            ->select('plantas.nombre','plantas.id','plantas.hospital_id')->where('plantas.hospital_id','=',$id)
-                            ->paginate(10);
-
-
-        return view('admin.modules.plantas.index',[
-            'hospital'=>$hospital,
-            'plantas' => $plantas
-        ]);
-    }
-    public function plantaStore(Request $request){
-        
-        $planta = new Planta();
-        $planta->nombre = $request->get('planta');
-        $planta->hospital_id = $request->get('hospital_id');
-        $planta->save();
-
-        return redirect('/hospitales/plantas/'.$request->get('hospital_id'))->with('create','se ha agregado correctamente');
-    }
-    public function plantaUpdate(Request $request,$id){
-        
-        $planta =Planta::findOrFail($id);
-        $planta->nombre = $request->get('planta');
-        $planta->hospital_id = $request->get('hospital_id');
-        $planta->update();
-
-        return redirect('/hospitales/plantas/'.$request->get('hospital_id'))->with('create','se ha agregado correctamente');   
-    }
-    public function plantaDestroy(Request $request,$id){
-        $planta =Planta::findOrFail($id);
-        $planta->delete();
-
-        return redirect('/hospitales/plantas/'.$request->get('hospital_id'))->with('create','se ha agregado correctamente');   
+    public function hospitalShow($id){
+        return view('admin.modules.hospitales.show',['id'=> $id]);
     }
 
-    /*
-    /
-    /    Modulo de bloques
-    */ 
-
-    public function bloques(int $id){
-        
-        $hospital = Hospital::join('plantas','plantas.hospital_id','=','hospitales.id')
-        ->select('hospitales.id',
-                'plantas.nombre as planta',
-                'plantas.id as planta_id',
-                'hospitales.nombre',
-                'hospitales.imagen')->where('plantas.id','=',$id)->get();
-
-        $bloques = Planta::join('bloques','bloques.planta_id','=','plantas.id')
-                            ->select('bloques.nombre','bloques.id')->where('plantas.id','=',$id)
-                            ->paginate(10);
-
-        $plantas = Planta::join('hospitales','hospitales.id','=','plantas.hospital_id')
-                            ->select('plantas.nombre','plantas.id','plantas.hospital_id')->where('plantas.id','=',$id)
-                            ->paginate(10);
-
-        return view('admin.modules.bloques.index',[
-            'hospital' => $hospital,
-            'bloques' => $bloques,
-            'plantas'=>$plantas
-        ]);
-    }
-    public function bloqueStore(Request $request){
-        
-        $bloque = new Bloque();
-        $bloque->nombre = $request->get('bloque');
-        $bloque->planta_id = $request->get('planta_id');
-        $bloque->save();
-
-        return redirect('hospitales/bloques/'.$request->get('planta_id'))->with('create','se ha agregado correctamente');
-    }
-
-
-
-    /*
-    /
-    /    Modulo de TipoHabitaciones
-    */ 
-    public function tipoHabitaciones(Request $request){
-
-        if($request){
-            $query = trim($request->get('searchText'));
-            $tipoHabitaciones = TipoHabitacion::select('nombre','id')->where('nombre','LIKE','%'.$query.'%')->paginate(5);
-
-        }
-
-        return view('admin.modules.tipohabitaciones.index',[
-            'tipoHabitaciones' => $tipoHabitaciones,
-            'searchText' => $query
-        ]);
-    }
-    public function tipoHabitacionesStore(Request $request){
-        $tipoHabitacion = new TipoHabitacion();
-        $tipoHabitacion->nombre = $request->get('nombre'); 
-        $tipoHabitacion->save();
-
-        return redirect('/tipoHabitaciones')->with('create','se ha creado el registro exitosamente');
-    }
-    public function tipoHabitacionesUpdate(Request $request,$id){
-        $tipoHabitacion = TipoHabitacion::findOrFail($id);
-        $tipoHabitacion->nombre = $request->get('nombre');
-        $tipoHabitacion->update();
-
-        return redirect('/tipoHabitaciones')->with('create','se ha modificado el registro exitosamente');
-    }
-    public function tipoHabitacionesDestroy($id){
-        $tipoHabitacion = TipoHabitacion::findOrFail($id);
-        $tipoHabitacion->delete();
-
-        return redirect('/tipoHabitaciones')->with('delete','se ha eliminado el registro exitosamente');
-    }
-
-
-    /*
-    /
-    /    Modulo de TipoHabitaciones
-    */ 
-    //recibimos el id de la bloque
-    public function habitaciones(int $id){
-
-        $habitaciones        = Habitacion::all();
-        $tipoHabitaciones   = TipoHabitacion::all();
-
-        $bloque   = Bloque::where('bloques.id','=',$id)->get();
-        $planta = Bloque::join('plantas','plantas.id','=','bloques.planta_id')
-                          ->select('plantas.nombre as planta','plantas.id as planta_id','plantas.hospital_id')
-                          ->where('bloques.id','=',$id)
-                          ->get();
-        
-
-        $hospital = Hospital::all()->where('id','=',$planta[0]->hospital_id);
-
-        return view('admin.modules.habitaciones.index',[
-            'bloque' => $bloque,
-            'hospital'=> $hospital,
-            'planta'=>$planta,
-            'habitaciones' => $habitaciones,
-            'tipoHabitaciones'=> $tipoHabitaciones
-        ]);
-
-    }
-
-    public function habitacionStore(Request $request){
-        
-        $habitacion = new Habitacion();
-        $habitacion->nombre = $request->get('habitacion');
-        $habitacion->bloque_id = $request->get('bloque_id');
-        $habitacion->tipoHabitacion_id = $request->get('tipoHabitacion_id');
-
-        $ruta ='';
-
-        if($request->get('guardar')=='guardar_ver'){
-            $ruta = '/hospitales';
-        }else{
-            $ruta ='/hospitales/habitaciones/'.$request->get('bloque_id');
-        }
-        return redirect($ruta)->with('create','se ha guardado correctamente');
-    }
 
 }
-
-
-
-
-
-
-
-
-
