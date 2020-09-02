@@ -16,10 +16,11 @@
         <div class="section-header">
             <h3 class="section-title">Completa el siguiente formulario</h3>
             <span class="section-divider"></span>
-            <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+            <p class="section-description">Es necesario que complete toda su informacion</p>
         </div>
 
-
+        <form action="{{ route('store.paciente') }}" method="post">
+            @csrf
         <div class="row">
 
             <div class="col-lg-12">
@@ -62,7 +63,7 @@
                         </div>
                         <div class="form-group col-4">
                             <label for="">Telefono</label> 
-                            <input name="telefono" type="text" class="form-control form-control-sm @error('telefono') is-invalid @enderror" placeholder="" >
+                            <input name="telefono" id="telefono" type="text" class="form-control form-control-sm @error('telefono') is-invalid @enderror" placeholder="" >
                             @error('telefono')
                                 <small><strong><p style="color: red">{{ $message }}</p></strong></small>
                             @enderror
@@ -75,7 +76,7 @@
                         <div class="form-group col-6">
                             <label>Fecha de Nacimiento</label>
                               <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                  <input type="text" data-target="#reservationdate" class="form-control form-control-sm date-fecha @error('fecha_nacimiento') is-invalid @enderror " name="fecha_nacimiento" />
+                                  <input type="text" id="fecha_nacimiento" data-target="#reservationdate" class="form-control form-control-sm date-fecha @error('fecha_nacimiento') is-invalid @enderror " name="fecha_nacimiento" />
                                   <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
                                       <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                   </div>
@@ -121,6 +122,8 @@
                             </div>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </div>
@@ -176,28 +179,28 @@
                     <div class="row">
                         <div class="col-3">
                             <label for="">Nº de Distrito</label>
-                            <input name="distrito" type="text" class="form-control form-control-sm @error('distrito') is-invalid @enderror" placeholder="Digite numero de distrito">
+                            <input name="distrito" id="distrito" type="text" class="form-control form-control-sm @error('distrito') is-invalid @enderror" placeholder="Digite numero de distrito">
                             @error('distrito')
                                 <small><strong><p style="color: red">{{ $message }}</p></strong></small>
                             @enderror
                         </div>
                         <div class="col-3">
                             <label for="">Nº de Domicilio</label>
-                            <input name="numero_domicilio" type="text" class="form-control form-control-sm @error('numero_domicilio') is-invalid @enderror" placeholder="Digite numero de domicilio">
+                            <input name="numero_domicilio" id="numero_domicilio" type="text" class="form-control form-control-sm @error('numero_domicilio') is-invalid @enderror" placeholder="Digite numero de domicilio">
                             @error('numero_domicilio')
                                 <small><strong><p style="color: red">{{ $message }}</p></strong></small>
                             @enderror
                         </div>
                         <div class="col-3">
                             <label for="">Avenida/Calle</label>
-                            <input name="avenida_calle" type="text" class="form-control form-control-sm @error('avenida_calle') is-invalid @enderror" placeholder="Escribir avenida o calle">
+                            <input name="avenida_calle" id ="avenida_calle" type="text" class="form-control form-control-sm @error('avenida_calle') is-invalid @enderror" placeholder="Escribir avenida o calle">
                             @error('avenida_calle')
                                 <small><strong><p style="color: red">{{ $message }}</p></strong></small>
                             @enderror
                         </div>
                         <div class="col-3">
                             <label for="">Barrio/Zona</label>
-                            <input name="barrio_zona" type="text" class="form-control form-control-sm @error('barrio_zona') is-invalid @enderror" placeholder="Escribir barrio o zona">
+                            <input name="barrio_zona" id="barrio_zona" type="text" class="form-control form-control-sm @error('barrio_zona') is-invalid @enderror" placeholder="Escribir barrio o zona">
                             @error('barrio_zona')
                                 <small><strong><p style="color: red">{{ $message }}</p></strong></small>
                             @enderror
@@ -242,9 +245,9 @@
                 </div>
             </div>
         </div>
-
-        <div class="text-center"><button class="btn btn-success" onclick="cuestionarios()" type="button" title="Send Message">Send Message</button></div>
-        
+        <button type="submit">Guardar Datos</button>
+        {{-- <div class="text-center"><button class="btn btn-success" onclick="cuestionarios()" type="button" title="Send Message">Send Message</button></div> --}}
+        </form>
     </div>
 </div>
 
@@ -264,7 +267,7 @@
     cuestionario.style.display="none";
 
     var nombre ;
-
+    errorArray = [];
 
     function seleccionarDepartamento(){
         var departamento_id = document.getElementById("departamentos").value;
@@ -363,8 +366,44 @@
           }
     }
 
+    function validacion() {
+        var nombre           = document.getElementById('nombre').value;
+        var apellidos        = document.getElementById('apellidos').value;
+        var ci               = document.getElementById('ci').value;
+        var numero_seguro    = document.getElementById('numero_seguro').value;
+        var telefono         = document.getElementById('telefono').value;
+        var fecha_nacimiento = document.getElementById('fecha_nacimiento').value;
+        var nacionalidad     = document.getElementById('nacionalidad').value;
+        var hombre           = document.getElementById('hombre').value;
+        var mujer            = document.getElementById('mujer').value;
+        var departamento_id  = document.getElementById('departamento_id').value;
+        var provincia_id     = document.getElementById('provincia_id').value;
+        var municipio_id     = document.getElementById('municipio_id').value;
+        var distrito         = document.getElementById('distrito').value;
+        var numero_domicilio = document.getElementById("numero_domicilio").value;
+        var avenida_calle    = document.getElementById("avenida_calle").value;
+        var barrio_zona      = document.getElementById("barrio_zona").value;
+        var name             = document.getElementById("name").value;
+        var password         = document.getElementById("password").value;
+        var email            = document.getElementById("email").value;
+
+            
+    }
+
+
 
     function cuestionarios(){
+
+        if(nombre === "" ){
+            alert("El nombre no puede estar vacio");
+        }
+
+
+
+        if(nombre){
+            alert(nombre);
+        }
+
 
         var formulario = document.getElementById("formulario");
         var preguntas = document.getElementById("cuestionario");

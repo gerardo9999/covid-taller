@@ -1,4 +1,12 @@
 @extends('welcome')
 @section('contenido')
-    {{ $paciente }}
+<br>    
+<br>    
+<br>    
+<br>    
+<br>    
+<br>    
+<br>    
+{{ $paciente }}
+{{ $paciente }}
 @endsection

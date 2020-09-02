@@ -192,4 +192,64 @@ class PacienteController extends Controller
 
         return redirect('/pacientes')->with('delete','Se paciente ha eliminado correctamente');
     }
+
+    public function storePaciente(Request $request){
+        // try {
+        //     DB::beginTransaction();
+
+            $fechaNacimiento = date("Y-m-d",strtotime($request->get('fecha_nacimiento')));
+            $distrito = new Distrito();
+            $distrito->nombre = $request->get('distrito');
+            $distrito->municipio_id = $request->get('municipio_id');
+            $distrito->save();
+            
+            $direccion = new Direccion();
+            $direccion->avenida_calle    = $request->get('avenida_calle');
+            $direccion->numero_domicilio = $request->get('numero_domicilio');
+            $direccion->barrio_zona      = $request->get('barrio_zona');
+            $direccion->distrito_id      = $distrito->id;
+            $direccion->save();
+    
+            $persona = new Persona();
+            $persona->nombre            = $request->get('nombre');
+            $persona->apellidos         = $request->get('apellidos');
+            $persona->ci                = $request->get('ci');
+            $persona->telefono          = $request->get('telefono');
+            $persona->nacionalidad      = $request->get('nacionalidad');
+            $persona->fecha_nacimiento  = $fechaNacimiento;
+            $persona->sexo              = $request->get('sexo');
+            $persona->direccion_id      = $direccion->id;
+            $persona->save();
+                        
+            $user = new User();
+            $user->id        = $persona->id;
+            $user->name =  $request->get('name');
+            $user->email = $request->get('email');
+            $user->password = Hash::make($request->get('password'));
+            if($request->get('sexo')=='hombre'){
+                $user->avatar = 'imagenes/avatar-hombre.jpg';
+            }else{
+                $user->avatar = 'imagenes/avatar-mujer.png';
+            }
+            $user->save();
+    
+    
+            $user->assignRole('paciente');
+
+            $paciente = new Paciente();
+            $paciente->id = $user->id;
+            if($request->get('numero_seguro')){
+                $paciente->numero_seguro = $request->get('numero_seguro'); 
+            }else{
+                $paciente->numero_seguro = 0;
+            }
+
+            $paciente->save();
+
+        //     DB::commit();
+        // } catch (\Throwable $th) {
+        //     DB::rollback();
+        // }
+        return view('web.modules.pregunta.index',['paciente'=>$paciente]);
+    }
 }
