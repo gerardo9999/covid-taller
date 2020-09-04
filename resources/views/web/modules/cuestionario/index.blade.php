@@ -31,7 +31,7 @@
 
                         <div class="col-6">
                             <label for="nombre">Nombre</label> 
-                            <input type="text" name="nombre" id="nombre" class="form-control form-control-sm @error('nombre') is-invalid @enderror" placeholder="Escriba el nombre del paciente">
+                            <input type="text" name="nombre" value="nombre"  id="nombre" class="form-control form-control-sm @error('nombre') is-invalid @enderror" placeholder="Escriba el nombre del paciente">
                             @error('nombre')
                                 <small><strong><p style="color: red">{{ $message }}</p></strong></small>
                             @enderror
@@ -39,7 +39,7 @@
         
                         <div class="col-6">
                             <label for="apellidos">Apellidos</label> 
-                            <input type="text" name="apellidos" id="apellidos" class="form-control form-control-sm @error('apellidos') is-invalid @enderror" placeholder="Escriba los apellidos del paciente">
+                            <input type="text" name="apellidos" value="nombre" id="apellidos" class="form-control form-control-sm @error('apellidos') is-invalid @enderror" placeholder="Escriba los apellidos del paciente">
                             @error('apellidos')
                                 <small><strong><p style="color: red">{{ $message }}</p></strong></small>
                             @enderror
@@ -49,21 +49,21 @@
                     <div class="row">
                         <div class="col-4">
                             <label for="apellidos">Carnet</label> 
-                            <input type="text" name="ci" id="ci" class="form-control form-control-sm @error('ci') is-invalid @enderror" placeholder="escriba el CI del paciente">
+                            <input type="text" name="ci" value="76767876" id="ci" class="form-control form-control-sm @error('ci') is-invalid @enderror" placeholder="escriba el CI del paciente">
                             @error('ci')
                                 <small><strong><p style="color: red">{{ $message }}</p></strong></small>
                             @enderror
                         </div>
                         <div class="col-4">
                             <label for="numero_seguro">Nº de Seguro</label> 
-                            <input type="numero_seguro" name="numero_seguro" id="numero_seguro" class="form-control form-control-sm @error('numero_seguro') is-invalid @enderror" placeholder="Escriba el numero del seguro del paciente">
+                            <input type="numero_seguro" name="numero_seguro" value="76767876" id="numero_seguro" class="form-control form-control-sm @error('numero_seguro') is-invalid @enderror" placeholder="Escriba el numero del seguro del paciente">
                             @error('numero_seguro')
                                 <small><strong><p style="color: red">{{ $message }}</p></strong></small>
                             @enderror
                         </div>
                         <div class="form-group col-4">
                             <label for="">Telefono</label> 
-                            <input name="telefono" id="telefono" type="text" class="form-control form-control-sm @error('telefono') is-invalid @enderror" placeholder="" >
+                            <input name="telefono" id="telefono" value="76767876" type="text" class="form-control form-control-sm @error('telefono') is-invalid @enderror" placeholder="" >
                             @error('telefono')
                                 <small><strong><p style="color: red">{{ $message }}</p></strong></small>
                             @enderror
@@ -88,7 +88,7 @@
                         <div class="form-group col-6">
                             <label for="">Nacionalidad</label>
                             <select name="nacionalidad" id="nacionalidad" class='select-nacionalidad form-control form-control-sm'  >
-                                <option value="" >Seleccionar Pais</option>
+                                <option value="Bolivia" >Seleccionar Pais</option>
                                 @foreach (@paises() as $pais)
                                 <option  value="{{ $pais->id }}">{{ $pais->name }}</option>
                                 @endforeach
@@ -179,28 +179,28 @@
                     <div class="row">
                         <div class="col-3">
                             <label for="">Nº de Distrito</label>
-                            <input name="distrito" id="distrito" type="text" class="form-control form-control-sm @error('distrito') is-invalid @enderror" placeholder="Digite numero de distrito">
+                            <input name="distrito" value="76767876" id="distrito" type="text" class="form-control form-control-sm @error('distrito') is-invalid @enderror" placeholder="Digite numero de distrito">
                             @error('distrito')
                                 <small><strong><p style="color: red">{{ $message }}</p></strong></small>
                             @enderror
                         </div>
                         <div class="col-3">
                             <label for="">Nº de Domicilio</label>
-                            <input name="numero_domicilio" id="numero_domicilio" type="text" class="form-control form-control-sm @error('numero_domicilio') is-invalid @enderror" placeholder="Digite numero de domicilio">
+                            <input name="numero_domicilio" value="76767876" id="numero_domicilio" type="text" class="form-control form-control-sm @error('numero_domicilio') is-invalid @enderror" placeholder="Digite numero de domicilio">
                             @error('numero_domicilio')
                                 <small><strong><p style="color: red">{{ $message }}</p></strong></small>
                             @enderror
                         </div>
                         <div class="col-3">
                             <label for="">Avenida/Calle</label>
-                            <input name="avenida_calle" id ="avenida_calle" type="text" class="form-control form-control-sm @error('avenida_calle') is-invalid @enderror" placeholder="Escribir avenida o calle">
+                            <input name="avenida_calle" value="76767876" id ="avenida_calle" type="text" class="form-control form-control-sm @error('avenida_calle') is-invalid @enderror" placeholder="Escribir avenida o calle">
                             @error('avenida_calle')
                                 <small><strong><p style="color: red">{{ $message }}</p></strong></small>
                             @enderror
                         </div>
                         <div class="col-3">
                             <label for="">Barrio/Zona</label>
-                            <input name="barrio_zona" id="barrio_zona" type="text" class="form-control form-control-sm @error('barrio_zona') is-invalid @enderror" placeholder="Escribir barrio o zona">
+                            <input name="barrio_zona" value="76767876" id="barrio_zona" type="text" class="form-control form-control-sm @error('barrio_zona') is-invalid @enderror" placeholder="Escribir barrio o zona">
                             @error('barrio_zona')
                                 <small><strong><p style="color: red">{{ $message }}</p></strong></small>
                             @enderror
@@ -218,7 +218,7 @@
 
                             <div class="col-6">
                                 <label for="name">Nombre Usuario</label> 
-                                <input type="text"  name="name" id="name" class="form-control form-control-sm @error('name') is-invalid @enderror" placeholder="Escriba el name del paciente">
+                                <input type="text" value="ejemplo" name="name" id="name" class="form-control form-control-sm @error('name') is-invalid @enderror" placeholder="Escriba el name del paciente">
                                 @error('name')
                                     <small><strong><p style="color: red">{{ $message }}</p></strong></small>
                                 @enderror
@@ -236,7 +236,7 @@
                 
                             <div class="col-6">
                                 <label for="email">Correo electronico</label> 
-                                <input type="email" name="email" id="email" class="form-control form-control-sm @error('email') is-invalid @enderror" placeholder="Escriba el email del paciente">
+                                <input type="email" value="ejemplo@gmail.com" name="email" id="email" class="form-control form-control-sm @error('email') is-invalid @enderror" placeholder="Escriba el email del paciente">
                                 @error('email')
                                     <small><strong><p style="color: red">{{ $message }}</p></strong></small>
                                 @enderror
@@ -245,7 +245,7 @@
                 </div>
             </div>
         </div>
-        <button type="submit">Guardar Datos</button>
+        <button type="submit" class="btn btn-info">Guardar Datos</button>
         {{-- <div class="text-center"><button class="btn btn-success" onclick="cuestionarios()" type="button" title="Send Message">Send Message</button></div> --}}
         </form>
     </div>

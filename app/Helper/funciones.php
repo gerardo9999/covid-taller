@@ -5,6 +5,7 @@ use App\Especialidad;
 use App\Hospital;
 use App\Pais;
 use App\Persona;
+use App\Pregunta;
 use App\Provincia;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -145,8 +146,14 @@ function avatar($id){
 
 
 
-
-
+function preguntas(){
+    $preguntas = Pregunta::all();
+    return $preguntas;
+}
+function getPregunta($id){
+    $preguntas = Pregunta::where('preguntas.id','=',$id)->get();
+    return $preguntas[0]->pregunta;
+}
 
 
 

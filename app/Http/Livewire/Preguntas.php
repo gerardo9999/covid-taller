@@ -14,9 +14,7 @@ class Preguntas extends Component
 
     public function render()
     {
-        return view('livewire.preguntas',[
-            'preguntas'=> Pregunta::all()
-        ]);
+        return view('livewire.preguntas');
     }
 
     public function pasos(){

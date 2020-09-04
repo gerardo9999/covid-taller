@@ -12,7 +12,7 @@ class CreateCasosTable extends Migration
         Schema::create('casos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('estado');
-            
+            $table->date('fecha');
             $table->integer('paciente_id')->unsigned();
             $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
             $table->timestamps();

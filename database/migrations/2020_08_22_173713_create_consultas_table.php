@@ -21,15 +21,14 @@ class CreateConsultasTable extends Migration
 
             $table->integer('paciente_id')->unsigned();
             $table->integer('medico_id')->unsigned();
+            $table->date('fecha_consulta');
+            $table->date('fecha_programada');
 
             $table->integer('historial_id')->unsigned();
-
-
 
             $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
             $table->foreign('medico_id')->references('id')->on('medicos')->onDelete('cascade');
             $table->foreign('historial_id')->references('id')->on('historiales_medicos')->onDelete('cascade');
-
             $table->timestamps();
         });
     }

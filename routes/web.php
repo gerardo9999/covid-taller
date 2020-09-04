@@ -21,6 +21,11 @@ Route::get('/covid', 'WebController@covid')->name('covid.index');
 
 Route::get('/cuestionario', 'WebController@cuestionario')->name('cuestionario.index');
 
+//envia las respuestas al detalle
+Route::post('/cuestionario/respuesta/{id}', 'CuestionarioController@detalleCuestionario')->name('cuestionario.detalle');
+Route::get('/resultado', 'CuestionarioController@resultado')->name('resultado');
+
+
 Route::post('/cuestionario','PacienteController@storePaciente')->name('store.paciente');
 
 Route::get('/preguntas', 'CuestionarioController@preguntas')->name('cuestionario.preguntas');

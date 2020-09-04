@@ -12,8 +12,8 @@
 
           <div class="row fadeInUp">
            
-            
-            
+            {{ $paciente }}
+           
           </div>
         </div>
       </section><!-- #contact -->

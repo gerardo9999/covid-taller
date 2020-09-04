@@ -1,4 +1,5 @@
 <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+@livewireScripts
 
 <!-- JavaScript Libraries -->
 <script src=" {{  asset( 'sistema-web/lib/jquery/jquery.min.js') }}"></script>

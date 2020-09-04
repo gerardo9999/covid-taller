@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Cuestionario;
+use App\DetalleCuestionario;
 use App\Direccion;
 use App\Distrito;
 use App\Paciente;
@@ -30,6 +32,11 @@ class CuestionarioController extends Controller
         return view('web.modules.pregunta.index');
     }
 
+    public function resultado()
+    {
+        
+        return view('web.modules.cuestionario.resultado');
+    }
     public function store(Request $request)
     {
 
@@ -87,9 +94,55 @@ class CuestionarioController extends Controller
             return Redirect::to('/preguntas')->with('paciente',$paciente);
     }
 
-    public function show($id)
-    {
-        
+    public function detalleCuestionario(Request $request,$id){
+       
+       
+        $c= count($request->respuesta);
+        $si = 0;
+        $no = 0;
+
+        // return $request->respuesta[11];
+
+        // return $c;
+
+        for ($i=0; $i < $c; $i++) { 
+           if($request->respuesta[$i]=="si"){
+                $si++;
+           }else{
+               $no++;
+           }
+        }
+
+        $nota = $si*10;
+        // return $nota;
+
+
+        $cuestionario = new Cuestionario();
+        $cuestionario->nota = $nota;
+
+        if($nota < 30){$cuestionario->probabilidad = "Baja Probabilidad";}
+        if($nota > 30 && $nota <60 ){$cuestionario->probabilidad = "Mediana Probabilidad";}
+        if($nota > 60 ){$cuestionario->probabilidad = "Alta Probabilidad";}
+        $cuestionario->persona_id = $id;
+        $cuestionario->save();
+
+        // return $cuestionario;
+
+
+
+
+        for ($i=0; $i < $c; $i++) { 
+
+
+
+            $detalle = new DetalleCuestionario();
+            $detalle->respuesta = $request->respuesta[$i]; 
+            $detalle->cuestionario_id = $cuestionario->id; 
+            $detalle->pregunta_id = $i+1; 
+            if($request->respuesta[$i]=="si"){$detalle->nota=10;}else{$detalle->nota=0;}
+            $detalle->save();
+        } 
+        return Redirect::to('/');
     }
 
 
