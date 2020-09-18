@@ -15,12 +15,13 @@ class PacienteController extends Controller
 {
     public function pacientes(Request $request){
 
+
         if($request){
             $query =  trim($request->get('searchText'));
             $pacientes = Persona::join('pacientes','pacientes.id','=','personas.id')
                                 ->join('users','users.id','personas.id')
                                 ->select('pacientes.id','users.id as user_id','personas.id as persona_id','nombre','apellidos','users.avatar')
-                                ->where('personas.nombre','LIKE','%'.$query.'%')->paginate(5); 
+                                ->where('nombre','LIKE','%'.$query.'%')->paginate(5); 
         }
         return view('admin.modules.pacientes.index',['pacientes'=>$pacientes,'searchText'=>$query]);
     }

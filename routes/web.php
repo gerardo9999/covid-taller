@@ -14,7 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', 'WebController@intro')->name('intro.index');
+
 Route::get('/covid', 'WebController@covid')->name('covid.index');
 
 
@@ -49,6 +51,19 @@ Route::post('/municipios/destroy/{id}', 'DepartamentoController@municipioDestroy
 Route::post('/municipios/update/{id}', 'DepartamentoController@municipioUpdate')->name('municipio.update');
 
 
+
+// Consultas
+Route::get('/consultas','ConsultaController@index')->name('consulta.index');
+Route::get('/consultas/medicos','ConsultaController@medico')->name('consulta.medico');
+Route::get('/consultas/pacientes','ConsultaController@paciente')->name('consulta.paciente');
+
+
+
+
+
+// Roles y usuario
+Route::get('/roles','RolController@index')->name('rol.index');
+Route::get('/users','UserController@index')->name('usuario.index');
 
 
 

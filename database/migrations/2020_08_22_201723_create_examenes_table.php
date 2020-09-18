@@ -18,9 +18,13 @@ class CreateExamenesTable extends Migration
             $table->string('resultado');
             $table->string('tipo');
             $table->integer('consulta_id')->unsigned();
-            $table->foreign('consulta_id')->references('id')->on('consultas')->onDelete('cascade');            
+            $table->foreign('consulta_id')->references('id')->on('consultas')->onDelete('cascade');      
+            
+            $table->integer('tipo_id')->unsigned();
+            $table->foreign('tipo_id')->references('id')->on('tipo_examen')->onDelete('cascade');      
             $table->timestamps();
         });
+        
     }
 
     /**

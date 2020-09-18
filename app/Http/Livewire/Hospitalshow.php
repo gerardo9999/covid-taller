@@ -12,7 +12,7 @@ class Hospitalshow extends Component
     public $categoria_id;
     public $nombre;
     public $searchTextCategoria;
-    public $opcionCategoria =  'hhfhgjhgjghgjhg';
+
 
     public function render()
     {

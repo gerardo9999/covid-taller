@@ -20,7 +20,7 @@ class CreateMunicipiosTable extends Migration
 
             $table->integer('provincia_id')->unsigned();
             $table->foreign('provincia_id')->references('id')->on('provincias')->onDelete('cascade');
-            $table->timestamps();
+            // $table->timestamps();
         });
 
         /*5 municipios*/
@@ -46,7 +46,7 @@ class CreateMunicipiosTable extends Migration
         DB::table('municipios')->insert(array('id'=>13,'nombre'=>'Camiri','provincia_id'=>4));
         DB::table('municipios')->insert(array('id'=>14,'nombre'=>'Charagua','provincia_id'=>4));
         DB::table('municipios')->insert(array('id'=>15,'nombre'=>'Cuevo','provincia_id'=>4));
-        DB::table('municipios')->insert(array('id'=>16,'nombre'=>'Gutfiérrez','provincia_id'=>4));
+        DB::table('municipios')->insert(array('id'=>16,'nombre'=>'Gutiérrez','provincia_id'=>4));
 
         /*4 municipio*/
         DB::table('municipios')->insert(array('id'=>17,'nombre'=>'Samaipata','provincia_id'=>5));

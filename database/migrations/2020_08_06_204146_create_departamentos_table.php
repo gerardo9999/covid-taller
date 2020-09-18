@@ -1,5 +1,6 @@
 <?php
 
+use App\Departamento;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\DB;
@@ -13,14 +14,15 @@ class CreateDepartamentosTable extends Migration
         Schema::create('departamentos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nombre',50);
-            $table->timestamps();
         });
+        DB::table('departamentos')->insert(array('id'=>1, 'nombre'=>'Santa Cruz'));
 
-        DB::table('departamentos')->insert(array('id'=>1,'nombre'=>'Santa Cruz'));
     }
+
 
     public function down()
     {
         Schema::dropIfExists('departamentos');
     }
+
 }

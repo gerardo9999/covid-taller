@@ -15,7 +15,6 @@ class CreateCasosTable extends Migration
             $table->date('fecha');
             $table->integer('paciente_id')->unsigned();
             $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
-            $table->timestamps();
         });
     }
     public function down()

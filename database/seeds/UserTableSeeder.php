@@ -9,22 +9,38 @@ class UserTableSeeder extends Seeder
 {
     public function run()
     {
-        
-        $persona = new Persona();
-        $persona->nombre = 'Gerardo';
-        $persona->ci = '9799190';
-        $persona->apellidos ='Arias';
-        $persona->direccion_id = 1;
-        $persona->save();
-        
-        $administrador = User::create([
-            'name' => 'gerard999',
-            'email' => 'gerard_ch07@hotmail.com',
-            'password' => Hash::make('23defebrero'),
-            'avatar'=> 'imagenes/avatares.jpg',
-        ]);   
+    
+        // $table->string('nombre',50)->nullable();
+        // $table->string('apellidos',50)->nullable();
+        // $table->string('ci')->nullable();
 
-        $administrador->assignRole('administrador');
+        // $table->string('telefono',20)->nullable();
+        // $table->string('nacionalidad',50)->nullable();
+        // $table->date('fecha_nacimiento')->nullable();
+
+
+        
+
+
+
+        // $persona = new Persona();
+        // $persona->nombre = 'Admin';
+        // $persona->apellidos ='Admin';
+        // $persona->ci = '9799190';
+        // $persona->fecha_nacimiento = '1993-02-23';
+        // $persona->direccion_id = 200;
+        // $persona->save();
+        
+
+
+        // $administrador = User::create([
+        //     'name' => 'gerard999',
+        //     'email' => 'gerard_ch07@hotmail.com',
+        //     'password' => Hash::make('23defebrero'),
+        //     'avatar'=> 'imagenes/avatares.jpg',
+        // ]);   
+
+        // $administrador->assignRole('administrador');
 
         // $persona = new Persona();
         // $persona->nombre = 'Elena';

@@ -14,8 +14,8 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             {{-- <li class="breadcrumb-item"><a href="{{ route('hospital.index') }}">Hospitales</a></li> --}}
-            <li class="breadcrumb-item"><a href="{{ url('hospitales/plantas/'.$hospital[0]->id) }}">Plantas</a></li>
-            <li class="breadcrumb-item"><a href="{{ url('hospitales/bloques/'.$bloque[0]->id) }}">Bloque</a></li>
+            {{-- <li class="breadcrumb-item"><a href="{{ url('hospitales/plantas/'.$hospital[0]->id) }}">Plantas</a></li> --}}
+            {{-- <li class="breadcrumb-item"><a href="{{ url('hospitales/bloques/'.$bloque[0]->id) }}">Bloque</a></li> --}}
             <li class="breadcrumb-item active">Habitacion</li>
           </ol>
         </div><!-- /.col -->

@@ -18,7 +18,7 @@ class CreatePreguntasTable extends Migration
         Schema::create('preguntas', function (Blueprint $table) {
             $table->increments('id');
             $table->text('pregunta');
-            $table->timestamps();
+            // $table->timestamps();
         });
 
         DB::table('preguntas')->insert(array('pregunta'=> ' ¿Usted esta con tos?'));

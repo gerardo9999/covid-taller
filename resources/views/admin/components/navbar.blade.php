@@ -9,7 +9,7 @@
         <a href="index3.html" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
+        <a href="#" class="nav-link">{{ @userIdAuth() }}</a>
       </li>
     </ul>
 
@@ -42,7 +42,7 @@
               <img src="dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
-                  Brad Diesel
+                  {{ @userIdAuth() }}
                   <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
                 </h3>
                 <p class="text-sm">Call me whenever you can...</p>
@@ -126,7 +126,7 @@
           <div class="card card-widget widget-user">
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-info">
-              <h3 class="widget-user-username">Alexander Pierce</h3>
+              <h3 class="widget-user-username"></h3>
               <h5 class="widget-user-desc">Founder & CEO</h5>
             </div>
             <div class="widget-user-image">

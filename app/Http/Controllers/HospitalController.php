@@ -19,16 +19,10 @@ use Laravel\Ui\Presets\React;
 class HospitalController extends Controller
 {
     
-    public function hospitales(Request $request){
+    public function hospitales(){
         
-        if($request){
-            $query = trim($request->get('searchText'));
-            $hospitales = Hospital::select('id','nombre','telefono','imagen','nivel')
-            ->where('nombre','LIKE','%'.$query.'%')
-            ->orWhere('nivel','LIKE','%'.$query.'%')
-            ->paginate(5);
-        }
-        return view('admin.modules.hospitales.index',['hospitales'=>$hospitales,'searchText'=>$query]);
+        
+        return view('admin.modules.hospitales.index');
     }
     public function validacionHospital($request){
         
@@ -160,6 +154,4 @@ class HospitalController extends Controller
     public function hospitalShow($id){
         return view('admin.modules.hospitales.show',['id'=> $id]);
     }
-
-
 }

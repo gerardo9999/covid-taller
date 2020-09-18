@@ -54,10 +54,13 @@ class MedicoController extends Controller
 
         if($request){
             $query =  trim($request->get('searchText'));
-            $medicos = Persona::join('medicos','medicos.id','=','personas.id')
-                              ->join('users','users.id','personas.id')
-                              ->select('medicos.id','users.id as user_id','personas.id as persona_id','nombre','apellidos','users.avatar')
-                              ->where('personas.nombre','LIKE','%'.$query.'%')->paginate(5); 
+                $medicos = Persona::join('medicos','medicos.id','=','personas.id')->paginate(10);
+
+
+            // $medicos = Persona::join('medicos','medicos.id','=','personas.id')
+            //                   ->join('users','users.id','personas.id')
+            //                   ->select('medicos.id','users.id as user_id','personas.id as persona_id','nombre','apellidos','users.avatar')
+            //                   ->where('personas.nombre','LIKE','%'.$query.'%')->paginate(5); 
         }
         return view('admin.modules.medicos.index',[
             'medicos'   => $medicos,
@@ -117,9 +120,9 @@ class MedicoController extends Controller
 
         $this->validateMedicoStore($request);
 
-        try{
+        // try{
 
-            DB::beginTransaction();
+            // DB::beginTransaction();
 
             $fechaNacimiento = date("Y-m-d",strtotime($request->get('fecha_nacimiento')));
             $distrito = new Distrito();
@@ -166,11 +169,11 @@ class MedicoController extends Controller
             $medico->especialidad_id = $request->get('especialidad');
             $medico->hospital_id     = $request->get('hospital');
             $medico->save();
-            DB::commit();
+            // DB::commit();
 
-        } catch(\Exception $e){
-            DB::rollback();
-        }
+        // } catch(\Exception $e){
+        //     DB::rollback();
+        // }
 
         return redirect('/medicos')->with('create','se ha guardado correctamente');
 

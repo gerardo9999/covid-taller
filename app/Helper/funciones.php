@@ -1,5 +1,6 @@
 <?php
 
+use App\Consulta;
 use App\Departamento;
 use App\Especialidad;
 use App\Hospital;
@@ -175,11 +176,6 @@ function getPregunta($id){
         return $roles;
     }
 
-
-
-
-
-
     // Trae los departamentos de la base de datos
     function departamentos(){
         $departamentos = Departamento::all();
@@ -203,7 +199,20 @@ function getPregunta($id){
         return $municipios;
     }
 
-
+    //Para las consultas de medico
+    function consultaMedico($id){
+        $consultaMedico = Consulta::join('pacientes','pacientes.id','=','consultas.paciente_id')
+        ->join('medicos','medicos.id','=','consultas.medico_id')
+        ->select('consultas.estado_consulta',
+                 'consultas.motivo_consulta',
+                 'consultas.evolucion_enfermedad',
+                 'consultas.fecha_consulta',
+                 'consultas.fecha_programada'
+                )->where('consultas.medico_id','=',$id)
+       ->paginate(10);
+       
+        return $consultaMedico;
+    }
 
 
 ?>

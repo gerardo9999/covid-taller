@@ -10,6 +10,7 @@ class CreateUbicacionTable extends Migration
     {
         Schema::create('ubicacion', function (Blueprint $table) {
             
+            
             $table->increments('id');
             $table->string('numero_sala');
             $table->string('numero_cama');
@@ -21,6 +22,7 @@ class CreateUbicacionTable extends Migration
             $table->foreign('hospital_id')->references('id')->on('hospitales')->onDelete('cascade');
 
             $table->timestamps();
+            
         });
     }
 

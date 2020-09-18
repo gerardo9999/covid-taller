@@ -18,8 +18,9 @@ class CreatePaisesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('code');
-            $table->timestamps();
+            // $table->timestamps();
         });
+        
 
         DB::table('paises')->insert(array('name' => 'Afghanistan', 'code' => 'AF')); 
         DB::table('paises')->insert(array('name' => 'Åland Islands', 'code' => 'AX')); 

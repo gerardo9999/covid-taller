@@ -15,6 +15,7 @@ class CreatePrescripcionesTable extends Migration
     {
         Schema::create('prescripciones', function (Blueprint $table) {
             $table->increments('id');
+            
             $table->integer('cantidad_producto')->unsigned();
             $table->string('indicaciones');
             $table->integer('consulta_id')->unsigned();
