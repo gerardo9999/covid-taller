@@ -11,8 +11,7 @@ class PruebaControlle extends Controller
     public function prueba(){
 
 
-                $user = Auth::user();
-        
+        $user = Auth::user();
         
         $consultaMedico = Consulta::join('pacientes','pacientes.id','=','consultas.paciente_id')
         ->join('medicos','medicos.id','=','consultas.medico_id')

@@ -20,8 +20,6 @@ class HospitalController extends Controller
 {
     
     public function hospitales(){
-        
-        
         return view('admin.modules.hospitales.index');
     }
     public function validacionHospital($request){
