@@ -11,10 +11,9 @@ class Consulta extends Model
 
     protected $fillable = [
         'estado_consulta',
-        'evolucion_enfermedad',
         'motivo_consulta',
         
-        'fecha_consulta',
+        'fecha_registrada',
         'fecha_programada',
         'historial_id',
         'paciente_id',

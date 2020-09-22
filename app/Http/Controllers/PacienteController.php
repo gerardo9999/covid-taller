@@ -8,22 +8,21 @@ use App\Paciente;
 use App\Persona;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class PacienteController extends Controller
 {
-    public function pacientes(Request $request){
+    public function pacientes(){
+    //     $user = Auth::user();
+
+    // $rol = $user->roles->implode('name');
+
+    // return $rol;
 
 
-        if($request){
-            $query =  trim($request->get('searchText'));
-            $pacientes = Persona::join('pacientes','pacientes.id','=','personas.id')
-                                ->join('users','users.id','personas.id')
-                                ->select('pacientes.id','users.id as user_id','personas.id as persona_id','nombre','apellidos','users.avatar')
-                                ->where('nombre','LIKE','%'.$query.'%')->paginate(5); 
-        }
-        return view('admin.modules.pacientes.index',['pacientes'=>$pacientes,'searchText'=>$query]);
+        return view('admin.modules.pacientes.index');
     }
     public function pacienteCreate(){
         return view('admin.modules.pacientes.create');

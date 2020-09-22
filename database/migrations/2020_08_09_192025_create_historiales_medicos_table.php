@@ -14,23 +14,17 @@ class CreateHistorialesMedicosTable extends Migration
             $table->increments('id');
             $table->float('altura');
             $table->float('peso');
+            $table->float('tipo_sangre');
             $table->string('alergia');
             $table->string('enfermedad');
             $table->date('fecha_registro');  
+            
             
             $table->integer('paciente_id')->unsigned();
             $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
             $table->timestamps();
         });
 
-        // DB::table('historiales_medicos')->insert(array(
-        //     'altura'=> 1.70,  
-        //     'peso' =>  74,
-        //     'alergia'=>  'ninguna',
-        //     'enfermedad'=>  'ninguna',
-        //     'fecha_registro'=>  '2020-08-23',
-        //     'paciente_id' => 1
-        // ));
     }
 
     public function down(){
@@ -38,3 +32,13 @@ class CreateHistorialesMedicosTable extends Migration
     }
     
 }
+//                                                                     peso , 
+
+
+// Registro        historial        dato_medico
+//    1                1                1 examen fisico
+//                     2                2 
+//                     3                3
+//                     4                4
+//                                      5
+                                     

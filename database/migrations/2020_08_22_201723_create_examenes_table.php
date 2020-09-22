@@ -16,6 +16,8 @@ class CreateExamenesTable extends Migration
         Schema::create('examenes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('resultado');
+            $table->string('fecha_realizado');
+            $table->string('fecha_resultado');
             $table->string('tipo');
             $table->integer('consulta_id')->unsigned();
             $table->foreign('consulta_id')->references('id')->on('consultas')->onDelete('cascade');      
@@ -23,8 +25,7 @@ class CreateExamenesTable extends Migration
             $table->integer('tipo_id')->unsigned();
             $table->foreign('tipo_id')->references('id')->on('tipo_examen')->onDelete('cascade');      
             $table->timestamps();
-        });
-        
+        });   
     }
 
     /**

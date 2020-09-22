@@ -1,59 +1,58 @@
 <?php
 
 namespace App\Http\Livewire;
-use Illuminate\Support\Facades\Auth;
+
 use App\Consulta;
 use Livewire\Component;
-use Livewire\WithPagination;
+use Illuminate\Support\Facades\DB;
 
-class Consultas extends Component{
-
-    use WithPagination;
-
-    public $fecha_consulta;
-    // public $id = Auth::id();
-
+class Consultas extends Component
+{
+    public $searchText ;
+    public $lista = 1;
+    public $paciente = 0;
+    public $medico = 0;
+    public $user;
+    public $paciente_id;
 
     public function render(){
-        $fecha_consulta =  $this->fecha_consulta;
+        $paciente_id = $this->paciente_id;
+        $searchText = $this->searchText;
         return view('livewire.consultas',[
-            'consultas' => Consulta::join('pacientes','pacientes.id','=','consultas.paciente_id')
-                                    ->join('medicos','medicos.id','=','consultas.medico_id')
-                                    ->select('consultas.estado_consulta',
-                                             'consultas.motivo_consulta',
-                                             'consultas.evolucion_enfermedad',
-                                             'consultas.fecha_consulta',
-                                             'consultas.fecha_programada'
-                                             )->where('consultas.fecha_consulta','=',$fecha_consulta)
-                                    ->paginate(10),           
+            'consultas'=> Consulta::where('consultas.fecha_registrada','=',$searchText)->paginate(10),
+            
+            
+
+
+
+
         ]);
+    }
+    public function mostrarMedico(){
+        $this->medico= 1;
+        $this->lista = 0;
+        $this->paciente = 0;
+
+    }
+    public function mostrarPaciente($paciente_id){
+        $this->paciente_id = $paciente_id;
+        
+        
+        $this->paciente= 1;
+        $this->lista = 0;
+        $this->medico = 0;
 
     }
 
-    public function mostrarFormulario(){
-        $this->formulario=true;
+    public function mostrarLista(){
+        $this->paciente= 0;
+        $this->lista = 1;
+        $this->medico = 0;
     }
-
-    public function mostrarLista_medico(){
-        $this->lista_medico=true;
-        $this->formulario_consulta=false;
+    public function authUser(){
+        $user = $this->user;
     }
-    
-    public function mostrarLista_paciente(){
-        $this->lista_paciente=true;
-        $this->formulario_consulta=false;
-    }
-
-    // $table->integer('estado_consulta')->default(1);
-    // $table->string('evolucion_enfermedad');
-    // $table->string('motivo_consulta');
-
-    // $table->date('fecha_consulta');
-    // $table->date('fecha_programada');
-
-
-    // $table->integer('paciente_id')->unsigned();
-    // $table->integer('medico_id')->unsigned();
 
 
 }
+

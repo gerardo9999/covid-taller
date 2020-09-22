@@ -2,13 +2,13 @@
   @role('administrador')
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="{{ asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+            <img src="{{ asset(@avatarUsuario())}}" class="img-circle elevation-2" alt="User Image">
           </div>
           
           <div class="info">
-            <a href="#" class="d-block">Alexander Pierce</a>
+            <a href="#" class="d-block">{{ @getUsuario(Auth::user()->id)[0]->nombre }} {{ @getUsuario(Auth::user()->id)[0]->apellidos }}</a>
           </div>
       </div>
         <!-- Sidebar Menu -->
@@ -321,11 +321,11 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{ asset('dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
+          <img src="{{ asset(@avatarUsuario())}}" class="img-circle elevation-2" alt="User Image">
         </div>
         
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">{{ @getUsuario(Auth::user()->id)[0]->nombre }} {{ @getUsuario(Auth::user()->id)[0]->apellidos }}</a>
         </div>
     </div>
       <!-- Sidebar Menu -->
@@ -335,7 +335,7 @@
               with font-awesome or any other icon font library -->
             {{-- menu-open --}}
             <li class="nav-item">
-              <a href="pages/gallery.html" class="nav-link">
+              <a href="{{ route('home') }}" class="nav-link">
                 <i class="nav-icon fas fa-suitcase"></i>
                 <p>
                   Estadisticas
@@ -343,14 +343,14 @@
               </a>
             </li>
 
-            <li class="nav-item">
+            {{-- <li class="nav-item">
               <a href="pages/gallery.html" class="nav-link">
                 <i class="nav-icon fas fa-suitcase"></i>
                 <p>
                   Medicos
                 </p>
               </a>
-            </li>
+            </li> --}}
 
 
             <li class="nav-item">
@@ -363,7 +363,7 @@
             </li>
 
             <li class="nav-item">
-              <a href="{{ route('consulta.medico') }}" class="nav-link">
+              <a href="{{ route('consulta.index') }}" class="nav-link">
                 <i class="nav-icon fas fa-suitcase"></i>
                 <p>
                   Consultas

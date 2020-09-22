@@ -14,6 +14,7 @@ use App\Hospital;
 use App\Municipio;
 use App\Provincia;
 use App\Consulta;
+use App\TipoExamen;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -26,109 +27,117 @@ class ApiController extends Controller
     public function generarUsuarios(){
 
         $arrayCalle = [
-            'C/Santa Cruz', 'C/San Andres'
+            'C/Santa Cruz', 'C/San Andres','C/San Antonio'
         ];
         $arrayBarrio =  [
-            'villa cochabamba','Monasterio'
+            'villa cochabamba','Monasterio','Urkupiña'
         ];
         $arrayDistrito = [
-            1,2
+            1,2,3
+        ];
+        $arrayDireccion = [
+
         ];
 
-
-        for( $i = 0 ; $i < 2; $i++ ){
+        $countDireccion = count($arrayCalle);
+        for( $i = 0 ; $i < $countDireccion; $i++ ){
             $direccion = new Direccion();
             $direccion->avenida_calle = $arrayCalle[$i]; 
             $direccion->numero_domicilio = rand(100,500); 
             $direccion->barrio_zona = $arrayBarrio[$i]; 
             $direccion->distrito_id = $arrayDistrito[$i];
             $direccion->save();
+            array_push($arrayDireccion,$direccion->id);
         }
-
-
-        $hospital = Hospital::create([
-        'nombre'=>'Hospital General I','imagen'=>'imagenes/hospital.jpg','nivel'=>'tercer','telefono'=>77368599,'direccion_id'=>2]);
-
+              
+              //Hospitales 
+              $hospital = new Hospital();
+              $hospital->nombre          = 'Hospital General I';
+              $hospital->imagen          = 'imagenes/hospital.jpg';
+              $hospital->nivel           = 'tercer';
+              $hospital->telefono        =  77368599;
+              $hospital->direccion_id    = $arrayDireccion[0];
+              $hospital->save();
 
         $arrayNombre = [
             'Gerardo','Eldy','Leonor'
         ];
+        $arraySexo = ["hombre","mujer","mujer"];
         $arrayApellido = [
             'Arias','Maldonado','Maldonado'
         ];
-
         $arrayRoles=[
             'administrador','medico','paciente'
         ];
-
         $arrayFechas = [
             '1993-02-23', '1997-04-23', '2007-04-23'
         ];
+        $arrayAvatar = [
+          'imagenes/avatar-hombre.jpg',
+          'imagenes/avatar-mujer.png',
+          'imagenes/avatar-mujer.png'
+        ];
 
+        $count = count($arrayRoles);
 
-        for( $i = 0 ; $i < 3; $i++ ){
+        for( $i = 0 ; $i < $count; $i++ ){
             $persona = new Persona();
             $persona->nombre = $arrayNombre[$i];
             $persona->apellidos =$arrayApellido[$i];
             $persona->ci = rand(66666666,99999999);
             $persona->fecha_nacimiento = $arrayFechas[$i];
-            $persona->direccion_id = $direccion->id;
+            $persona->sexo = $arraySexo[$i];
+            $persona->direccion_id = $arrayDireccion[0];
             $persona->save();
-
-
 
             $administrador = User::create([
                 'name' => $arrayNombre[$i].'77',
                 'email' => $arrayRoles[$i].'@gmail.com',
                 'password' => Hash::make('23defebrero'),
-                'avatar'=> 'imagenes/avatares.jpg',
+                'avatar'=> $arrayAvatar[$i],
             ]);
             
             $administrador->assignRole($arrayRoles[$i]);
-
 
             if($arrayRoles[$i]=='medico'){
                 $medico = new Medico();
                 $medico->id = $persona->id;
                 $medico->codigo_medico = rand(5000000,70000000);
                 $medico->especialidad_id =1;
-                $medico->hospital_id = 1; 
+                $medico->hospital_id = $hospital->id; 
                 $medico->save();
             }
             if($arrayRoles[$i]=='paciente'){
                 $paciente = new Paciente();
+                $paciente->id = $persona->id;
                 $paciente->numero_seguro = rand(5000000,70000000);
                 $paciente->save(); 
 
-                $fecha_actual = date('Y-m-d');
-                $consulta = new Consulta();
-                $consulta->estado->estado_consulta = 1;
-                $consulta->evolucion_enfermedad = 'primera fase';
-                $consulta->motivo_consulta  = 'examen covid-19';
-                $consulta->fecha_consulta   =  $fecha_actual;
-                $consulta->fecha_programada = date("d-m-Y",strtotime($fecha_actual."- 3 days"));
-                $consulta->medico_id = $medico->id ;
-                $consulta->paciente_id = $medico->id;
-                $consulta->save();
-                
-                // $table->integer('estado_consulta')->default(1);
-                // $table->string('evolucion_enfermedad');
-                // $table->string('motivo_consulta');
-    
-                // $table->date('fecha_consulta');
-                // $table->date('fecha_programada');
-    
-                // // $table->integer('historial_id')->unsigned();
-                // $table->integer('paciente_id')->unsigned();
-                // $table->integer('medico_id')->unsigned();
-    
-                // $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
-                // $table->foreign('medico_id')->references('id')->on('medicos')->onDelete('cascade');
+                $numeroConsultas = rand(1,7);
+
+                for ($i=0; $i < $numeroConsultas; $i++) { 
+
+                  if($i == 0){
+
+                      $fecha_actual = date('Y-m-d');
+                      $consulta = new Consulta();
+                      $consulta->estado_consulta = 1;
+                      $consulta->motivo_consulta  = 'examen covid-19';
+                      $consulta->fecha_registrada   =  $fecha_actual;
+                      $consulta->fecha_programada = date("Y-m-d",strtotime($fecha_actual."+ 3 days"));
+                      $consulta->hora_programada = '20:31:04';
+                      $consulta->medico_id = $medico->id ;
+                      $consulta->paciente_id = $paciente->id;
+                      $consulta->save(); 
+
+                  }
+                   
+
+
+                }
             }
         } 
     }
-
-
     public function arrayDepartamentos(){
         return [
             
@@ -3624,6 +3633,7 @@ class ApiController extends Controller
         return $municipio = Municipio::all();
     }
     public function insertarDistritos(){
+
         
         $arrayCantidadDistritos = $this->arrayDistritosCantidad();
 
@@ -3636,6 +3646,8 @@ class ApiController extends Controller
                 $distrito->save();
             }
         }
+        $id =  101;
+        DB::delete("delete from distritos where id > $id");
         return $this->distritos();
     }
     public function getCalles(){
@@ -3760,6 +3772,9 @@ class ApiController extends Controller
 
        
         $distrito = rand(1,(count(Distrito::all())));
+       
+
+
 
         $BarrioCalle = $this->getBarrioCalle($distrito);
         
@@ -3814,6 +3829,10 @@ class ApiController extends Controller
             $caso->estado = $casos;
             $caso->paciente_id = $paciente->id;
             $caso->save();
+
+
+            
+
         }
 
         return $paciente=Paciente::all();
@@ -3872,9 +3891,30 @@ class ApiController extends Controller
         }
         return $arrayResultado;
     }
+    public function tipoExamenes(){
+      
 
- 
+      $arrayExamenes = [
+        'Examen A','Examen B', 'Examen C'
+      ];
 
+      $arrayDescripciones = [
+        'sin descripcion',
+        'sin descripcion',
+        'sin descripcion'
+      ];
+
+      $count = count($arrayExamenes);
+      
+      for ($i=0; $i < $count; $i++) { 
+        $tipo = new TipoExamen();
+        $tipo->nombre = $arrayExamenes[$i];        
+        $tipo->descripcion = $arrayDescripciones[$i];
+        $tipo->save();        
+      }
+
+      return $tipo;
+    }
 }
 
 
@@ -3892,3 +3932,6 @@ class ApiController extends Controller
 // 10 apeliidos P
 // 11 apeliidos M
 // 12 api/pacientes
+
+
+

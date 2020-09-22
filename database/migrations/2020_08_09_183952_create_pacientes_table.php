@@ -6,19 +6,16 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreatePacientesTable extends Migration
-{
-  
+{  
     public function up()
     {
         Schema::create('pacientes', function (Blueprint $table) {
             $table->increments('id');
-            
+            $table->boolean('estado')->default(0);
             $table->foreign('id')->references('id')->on('personas')->onDelete('cascade');
             $table->bigInteger('numero_seguro')->nullable();
             $table->timestamps();
         });
-
-
     }
 
     

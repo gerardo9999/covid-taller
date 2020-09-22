@@ -31,6 +31,8 @@ Route::get('/insertar/provincias','ApiController@insertarProvincias');
 Route::get('/insertar/municipios','ApiController@insertarMunicipios');
 Route::get('/insertar/distritos','ApiController@insertarDistritos');
 
+//inserta tipo de examens
+Route::get('/tipo','ApiController@tipoExamenes');
 
 
 //genera los barrios

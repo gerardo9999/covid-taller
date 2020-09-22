@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Examen extends Model
 {
  
-    protected $table = 'especialidades';
+    protected $table = 'examenes';
     protected $primaryKey = 'id';
 
     protected $fillable = [
         'resultado',
         'tipo',
-        'consulta_id'
+        'consulta_id',
+        'tipo_id'
     ];
 }

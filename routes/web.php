@@ -56,9 +56,12 @@ Route::post('/municipios/update/{id}', 'DepartamentoController@municipioUpdate')
 Route::get('/consultas','ConsultaController@index')->name('consulta.index');
 Route::get('/consultas/medicos','ConsultaController@medico')->name('consulta.medico');
 Route::get('/consultas/pacientes','ConsultaController@paciente')->name('consulta.paciente');
+Route::get('/consultas/create','ConsultaController@create')->name('consulta.create');
+Route::post('/consultas/store','ConsultaController@storeConsulta')->name('consulta.store');
+Route::post('/consultas/store','ConsultaController@storeConsultaMedico')->name('consulta.store.medico');
 
-
-
+// 'consulta.create'
+// consulta.create.medico
 
 
 // Roles y usuario
@@ -108,12 +111,11 @@ Route::post('/hospitales/update/{id}', 'HospitalController@hospitalUpdate')->nam
 
 
 
-
-
-
-
+Route::name('pdf')->get('/imprimir', 'GeneradorPDFController@imprimir');
+Route::name('consulta.pdf')->get('/consulta/pdf/{id}', 'GeneradorPDFController@consultaPDF');
 
 
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+

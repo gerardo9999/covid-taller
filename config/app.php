@@ -179,6 +179,9 @@ return [
         //roles y permisos
         Spatie\Permission\PermissionServiceProvider::class,
 
+
+        //DomPDF
+        Barryvdh\DomPDF\ServiceProvider::class,
     ],
 
     /*
@@ -231,6 +234,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

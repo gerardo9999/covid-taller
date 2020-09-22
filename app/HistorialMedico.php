@@ -14,6 +14,7 @@ class HistorialMedico extends Model
     protected $fillable = [
         'altura',
         'peso',
+        'tipo_sangre',
         'alergia',
         'enfermedad',
         'fecha_registro',  

@@ -10,6 +10,7 @@ class Hospitales extends Component
 {
     use WithPagination;
     public $searchText; 
+    public $message;
     public function render()
     {
         $searchText = '%'.$this->searchText.'%';
