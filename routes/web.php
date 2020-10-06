@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+
 Route::get('/', 'WebController@intro')->name('intro.index');
 
 Route::get('/covid', 'WebController@covid')->name('covid.index');
@@ -39,6 +40,7 @@ Route::post('/cuestionario/store', 'CuestionarioController@store')->name('cuesti
 
 
 
+
 Route::get('/provincias', 'DepartamentoController@provincias')->name('provincia.index');
 Route::post('/provincias/store', 'DepartamentoController@provinciaStore')->name('provincia.store');
 Route::post('/provincias/destroy/{id}', 'DepartamentoController@provinciaDestroy')->name('provincia.destroy');
@@ -58,6 +60,11 @@ Route::get('/consultas/medicos','ConsultaController@medico')->name('consulta.med
 Route::get('/consultas/pacientes','ConsultaController@paciente')->name('consulta.paciente');
 Route::get('/consultas/create','ConsultaController@create')->name('consulta.create');
 Route::post('/consultas/store','ConsultaController@storeConsulta')->name('consulta.store');
+Route::get('/consultas/edit/{id}','ConsultaController@editConsulta')->name('consulta.edit');
+
+
+Route::post('/consultas/delete/{id}','ConsultaController@deleteConsultaMedico')->name('consulta.delete.medico');
+Route::post('/consultas/update/{id}','ConsultaController@updateConsultaMedico')->name('consulta.update.medico');
 Route::post('/consultas/store','ConsultaController@storeConsultaMedico')->name('consulta.store.medico');
 
 // 'consulta.create'
@@ -112,7 +119,24 @@ Route::post('/hospitales/update/{id}', 'HospitalController@hospitalUpdate')->nam
 
 
 Route::name('pdf')->get('/imprimir', 'GeneradorPDFController@imprimir');
+
+// PDF Provincias
+    Route::name('provincias.confirmados.pdf')->get('/provincia/confirmados/pdf/{id}', 'GeneradorPDFController@provinciaConfirmadosPDF');
+    Route::name('provincias.recuperados.pdf')->get('/provincia/recuperados/pdf/{id}', 'GeneradorPDFController@provinciaRecuperadosPDF');
+    Route::name('provincias.desesos.pdf')->get('/provincia/pdf/desesos/{id}'    ,     'GeneradorPDFController@provinciaDesesosPDF');
+    Route::name('provincias.descartados.pdf')->get('/provincia/descartados/pdf/{id}', 'GeneradorPDFController@provinciaDescartadosPDF');
+    Route::name('provincias.sospechosos.pdf')->get('/provincia/sospechosos/pdf/{id}', 'GeneradorPDFController@provinciaSospechososPDF');
+// PDF
+
+
+
+Route::get('examenes','ExamenController@index')->name('examen.index');
+
+
 Route::name('consulta.pdf')->get('/consulta/pdf/{id}', 'GeneradorPDFController@consultaPDF');
+Route::name('diagnostico.pdf')->get('/diagnostico/pdf/{id}', 'GeneradorPDFController@diagnosticoPDF');
+Route::name('prescripcion.pdf')->get('/prescripcion/pdf/{id}', 'GeneradorPDFController@prescripcionPDF');
+
 
 
 

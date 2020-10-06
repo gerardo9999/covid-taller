@@ -1,6 +1,6 @@
 @extends('principal.index')
 @section('content')
-@include('admin.components.header')
+@include('sistema.components.header')
       <div class="row">
         <div class="col-lg-8">
           <div class="card">
@@ -74,7 +74,7 @@
       
               <div class="info-box-content">
                 <span class="info-box-text">DESESOS</span>
-                <span class="info-box-number">{{ @casos('confirmados') }}</span>
+                <span class="info-box-number">{{ @casos('desesos') }}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -86,7 +86,7 @@
       
               <div class="info-box-content">
                 <span class="info-box-text">DESCARTADOS</span>
-                <span class="info-box-number">{{ @casos('confirmados') }}</span>
+                <span class="info-box-number">{{ @casos('descartados') }}</span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -96,8 +96,9 @@
       </div>
 @endsection
 @section('charts')
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js">
+  <script src="{{ asset('chart/Chart.min.js') }}" >
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js" ></script>
   <script>
     
     var provincias  = @json(buscar_provincias(1));

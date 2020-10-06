@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-@include('admin.components.head')
+@include('sistema.components.head')
 <body class="hold-transition login-page">
     {{-- <div id="app"> --}}
         {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -24,6 +24,6 @@
         <main class="py-4">
             @yield('content')
         </main>
-@include('admin.components.script')
+@include('sistema.components.script')
 </body>
 </html>

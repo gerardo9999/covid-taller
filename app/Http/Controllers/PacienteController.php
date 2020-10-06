@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class PacienteController extends Controller
 {
@@ -22,10 +23,10 @@ class PacienteController extends Controller
     // return $rol;
 
 
-        return view('admin.modules.pacientes.index');
+        return view('sistema.modules.pacientes.index');
     }
     public function pacienteCreate(){
-        return view('admin.modules.pacientes.create');
+        return view('sistema.modules.pacientes.create');
     }
     public function pacienteStore(Request $request){
         
@@ -126,7 +127,7 @@ class PacienteController extends Controller
                                      users.id = personas.id AND
                                      personas.id = $id");
 
-        return view('admin.modules.pacientes.update',[
+        return view('sistema.modules.pacientes.update',[
             'paciente' => $paciente
         ]);
     }
@@ -198,6 +199,7 @@ class PacienteController extends Controller
         //     DB::beginTransaction();
 
             $fechaNacimiento = date("Y-m-d",strtotime($request->get('fecha_nacimiento')));
+            
             $distrito = new Distrito();
             $distrito->nombre = $request->get('distrito');
             $distrito->municipio_id = $request->get('municipio_id');
@@ -210,6 +212,7 @@ class PacienteController extends Controller
             $direccion->distrito_id      = $distrito->id;
             $direccion->save();
     
+
             $persona = new Persona();
             $persona->nombre            = $request->get('nombre');
             $persona->apellidos         = $request->get('apellidos');
@@ -221,35 +224,31 @@ class PacienteController extends Controller
             $persona->direccion_id      = $direccion->id;
             $persona->save();
                         
-            $user = new User();
-            $user->id        = $persona->id;
-            $user->name =  $request->get('name');
-            $user->email = $request->get('email');
-            $user->password = Hash::make($request->get('password'));
-            if($request->get('sexo')=='hombre'){
-                $user->avatar = 'imagenes/avatar-hombre.jpg';
-            }else{
-                $user->avatar = 'imagenes/avatar-mujer.png';
-            }
-            $user->save();
+            // $user = new User();
+            // $user->id        = $persona->id;
+            // $user->name =  $request->get('name');
+            // $user->email = $request->get('email');
+            // $user->password = Hash::make($request->get('password'));
+            // if($request->get('sexo')=='hombre'){
+            //     $user->avatar = 'imagenes/avatar-hombre.jpg';
+            // }else{
+            //     $user->avatar = 'imagenes/avatar-mujer.png';
+            // }
+            // $user->save();
     
     
-            $user->assignRole('paciente');
+            // $user->assignRole('invitado');
 
-            $paciente = new Paciente();
-            $paciente->id = $user->id;
-            if($request->get('numero_seguro')){
-                $paciente->numero_seguro = $request->get('numero_seguro'); 
-            }else{
-                $paciente->numero_seguro = 0;
-            }
-
-            $paciente->save();
+            
 
         //     DB::commit();
         // } catch (\Throwable $th) {
         //     DB::rollback();
         // }
-        return view('web.modules.pregunta.index',['paciente'=>$paciente]);
+        return view('page.modules.cuestionario.resultado',['persona'=>$persona]);
+    }
+
+    public function redirecionar(){
+        return redirect('some/url')->compact('');
     }
 }

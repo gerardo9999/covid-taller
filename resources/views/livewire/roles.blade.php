@@ -14,13 +14,13 @@
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
-    @include('admin.components.flash')
+    @include('sistema.components.flash')
     <!-- /.row -->
     <div class="row">
         <div class="col-12">
           <div class="card card-info">
               <div class="card-header">
-                  {{-- @include('admin.modules.pacientes.create') --}}
+                  {{-- @include('sistema.modules.pacientes.create') --}}
     
         
               </div>
@@ -39,7 +39,7 @@
                                   <td>
                                      {{ $rol->name }}
                                   </td>
-                                      {{-- @include('admin.modules.pacientes.imagen') --}}
+                                      {{-- @include('sistema.modules.pacientes.imagen') --}}
                                  
                               </tr>                            
                           @endforeach    

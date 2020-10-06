@@ -1,0 +1,9 @@
+  @role('administrador')
+      @include('sidebar.sidebarAdministrador')
+  @endrole
+  @role('paciente')
+      @include('sidebar.sidebarPaciente')
+  @endrole
+  @role('medico')
+      @include('sidebar.sidebarMedico')
+  @endrole

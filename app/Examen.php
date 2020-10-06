@@ -11,8 +11,11 @@ class Examen extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
+        'fecha_realizado',
+        'fecha_resultado',
+        'estado',
+        'descripcion',
         'resultado',
-        'tipo',
         'consulta_id',
         'tipo_id'
     ];

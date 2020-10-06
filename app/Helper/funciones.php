@@ -3,15 +3,19 @@
 use App\Caso;
 use App\Consulta;
 use App\Departamento;
+use App\Diagnostico;
 use App\Especialidad;
 use App\Hospital;
 use App\Examen;
 use App\Paciente;
 use App\HistorialMedico;
 use App\Pais;
+use App\PDF;
 use App\Persona;
 use App\Pregunta;
+use App\Prescripcion;
 use App\Provincia;
+use App\TipoExamen;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -266,7 +270,7 @@ function getPregunta($id){
 
     function prueba($id){
 
-        $examenes = DB::select("SELECT resultado , pacientes.numero_seguro,consultas.fecha_consulta
+        $examenes = DB::select("SELECT resultado , pacientes.numero_seguro,consultas.fecha_registrada
         FROM examenes, consultas , pacientes 
         WHERE examenes.consulta_id = consultas.id 
         AND pacientes.id = consultas.paciente_id 
@@ -312,7 +316,7 @@ function getPregunta($id){
 
     function consultasMedico($id){
         
-        $consultasMedico = DB::select("SELECT consultas.id,consultas.fecha_consulta FROM consultas,medicos,pacientes 
+        $consultasMedico = DB::select("SELECT consultas.id,consultas.fecha_registrada FROM consultas,medicos,pacientes 
         WHERE consultas.medico_id = medicos.id 
         AND consultas.paciente_id =  pacientes.id
         AND medicos.id = $id");
@@ -324,7 +328,7 @@ function getPregunta($id){
          
         $consultasPaciente = DB::select("SELECT consultas.id,
                                                 consultas.motivo_consulta,
-                                                consultas.fecha_consulta,
+                                                consultas.fecha_registrada,
                                                 consultas.fecha_programada,
                                                 consultas.hora_programada,
                                                 consultas.estado_consulta
@@ -336,6 +340,156 @@ function getPregunta($id){
         return $consultasPaciente;
     }
 
+    function informacionConsulta($consulta){
+        
+        $informacionConsulta = DB::select("SELECT consultas.id,
+                consultas.motivo_consulta,
+                consultas.fecha_registrada,
+                consultas.fecha_programada,
+                consultas.hora_programada,
+                consultas.estado_consulta
+                FROM consultas,medicos,pacientes 
+                WHERE consultas.medico_id = medicos.id 
+                AND consultas.paciente_id =  pacientes.id
+                AND consultas.id = $consulta");
+
+        return $informacionConsulta;
+    }
+    
+    function existeDiagnostico($consulta){
+        $sw = false;
+
+        $diagnostico = Diagnostico::join('consultas','consultas.id','=','diagnosticos.consulta_id')
+        ->where('diagnosticos.consulta_id','=',$consulta)
+        ->get();
+        $count = count($diagnostico);
+
+        if($count){
+            $sw = true;
+        }
+        return $sw;
+    }
+
+    function existePrescripcion($consulta){
+        $sw = false;
+
+        $diagnostico = Prescripcion::join('consultas','consultas.id','=','prescripciones.consulta_id')
+        ->where('prescripciones.consulta_id','=',$consulta)
+        ->get();
+        $count = count($diagnostico);
+
+        if($count){
+            $sw = true;
+        }
+        return $sw;
+    }
+
+    function existeExamenMedico($consulta){    
+        $sw = false;
+
+        $examen = Examen::join('consultas','consultas.id','=','examenes.consulta_id')
+        ->where('examenes.consulta_id','=',$consulta)
+        ->get();
+        $count = count($examen);
+
+        if($count){
+            $sw = true;
+        }
+        return $sw;
+    }
+
+    function diagnosticoConsulta($consulta){
+        
+        $diagnostico = Diagnostico::join('consultas','consultas.id','=','diagnosticos.consulta_id')
+        ->select('consultas.id as consulta_id','diagnosticos.descripcion','diagnosticos.evolucion_enfermedad','diagnosticos.id')
+        ->where('diagnosticos.consulta_id','=',$consulta)
+        ->get();
+
+        return $diagnostico;
+    }
+    function prescripcionConsulta($consulta){
+        $prescripcion = Prescripcion::join('consultas','consultas.id','=','prescripciones.consulta_id')
+        ->select('consultas.id as consulta_id','prescripciones.indicaciones','prescripciones.medicamento','prescripciones.cantidad_producto','prescripciones.id')
+        ->where('prescripciones.consulta_id','=',$consulta)
+        ->get();
+
+        return $prescripcion;
+    }
+    function examenMedico($consulta){
+        $examenes = Examen::join('tipo_examen','tipo_examen.id','=','examenes.tipo_id')
+        ->join('consultas','consultas.id','=','examenes.consulta_id')
+        ->select('tipo_examen.nombre as tipo_examen','examenes.fecha_realizado','examenes.descripcion')
+        ->where('examenes.consulta_id','=',$consulta)
+        ->get();
+        return $examenes;
+    }
+    function tipo_examen(){
+        $tipo = TipoExamen::all();
+        return $tipo;
+    }
+    //historial medico de un determinado paciente
+    function historialMedico($paciente_id){
+        $historial = HistorialMedico::join('pacientes','pacientes.id','=','historiales_medicos.paciente_id')
+        ->where('pacientes.id','=',$paciente_id)
+        ->get();
+        return $historial;
+    } 
+    function nombreExamen($id){
+        $tipo = TipoExamen::select('nombre')->where('id','=',$id)->get();
+        return $tipo[0]->nombre;
+    }
 
 
+
+    //total casos provinciales
+    function totalCasos($id,$caso){
+        $total = PDF::provinciaCasos($id,$caso);
+        $count = count($total);
+        return $count;
+    }
+
+    // casos actuales provinciales
+    function casosActuales($id,$caso){
+        
+        $fecha = date('Y-m-d');
+        $query =  Caso::join('pacientes','pacientes.id','casos.paciente_id')
+                ->join('personas','personas.id','=','pacientes.id')
+                ->join('direcciones','direcciones.id','=','personas.direccion_id')
+                ->join('distritos','distritos.id','=','direcciones.distrito_id')
+                ->join('municipios','municipios.id','=','distritos.municipio_id')
+                ->join('provincias','provincias.id','=','municipios.provincia_id')
+                ->select( 'casos.estado',
+                        'casos.fecha',
+                        'personas.nombre',
+                        'personas.apellidos',
+                        'direcciones.avenida_calle',
+                        'distritos.nombre as distrito',
+                        'municipios.nombre as municipio',
+                        'provincias.nombre as provincia'
+                        )
+                ->where('provincias.id','=',$id)
+                ->where('casos.estado','=',$caso)
+                ->where('casos.fecha','=',$fecha)
+            ->get();
+        
+        return $query;
+    }
+
+    function totalCasosActuales($data){
+        $total = count($data);
+        return $total;
+    }
+
+
+
+    function nombrePaciente($consulta){
+        $consulta = Consulta::findOrFail($consulta);
+
+        $paciente_id = $consulta->paciente_id;
+        $paciente =  Persona::findOrFail($paciente_id);
+        $nombre = $paciente->nombre;
+        $apellidos = $paciente->apellidos;
+        $nombreCompleto = $nombre .' '.$apellidos;
+        return $nombreCompleto;
+    }
 ?>

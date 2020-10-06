@@ -15,7 +15,7 @@
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
-    @include('admin.components.flash')
+    @include('sistema.components.flash')
     <!-- /.row -->
     <div class="row">
       <div class="col-md-12">
@@ -24,7 +24,7 @@
             <a class="btn btn-sm btn-info" href="{{ route('hospital.create') }}">Agregar Hospital</a>
             <div class="card-tools">
               <div class="btn-group">
-                @include('admin.modules.hospitales.search')
+                @include('sistema.modules.hospitales.search')
     
               </div>
               <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -63,7 +63,7 @@
                                           </a>
                                           <strong>{{ $hospital->nombre }}</strong>
                                       </td>
-                                          @include('admin.modules.hospitales.imagen')
+                                          @include('sistema.modules.hospitales.imagen')
                                       <td>
                                           <a href="{{ route('hospital.show', ['id'=>$hospital->id]) }}" type="button" class="btn btn-sm btn-primary">
                                               <i class="fas fa-eye"></i>
@@ -75,14 +75,13 @@
                                           <a href="{{ route('hospital.edit', ['id'=>$hospital->id]) }}" type="button" class="btn btn-sm btn-success">
                                               <i class="fas fa-edit"></i>
                                           </a>                                    
-                                          @include('admin.modules.hospitales.destroy') 
+                                          @include('sistema.modules.hospitales.destroy') 
                                       </td>
                                   </tr>                            
                               @endforeach    
                               </tbody>
                           </table>
                   </div>
-    
               </div>
             </div>
           <div class="card-footer">

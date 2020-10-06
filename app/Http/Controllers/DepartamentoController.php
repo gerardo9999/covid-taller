@@ -9,15 +9,8 @@ use Illuminate\Http\Request;
 class DepartamentoController extends Controller
 {
     
-    public function provincias(Request $request){
-        
-        if($request){
-            $query = trim($request->get('searchText'));
-            $provincias = Provincia::select('id','nombre')
-            ->where('nombre','LIKE','%'.$query.'%')
-            ->paginate(10);
-        }
-        return view('admin.modules.provincias.index',['provincias'=> $provincias,'searchText'=>$query]);
+    public function provincias(){
+        return view('sistema.modules.provincias.index');
     }
     public function provinciaStore(Request $request){
 
@@ -47,21 +40,11 @@ class DepartamentoController extends Controller
 
 
 
-    public function municipios(Request $request){
+    public function municipios(){
         
-        if($request){
-            $query = trim($request->get('searchText'));
-            $municipios = Municipio::join('provincias','provincias.id','=','municipios.provincia_id')
-            ->select('municipios.id', 'municipios.provincia_id',
-                     'provincias.nombre as provincia',
-                     'municipios.nombre as municipio')->orderBy('municipios.id','desc')
-                     ->where('municipios.nombre','LIKE','%'.$query.'%')
-                     ->orWhere('provincias.nombre','LIKE','%'.$query.'%')
-                ->paginate(10);
-                $provincias = Provincia::all();
-        }
+       
 
-        return view('admin.modules.municipios.index',['municipios'=> $municipios,'provincias'=>$provincias,'searchText'=>$query]);
+        return view('sistema.modules.municipios.index');
     }
     public function municipioStore(Request $request){
 

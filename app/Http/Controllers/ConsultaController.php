@@ -15,14 +15,13 @@ class ConsultaController extends Controller
     
     
     public function index(){
-        return view('admin.modules.consultas.index');
+        return view('sistema.modules.consultas.index');
     } 
-
     public function create(){
         $paciente =  Paciente::join('personas','personas.id','pacientes.id')->get();
         $medicos =  Medico::join('personas','personas.id','medicos.id')->get();
 
-        return view('admin.modules.consultas.create',[
+        return view('sistema.modules.consultas.create',[
             'pacientes'=> $paciente,
             'medicos'=> $medicos
         ]);
@@ -65,21 +64,38 @@ class ConsultaController extends Controller
         return Redirect::to('/consultas')->with('create','El registro se ha realizado correctamente');
     }
 
+    public function editConsulta($id){
 
-    public function update(Request $request,$id){
         
-        $consulta =  Consulta::findOrFail($id);
-        $consulta->estado_consulta = 1;  // espera 
-        $consulta->motivo_consulta = $request->motivo_consulta; 
-        $consulta->fecha_registrada = date('Y-m-d'); 
-        $consulta->fecha_programada = $request->fecha_programada; 
-        $consulta->paciente_id = $request->paciente; 
-        $consulta->medico_id = $request->medico; 
-        $consulta->update();
-        return Redirect::to('/consultas')->with('update','El registro se ha actualizado correctamente');
 
+        $consulta = Consulta::where('id','=',$id)->get();
+        $paciente = Paciente::join('personas','personas.id','=','pacientes.id')->where('pacientes.id','=',$consulta[0]->paciente_id)->get();
+
+        return view('sistema.modules.consultas.update',[
+            "consulta"=>$consulta,
+            "pacientes" => $paciente
+        ]);
     }
-    public function delete($id){
+    public function updateConsultaMedico(Request $request,$id){
+        
+               $user_id = Auth::user()->id;
+        
+               // return ["data" =>$request, "id"=>$id]; 
+       
+               $consulta =  Consulta::findOrFail($id);
+               $consulta->estado_consulta = 1;  // espera 
+               $consulta->hora_programada = $request->hora_programada;
+               $consulta->motivo_consulta = $request->motivo_consulta; 
+               $consulta->fecha_registrada = date('Y-m-d'); 
+               $fecha_programada = date("Y-m-d",strtotime($request->get('fecha_programada')));
+               $consulta->fecha_programada = $fecha_programada;
+               $consulta->paciente_id = $request->paciente; 
+               $consulta->medico_id = $user_id; 
+               $consulta->update();
+       
+               return Redirect::to('/consultas')->with('create','El registro se ha actualizado correctamente');
+    }
+    public function deleteConsultaMedico($id){
         $consulta =  Consulta::findOrFail($id);
         $consulta->delete();
 
@@ -102,7 +118,7 @@ class ConsultaController extends Controller
 
 
     public function paciente(){
-        return view('admin.modules.consultas.paciente');
+        return view('sistema.modules.consultas.paciente');
     }
 
     public function medico(){
@@ -115,7 +131,7 @@ class ConsultaController extends Controller
         // ");
             //    return $consultaMedico['data'];
 
-            //    return view('admin.modules.consultas.medico',[
+            //    return view('sistema.modules.consultas.medico',[
             //        'consultas'=> $consultaMedico
             //    ]);
         // return [
@@ -123,7 +139,7 @@ class ConsultaController extends Controller
             
         // ];
 
-        // return view('admin.modules.consultas.medico',[
+        // return view('sistema.modules.consultas.medico',[
         //     'consultas'=> $consultaMedico,
         //     'id'=>$id
         // ]);

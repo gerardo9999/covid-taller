@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-@include('admin.components.head')
+@include('sistema.components.head')
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
 <div class="wrapper">
-@include('admin.components.navbar')
+@include('sistema.components.navbar')
 
-@include('admin.components.aside')
+@include('sistema.components.aside')
 
   <div class="content-wrapper">
     
@@ -15,11 +15,10 @@
       </div>
     </section>
   </div>
-
   <aside class="control-sidebar control-sidebar-dark">
   </aside>
-@include('admin.components.footer')
+@include('sistema.components.footer')
 </div>
-@include('admin.components.script')
+@include('sistema.components.script')
 </body>
 </html>

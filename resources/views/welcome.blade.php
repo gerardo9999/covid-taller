@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    @include('web.components.head')
+    @include('page.components.head')
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css')}}">
     <link rel="stylesheet" href="{{ asset('plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css')}}">
@@ -15,12 +15,12 @@
     @livewireStyles
     
     <body>
-        @include('web.components.header')
+        @include('page.components.header')
         <main id="main">
             @yield('contenido')
         </main>
 
-    @include('web.components.script')
+    @include('page.components.script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.js" integrity="sha512-OmBbzhZ6lgh87tQFDVBHtwfi6MS9raGmNvUNTjDIBb/cgv707v9OuBVpsN6tVVTLOehRFns+o14Nd0/If0lE/A==" crossorigin="anonymous"></script>
     <script src="{{ asset('plugins/select2/js/select2.full.min.js')}}"></script>
 

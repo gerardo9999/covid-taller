@@ -14,7 +14,7 @@ class CreateHistorialesMedicosTable extends Migration
             $table->increments('id');
             $table->float('altura');
             $table->float('peso');
-            $table->float('tipo_sangre');
+            $table->string('tipo_sangre');
             $table->string('alergia');
             $table->string('enfermedad');
             $table->date('fecha_registro');  

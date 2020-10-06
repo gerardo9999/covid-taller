@@ -11,6 +11,7 @@ class Prescripcion extends Model
 
     protected $fillable = [ 
         'cantidad_producto',
+        'medicamento',
         'indicaciones',
         'consulta_id'
     ];

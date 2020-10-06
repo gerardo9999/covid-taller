@@ -17,6 +17,7 @@ class CreatePrescripcionesTable extends Migration
             $table->increments('id');
             
             $table->integer('cantidad_producto')->unsigned();
+            $table->string('medicamento');
             $table->string('indicaciones');
             $table->integer('consulta_id')->unsigned();
             $table->timestamps();

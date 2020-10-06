@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use App\Caso;
 use App\HistorialMedico;
 use App\Consulta;
+use App\Diagnostico;
 use App\Direccion;
 use App\Distrito;
 use App\Examen;
 use App\Medico;
 use App\Paciente;
+use App\PDF;
 use App\Persona;
+use App\Prescripcion;
 use App\Provincia;
+use App\TipoExamen;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,8 +25,187 @@ use Illuminate\Support\Facades\Hash;
 class PruebaControlle extends Controller
 {
     public function prueba(){
+
+        
+        // nombre de un paciente de una determinada consulta medica;
+        $consulta = 2;
+        $consulta = Consulta::findOrFail($consulta);
+
+        $paciente_id = $consulta->paciente_id;
+        $paciente =  Persona::findOrFail($paciente_id);
+        $nombre = $paciente->nombre;
+        $apellidos = $paciente->apellidos;
+        $nombreCompleto = $nombre .' '.$apellidos;
+        return $nombreCompleto;
+
+
+
+        //id de un examen medico
+        $item_id = 'Examen A';
+        $query = TipoExamen::select('id')->where('nombre','=',$item_id)->get();
+        $this->tipoExamen = $query[0]->id;
+
+        return $query;
+
+        $paciente_id = 3;
+
+
+        //Todos los examenes medicos
+
+        $examen = TipoExamen::join('examenes','examenes.tipo_id','=','tipo_examen.id')
+                              ->join('consultas','consultas.id','=','examenes.consulta_id')
+                              ->join('pacientes','pacientes.id','=','consultas.paciente_id')
+                              ->join('personas','personas.id','=','pacientes.id')
+                              ->select('personas.nombre',
+                                       'personas.apellidos',
+                                       'tipo_examen.nombre as tipo_examen',
+                                       'examenes.fecha_realizado',
+                                       'examenes.estado',
+                                       'examenes.resultado'
+                                       )
+                             ->where('pacientes.id','=',$paciente_id)
+        ->get();
+
+        return $examen;
+
+
+        $paciente_id = 154;
+        $historial = HistorialMedico::join('pacientes','pacientes.id','=','historiales_medicos.paciente_id')
+        ->where('pacientes.id','=',$paciente_id)
+        ->get();
+        return $historial;
+
+        $provincia_id = 1;
+
+        $confirmados = PDF::provinciaCasos($provincia_id,'confirmados');
+        return $confirmados;
+
+        $paciente = Caso::join('pacientes','pacientes.id','casos.paciente_id')
+        ->join('personas','personas.id'      ,'=','pacientes.id')
+        ->join('direcciones','direcciones.id','=','personas.direccion_id')
+        ->join('distritos','distritos.id'    ,'=','direcciones.distrito_id')
+        ->join('municipios','municipios.id'  ,'=','distritos.municipio_id')
+        ->join('provincias','provincias.id'  ,'=','municipios.provincia_id')
+        ->select( 'casos.estado',
+                  'personas.nombre',
+                  'personas.apellidos',
+                  'direcciones.avenida_calle',
+                  'distritos.nombre as distrito',
+                  'municipios.nombre as municipio',
+                  'provincias.nombre as provincia'
+                  )
+        ->where('provincias.id','=',$provincia_id)
+        ->where('casos.estado','=','confirmados')
+        ->get();
+
+        return $paciente;
+
+
+        $fecha = '2020-10-01';
+        $distrito = 1;
+
+        $paciente = Caso::join('pacientes','pacientes.id','casos.paciente_id')
+        ->join('personas','personas.id','=','pacientes.id')
+        ->join('direcciones','direcciones.id','=','personas.direccion_id')
+        ->join('distritos','distritos.id','=','direcciones.distrito_id')
+        ->join('municipios','municipios.id','=','distritos.municipio_id')
+        ->join('provincias','provincias.id','=','municipios.provincia_id')
+        ->select( 'casos.estado',
+                  'personas.nombre',
+                  'direcciones.avenida_calle',
+                  'distritos.nombre as distrito',
+                  'municipios.nombre as municipio',
+                  'provincias.nombre as provincia'
+                  
+                  )
+        ->where('casos.estado','=','desedos')
+        ->where('casos.fecha','=',$fecha)
+        ->get();
+
+        return $paciente;
+
+        $caso = 'confirmados';
+        $provincia_id = 1;
+        $provincia = DB::select("SELECT provincias.nombre as provincia,
+                                        municipios.nombre as municipio,
+                                        distritos.nombre as distritos,
+                                        direcciones.avenida_calle as direccion,
+                                        personas.nombre as persona,
+                                        pacientes.id
+                                 FROM provincias,municipios,distritos ,direcciones,personas,pacientes,casos
+                                 WHERE provincias.id = municipios.provincia_id
+                                 AND municipios.id = distritos.municipio_id 
+                                 AND distritos.id = direcciones.distrito_id
+                                 AND direcciones.id = personas.direccion_id
+                                 AND personas.id = pacientes.id
+                                 AND pacientes.id = casos.paciente_id
+                                 AND casos.estado = ".'."confirmados".'."
+                                 AND provincias.id = $provincia_id" );
+        
+        return $provincia;
         
         
+        $tipo = TipoExamen::all();
+        return $tipo;
+
+        $consulta = 1;
+
+
+
+        $examenes = Examen::join('tipo_examen','tipo_examen.id','=','examenes.tipo_id')
+        ->join('consultas','consultas.id','=','examenes.consulta_id')
+        ->select('tipo_examen.nombre as tipo_examen','examenes.fecha_realizado','examenes.descripcion')
+        ->where('examenes.consulta_id','=',$consulta)
+        ->get();
+
+        return $examenes;
+
+
+        $sw = false;
+
+        $examen = Examen::join('consultas','consultas.id','=','examenes.consulta_id')
+        ->where('examenes.consulta_id','=',$consulta)
+        ->get();
+        $count = count($examen);
+
+        if($count){
+            $sw = true;
+        }
+        return ["condicion"=>$sw];
+
+
+        $prescripcion = Prescripcion::join('consultas','consultas.id','=','prescripciones.consulta_id')
+        ->select('consultas.id as consulta_id','prescripciones.indicaciones','prescripciones.medicamento','prescripciones.cantidad_producto','prescripciones.id')
+        ->where('prescripciones.consulta_id','=',$consulta)
+        ->get();
+
+        return $prescripcion;
+
+        $sw = false;
+
+        $diagnostico = Diagnostico::join('consultas','consultas.id','=','diagnosticos.consulta_id')
+        ->where('diagnosticos.consulta_id','=',$consulta)
+        ->get();
+        $count = count($diagnostico);
+
+        if($count){
+            $sw = true;
+        }
+
+        return  ["existe"=> $sw];
+
+        $informacionConsulta = DB::select("SELECT consultas.id,
+        consultas.motivo_consulta,
+        consultas.fecha_registrada,
+        consultas.fecha_programada,
+        consultas.hora_programada,
+        consultas.estado_consulta
+        FROM consultas,medicos,pacientes 
+        WHERE consultas.medico_id = medicos.id 
+        AND consultas.paciente_id =  pacientes.id
+        AND consultas.id = $consulta");
+
+        return $informacionConsulta;
         
         // $idMedico = Auth::id();
         // return $idMedico;
@@ -33,7 +216,7 @@ class PruebaControlle extends Controller
         $consulta = DB::select("SELECT pacientes.id as paciente_id,
                                     medicos.id as medico_id,
                                     consultas.motivo_consulta,
-                                    consultas.fecha_consulta,
+                                    consultas.fecha_registrada,
                                     consultas.fecha_programada,
                                     consultas.hora_programada
                               FROM  pacientes,
@@ -121,7 +304,7 @@ class PruebaControlle extends Controller
         consultas.id,
         consultas.fecha_programada,
         consultas.hora_consulta,
-        consultas.fecha_consulta,
+        consultas.fecha_registrada,
         consultas.estado_consulta,
         consultas.motivo_consulta
         
@@ -356,7 +539,7 @@ class PruebaControlle extends Controller
                             $consulta = new Consulta();
                             $consulta->estado_consulta = 2;
                             $consulta->motivo->consulta = $motivo[$i];
-                            $consulta->fecha_consulta   = date("Y-m-d",strtotime($fechaCaso."- 6 days"));
+                            $consulta->fecha_registrada   = date("Y-m-d",strtotime($fechaCaso."- 6 days"));
                             $consulta->fecha_programada = date("Y-m-d",strtotime($fechaCaso."- 3 days"));
                             $consulta->hora_programada  = $arrayHoraProgramada[$indexHora]; 
                             $consulta->paciente_id = $paciente->id;
@@ -369,7 +552,7 @@ class PruebaControlle extends Controller
                             $consulta = new Consulta();
                             $consulta->estado_consulta = 2;
                             $consulta->motivo->consulta = $motivo[$i];
-                            $consulta->fecha_consulta   = date("Y-m-d",strtotime($fechaCaso."- 3 days"));
+                            $consulta->fecha_registrada   = date("Y-m-d",strtotime($fechaCaso."- 3 days"));
                             $consulta->fecha_programada = $fechaCaso;
                             $consulta->hora_programada  = $arrayHoraProgramada[$indexHora]; 
                             $consulta->paciente_id = $paciente->id;
@@ -386,7 +569,7 @@ class PruebaControlle extends Controller
                 // // $table->string('evolucion_enfermedad');
                 // $table->string('motivo_consulta');
     
-                // $table->date('fecha_consulta');
+                // $table->date('fecha_registrada');
                 // $table->date('fecha_programada');
                 // $table->time('hora_programada');
     

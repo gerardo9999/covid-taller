@@ -25,9 +25,14 @@ class Pacientes extends Component
         return view('livewire.pacientes',[
                 'pacientes' => Persona::join('pacientes','pacientes.id','=','personas.id')
                                     ->join('users','users.id','personas.id')
-                                    ->select('pacientes.id','users.id as user_id','personas.id as persona_id','nombre','apellidos','users.avatar')
+                                    ->select('pacientes.id',
+                                             'users.id as user_id',
+                                             'personas.id as persona_id',
+                                             'nombre','apellidos',
+                                             'users.avatar')
                                     ->where('nombre','LIKE','%'.$searchText.'%')
                                     ->orWhere('apellidos','LIKE','%'.$searchText.'%')
+                                    ->orWhere('pacientes.numero_seguro','LIKE','%'.$searchText.'%')
                                     ->orWhere('ci','LIKE','%'.$searchText.'%')
                                     ->paginate(10)
                                     

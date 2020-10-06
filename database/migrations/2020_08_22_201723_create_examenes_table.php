@@ -15,10 +15,11 @@ class CreateExamenesTable extends Migration
     {
         Schema::create('examenes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('resultado');
-            $table->string('fecha_realizado');
-            $table->string('fecha_resultado');
-            $table->string('tipo');
+            $table->date('fecha_realizado');
+            $table->date('fecha_resultado')->nullable();
+            $table->boolean('estado')->default(0);
+            $table->string('descripcion')->nullable();
+            $table->string('resultado')->nullable();
             $table->integer('consulta_id')->unsigned();
             $table->foreign('consulta_id')->references('id')->on('consultas')->onDelete('cascade');      
             
@@ -28,11 +29,7 @@ class CreateExamenesTable extends Migration
         });   
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
+
     public function down()
     {
         Schema::dropIfExists('examenes');

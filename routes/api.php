@@ -46,7 +46,7 @@ Route::get('/insertar/direccion','ApiController@insertDireccion');
 Route::get('/getBarrio','ApiController@getBarrio');
 
 
-Route::get('/pacientes','ApiController@insertarPacientes');
+Route::get('/insertar/pacientes','ApiController@insertarPacientes');
 
 
 // Genera los usuarios para loguearse

@@ -14,6 +14,7 @@ use App\Hospital;
 use App\Municipio;
 use App\Provincia;
 use App\Consulta;
+use App\HistorialMedico;
 use App\TipoExamen;
 use App\User;
 use Illuminate\Http\Request;
@@ -87,6 +88,7 @@ class ApiController extends Controller
             $persona->ci = rand(66666666,99999999);
             $persona->fecha_nacimiento = $arrayFechas[$i];
             $persona->sexo = $arraySexo[$i];
+            
             $persona->direccion_id = $arrayDireccion[0];
             $persona->save();
 
@@ -3766,8 +3768,8 @@ class ApiController extends Controller
 
         $formato = 'Y-m-d';
         
-        $fechaCaso    = '2020-03-19';
-        $numeroCasos = 2;
+        $fechaCaso    = '2020-10-02';
+        $numeroCasos = 20;
         $casos = "confirmados";
 
        
@@ -3831,7 +3833,24 @@ class ApiController extends Controller
             $caso->save();
 
 
-            
+
+            // $numero_historial = rand(5,20);
+
+            // for ($i=0; $i < $numero_historial; $i++) { 
+            //     $historial = new HistorialMedico();
+            //     $historial->altura = rand(1.50,1.89);
+            //     $historial->peso = rand(50,100);
+            //     $historial->tipo_sangre = "O+";
+            //     $historial->alergia ="ninguna";
+            //     $historial->enfermedad ="ninguna";
+            //     $historial->fecha_registro = date('Y-m-d');
+            //     $historial->paciente_id = $paciente->id;
+            //     $historial->save();
+            // }
+
+
+
+
 
         }
 

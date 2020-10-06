@@ -8,12 +8,12 @@ class WebController extends Controller
 {
     
     public function intro(){
-        return view('web.modules.intro.index');
+        return view('page.modules.intro.index');
     }
     public function covid(){
-        return view('web.modules.covid.index');
+        return view('page.modules.covid.index');
     }
     public function cuestionario(){
-        return view('web.modules.cuestionario.index',['formulario'=>'formulario']);
+        return view('page.modules.cuestionario.index',['formulario'=>'formulario']);
     }
 }

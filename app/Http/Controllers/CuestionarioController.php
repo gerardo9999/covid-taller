@@ -29,18 +29,16 @@ class CuestionarioController extends Controller
     public function preguntas()
     {
         
-        return view('web.modules.pregunta.index');
+        return view('page.modules.pregunta.index');
     }
 
     public function resultado()
     {
         
-        return view('web.modules.cuestionario.resultado');
+        return view('page.modules.cuestionario.resultado');
     }
     public function store(Request $request)
     {
-
-            
  
             $fechaNacimiento = date("Y-m-d",strtotime($request->get('fecha_nacimiento')));
             $distrito = new Distrito();
