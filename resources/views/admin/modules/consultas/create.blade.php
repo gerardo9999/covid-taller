@@ -119,7 +119,7 @@
                 <div class="card-body">
                     <div class="row">
 
-                        <div class="form-group col-12">
+                        <div class="form-group col-6">
                             <label for="">Paciente</label>
                             
                             <div class="input-group-prepend">
@@ -131,6 +131,15 @@
                                 </select>
                                 <button  class="btn btn-info btn-sm" type="button"><i class="fas fa-search" wire:click="mostrarLista_paciente()"></i></button>
                             </div>
+                        </div>    
+                        <div class="form-group col-6">
+                            <label for="">Hora Programada</label>
+                            
+                            <label class="col-md-3 form-control-label" for="text-input">Hora</label>
+                                <input type="time" name="hora_programada" class="form-control" placeholder="Hora de Reserva">                                        
+                            @error('hora_programada')
+                                <small><strong><p style="color: red">{{ $message }}</p></strong></small>
+                            @enderror
                         </div>                      
                     </div>
                     

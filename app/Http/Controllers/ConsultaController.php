@@ -34,7 +34,8 @@ class ConsultaController extends Controller
         $consulta->estado_consulta = 1;  // espera 
         $consulta->motivo_consulta = $request->motivo_consulta; 
 
-        $consulta->fecha_consulta = date('Y-m-d'); 
+        $consulta->fecha_registrada = date('Y-m-d'); 
+        $consulta->hora_programada = $request->hora_programada;
         $fecha_programada = date("Y-m-d",strtotime($request->get('fecha_programada')));
         $consulta->fecha_programada  = $fecha_programada;
         $consulta->paciente_id = $request->paciente; 
@@ -52,9 +53,9 @@ class ConsultaController extends Controller
 
         $consulta = new Consulta();
         $consulta->estado_consulta = 1;  // espera 
+        $consulta->hora_programada = $request->hora_programada;
         $consulta->motivo_consulta = $request->motivo_consulta; 
-
-        $consulta->fecha_consulta = date('Y-m-d'); 
+        $consulta->fecha_registrada = date('Y-m-d'); 
         $fecha_programada = date("Y-m-d",strtotime($request->get('fecha_programada')));
         $consulta->fecha_programada  = $fecha_programada;
         $consulta->paciente_id = $request->paciente; 
@@ -70,7 +71,7 @@ class ConsultaController extends Controller
         $consulta =  Consulta::findOrFail($id);
         $consulta->estado_consulta = 1;  // espera 
         $consulta->motivo_consulta = $request->motivo_consulta; 
-        $consulta->fecha_consulta = date('Y-m-d'); 
+        $consulta->fecha_registrada = date('Y-m-d'); 
         $consulta->fecha_programada = $request->fecha_programada; 
         $consulta->paciente_id = $request->paciente; 
         $consulta->medico_id = $request->medico; 
