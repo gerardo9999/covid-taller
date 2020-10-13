@@ -40,7 +40,7 @@
                     <thead>
                         <tr>
                             <th >Motivo</th>
-                            <th >Fecha Consulta</th>
+                            <th >Fecha Registrada</th>
                             <th >Hora Programada</th>
                             <th >Fecha Programada</th>
                             <th >Estado</th>
@@ -66,7 +66,7 @@
                                         <span class="badge badge-info">Finaiizada</span>
                                     </td>
                                     <td>
-                                        <a href="{{ route('consulta.pdf', ['id'=>$consulta->paciente_id]) }}" type="button" class="btn btn-sm btn-primary">
+                                        <a href="{{ route('consulta.pdf', ['id'=>$consulta->id]) }}" type="button" class="btn btn-sm btn-primary">
                                             <i class="fas fa-file-pdf"></i>
                                         </a>      
                                         
@@ -84,7 +84,7 @@
                                 @endif
                                 @if($consulta->estado_consulta==1) 
                                     <td>
-                                        <span class="badge badge-info">En Espera</span>
+                                        <span class="badge badge-success">En Espera</span>
                                     </td> 
                                     <td>
                                         <a href="{{ route('consulta.edit', ['id'=>$consulta->id]) }}" type="button" class="btn btn-sm btn-success">

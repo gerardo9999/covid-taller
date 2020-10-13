@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Consulta;
 use App\Medico;
 use App\Paciente;
+use App\Persona;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -27,6 +28,14 @@ class ConsultaController extends Controller
         ]);
     }
 
+    public function createConsultaPaciente($paciente_id){
+        $paciente = Paciente::findOrFail($paciente_id);
+        $persona = Persona::findOrFail($paciente_id);
+        return view('sistema\modules\consultas\createPaciente',[
+             "paciente"=>$paciente,
+             "persona"=>$persona
+        ]);
+    }
     public function storeConsulta(Request $request){
         
         $consulta = new Consulta();
@@ -63,6 +72,8 @@ class ConsultaController extends Controller
 
         return Redirect::to('/consultas')->with('create','El registro se ha realizado correctamente');
     }
+
+
 
     public function editConsulta($id){
 

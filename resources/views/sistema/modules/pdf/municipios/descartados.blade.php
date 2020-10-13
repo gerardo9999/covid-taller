@@ -15,7 +15,7 @@
 </head>
 <body>
     <div class ="titulo">
-        <h1>{{ $provincia }}</h1>
+        <h1>{{ $municipio }}</h1>
     </div>
     <div>
         <div>

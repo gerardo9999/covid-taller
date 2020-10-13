@@ -20,7 +20,7 @@ class HospitalController extends Controller
 {
     
     public function hospitales(){
-        return view('admin.modules.hospitales.index');
+        return view('sistema.modules.hospitales.index');
     }
     public function validacionHospital($request){
         
@@ -43,7 +43,7 @@ class HospitalController extends Controller
 
     }
     public function hospitalCreate(){
-        return view('admin.modules.hospitales.create');
+        return view('sistema.modules.hospitales.create');
     }
     public function hospitalStore(Request $request){
         $this->validacionHospital($request);
@@ -108,7 +108,7 @@ class HospitalController extends Controller
                                      AND departamentos.id = provincias.departamento_id
                                      AND hospitales.id = $id 
                                     ");
-        return view('admin.modules.hospitales.update',['hospital'=>$hospitales]);
+        return view('sistema.modules.hospitales.update',['hospital'=>$hospitales]);
     }
     public function hospitalUpdate(Request $request,$id){
 
@@ -150,6 +150,6 @@ class HospitalController extends Controller
         return Redirect::to('/hospitales')->with('delete','El registro se ha elimindado correctamente');
     }
     public function hospitalShow($id){
-        return view('admin.modules.hospitales.show',['id'=> $id]);
+        return view('sistema.modules.hospitales.show',['id'=> $id]);
     }
 }

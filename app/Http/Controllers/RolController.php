@@ -11,7 +11,7 @@ class RolController extends Controller
         
         
         return view(
-            'admin.modules.rol.index'
+            'sistema.modules.rol.index'
         );
     }
 }

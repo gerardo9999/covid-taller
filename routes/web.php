@@ -1,5 +1,6 @@
 <?php
 
+use App\Consulta;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -62,6 +63,8 @@ Route::get('/consultas/create','ConsultaController@create')->name('consulta.crea
 Route::post('/consultas/store','ConsultaController@storeConsulta')->name('consulta.store');
 Route::get('/consultas/edit/{id}','ConsultaController@editConsulta')->name('consulta.edit');
 
+Route::get('/consultas/create/{id}','ConsultaController@createConsultaPaciente')->name('consulta.paciente.create');
+
 
 Route::post('/consultas/delete/{id}','ConsultaController@deleteConsultaMedico')->name('consulta.delete.medico');
 Route::post('/consultas/update/{id}','ConsultaController@updateConsultaMedico')->name('consulta.update.medico');
@@ -69,7 +72,6 @@ Route::post('/consultas/store','ConsultaController@storeConsultaMedico')->name('
 
 // 'consulta.create'
 // consulta.create.medico
-
 
 // Roles y usuario
 Route::get('/roles','RolController@index')->name('rol.index');
@@ -97,11 +99,25 @@ Route::post('/medicos/update/{id}', 'MedicoController@medicoUpdate')->name('medi
 
 
 Route::get('/pacientes', 'PacienteController@pacientes')->name('paciente.index');
+Route::get('/misPacientes/', 'PacienteController@pacientesMedico')->name('medico.paciente.index');
 Route::get('/pacientes/create', 'PacienteController@pacienteCreate')->name('paciente.create');
 Route::get('/pacientes/edit/{id}', 'PacienteController@pacienteEdit')->name('paciente.edit');
 Route::post('/pacientes/store', 'PacienteController@pacienteStore')->name('paciente.store');
 Route::post('/pacientes/destroy/{id}', 'PacienteController@pacienteDestroy')->name('paciente.destroy');
 Route::post('/pacientes/update/{id}', 'PacienteController@pacienteUpdate')->name('paciente.update');
+Route::post('/internar/paciente/{id}', 'PacienteController@pacienteInternarStore')->name('internar.store');
+
+Route::get('/paciente/medico', 'PacienteController@miMedico')->name('paciente.medico.index');
+Route::get('/paciente/consulta', 'PacienteController@misConsultas')->name('paciente.consulta.index');
+Route::get('/paciente/examen', 'PacienteController@misExamenes')->name('paciente.examen.index');
+Route::get('/paciente/prescripcion', 'PacienteController@misPrescripciones')->name('paciente.prescripcion.index');
+
+// paceinte.medico.index
+
+
+Route::get('/pacientes/hospital/{id}', 'PacienteController@pacienteInternado')->name('paciente.hospital');
+
+
 
 
 
@@ -129,8 +145,21 @@ Route::name('pdf')->get('/imprimir', 'GeneradorPDFController@imprimir');
 // PDF
 
 
+//PDF MUNICIPIO
+    Route::name('municipios.confirmados.pdf')->get('/municipio/confirmados/pdf/{id}', 'GeneradorPDFController@municipioConfirmadosPDF');
+    Route::name('municipios.recuperados.pdf')->get('/municipio/recuperados/pdf/{id}', 'GeneradorPDFController@municipioRecuperadosPDF');
+    Route::name('municipios.desesos.pdf')->get('/municipio/pdf/desesos/{id}'    ,     'GeneradorPDFController@municipioDesesosPDF');
+    Route::name('municipios.descartados.pdf')->get('/municipio/descartados/pdf/{id}', 'GeneradorPDFController@municipioDescartadosPDF');
+    Route::name('municipios.sospechosos.pdf')->get('/municipio/sospechosos/pdf/{id}', 'GeneradorPDFController@municipioSospechososPDF');
+// PDF
+
+// PDF Examen Resultado
+Route::name('resultado.pdf')->get('/resultado/pdf/{id}', 'GeneradorPDFController@resultadoExamenPDF');
+
 
 Route::get('examenes','ExamenController@index')->name('examen.index');
+
+
 
 
 Route::name('consulta.pdf')->get('/consulta/pdf/{id}', 'GeneradorPDFController@consultaPDF');
@@ -139,7 +168,25 @@ Route::name('prescripcion.pdf')->get('/prescripcion/pdf/{id}', 'GeneradorPDFCont
 
 
 
+Route::name('miPrescripcion.pdf')->get('/miPrescripcion/pdf/{id}', 'GeneradorPDFController@miPrescripcionPDF');
+Route::name('miExamen.pdf')->get('/miExamen/pdf/{id}', 'GeneradorPDFController@miExamenPDF');
+
+// 
+
+
+
+
+
+Route::get('/reporte/diario' ,'ReporteController@reporteDiario')->name('reporte.diario');
+Route::get('/reporte/mensual','ReporteController@reporteMensual')->name('reporte.mensual');
+// reporteDiario()
+
+
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Route::get('prueba', function () {
+//     $mis = Consulta::misPacientes('eldy');
+//     return ["prueba"=>$mis];
+// });

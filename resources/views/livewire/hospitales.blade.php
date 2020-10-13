@@ -9,7 +9,7 @@
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                 <li class="breadcrumb-item active">Hospitales</li>
-                <input type="text" wire:model="message">
+                {{-- <input type="text" wire:model="message"> --}}
               </ol>
             </div><!-- /.col -->
           </div><!-- /.row -->
@@ -19,7 +19,7 @@
     <!-- /.row -->
     <div class="row">
       <div class="col-md-12">
-        <div class="card">
+        <div class="card card-info">
           <div class="card-header">
             <a class="btn btn-sm btn-info" href="{{ route('hospital.create') }}">Agregar Hospital</a>
             <div class="card-tools">

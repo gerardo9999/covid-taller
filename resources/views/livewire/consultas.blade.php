@@ -110,10 +110,7 @@
     @endrole
     @role('medico')
         @if ($lista)
-            
             @include('sistema.modules.consultas.table')
-            {{-- <button class="btn btn-sm btn-danger" wire:click='mostrarPaciente()'>Paciente</button>
-            <button class="btn btn-sm btn-danger" wire:click='mostrarFormulario()'>Medico</button> --}}
         @endif
         @if ($formulario)
             @include('sistema.modules.consultas.formulario')

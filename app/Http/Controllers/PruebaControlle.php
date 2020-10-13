@@ -8,7 +8,9 @@ use App\Consulta;
 use App\Diagnostico;
 use App\Direccion;
 use App\Distrito;
+use App\Especialidad;
 use App\Examen;
+use App\Hospital;
 use App\Medico;
 use App\Paciente;
 use App\PDF;
@@ -25,6 +27,76 @@ use Illuminate\Support\Facades\Hash;
 class PruebaControlle extends Controller
 {
     public function prueba(){
+
+        $tipo = ['Examen A','Examen B'];
+        $descripcion = ['Examen de Covid-19','Prueba Covid-19'];
+        for ($i=0; $i < 2; $i++) { 
+            $tipoExamen = new TipoExamen();
+            $tipoExamen->nombre = $tipo[$i];
+            $tipoExamen->descripcion = $descripcion[$i];
+            $tipoExamen->save();
+        }
+
+        $id = 3; 
+
+        $historial = Paciente::join('consultas','consultas.paciente_id','=','pacientes.id')
+        ->join('medicos','medicos.id','=','consultas.medico_id')
+        ->join('examenes','examenes.consulta_id','=','consultas.id')
+        ->join('tipo_examen','tipo_examen.id','=','examenes.tipo_id')
+        ->select('pacientes.id as paciente_id','pacientes.numero_seguro','consultas.id as consulta_id',
+                 'consultas.fecha_registrada','consultas.fecha_programada','examenes.fecha_realizado as fecha_examen','examenes.fecha_resultado',
+                 'examenes.resultado','tipo_examen.nombre as examen'
+        )
+        ->where('pacientes.id','=',$id)->get();
+
+        return $historial;
+
+
+
+        $diagnostico = Diagnostico::findOrFail(1);
+        $consulta = Consulta::findOrFail($diagnostico->consulta_id);
+        $paciente = Paciente::findOrFail($consulta->paciente_id);
+        $personaPaciente  = Persona::findOrFail($paciente->id);
+        $medico = Medico::findOrFail($consulta->medico_id);
+        $personaMedico  = Persona::findOrFail($medico->id);
+        $hospital = Hospital::findOrFail($medico->hospital_id);
+        $especialidad = Especialidad::findOrFail($medico->especialidad_id);
+
+        return [
+            "diagnostico" => $diagnostico,
+            "consulta"  => $consulta,
+            "paciente"  => $paciente,
+            "personaPaciente"  => $personaPaciente,
+            "medico"  => $medico,
+            "personaMedico"  => $personaMedico,
+            "hospital" => $hospital,
+            "especialidad" => $especialidad
+        ];
+        
+
+        $diagnostico = Diagnostico::join('consultas','consultas.id','=','diagnosticos.consulta_id')
+        ->where('diagnosticos.consulta_id','=',1)->get();
+
+        return $diagnostico;
+
+        $tipoExamen="Examen A";
+
+        
+
+        $tipoExamen = TipoExamen::where('nombre','=',$tipoExamen)->get();
+        $tipo_id = $tipoExamen[0]->id;
+
+        return $tipo_id;
+
+        $id =  Auth::id();
+
+        $paciente = Consulta::join('pacientes','pacientes.id','=','consultas.paciente_id')
+            ->join('medicos','medicos.id','=','consultas.medico_id')
+            ->where('medicos.id','=',$id)
+            ->distinct()->paginate(10);
+
+        return $paciente;
+
 
         
         // nombre de un paciente de una determinada consulta medica;

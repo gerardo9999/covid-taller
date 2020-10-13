@@ -31,7 +31,7 @@
         $('.select-especialidad').select2();
         $('.select-hospital').select2();
         $('.select-nacionalidad').select2({});			
-</script>
+    </script>
 <!-- InputMask -->
 <script src="{{ asset('plugins/moment/moment.min.js')}}"></script>
 

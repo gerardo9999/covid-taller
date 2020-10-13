@@ -7,8 +7,13 @@ use Livewire\Component;
 use Livewire\WithPagination;
 
 class Municipios extends Component{
+    public $municipio_id;
+    public $municipio;
+    
+    public $lista= 1;
     public $searchText;
     use WithPagination;
+
 
     public function render(){
 
@@ -23,7 +28,16 @@ class Municipios extends Component{
                          ->orWhere('provincias.nombre','LIKE','%'.$searchText.'%')
                          ->orderBy('municipios.id','asc')
                     ->paginate(10)
-            
         ]);
+    }
+
+    public function mostrarInformacion($id){
+        $this->lista        = 0;
+        $this->municipio_id = $id;
+        $municipio          = Municipio::findOrFail($id);
+        $this->municipio    = $municipio->nombre;
+    }
+    public function ocultarInformacion(){
+        $this->lista = 1;
     }
 }

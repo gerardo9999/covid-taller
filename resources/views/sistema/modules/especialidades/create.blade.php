@@ -1,4 +1,4 @@
-<button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#create-especialidad">Agregar Especialidad</button>
+<button class="btn btn-info btn-sm" type="button" data-toggle="modal" data-target="#create-especialidad">Agregar Especialidad</button>
 <div id="create-especialidad" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -19,7 +19,6 @@
                             <input type="text" class="form-control" name="especialidad" >
                         </div>
                     </div>
-
                 </div>
             </div>
             <div class="modal-footer">

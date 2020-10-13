@@ -11,233 +11,343 @@ use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 
 class Consultas extends Component{
-    
-    public $searchText ;
-    public $lista = 1;
-    
-    
-    //lista de la prescripcion medica
+
+
+    public $lista             = 1;
+    public $listaExamen       = 0;
     public $listaPrescripcion = 0;
-    
-    public $paciente = 0;
-    public $formulario = 0;
-    public $user;
+    public $listaDiagnostico  = 0;
 
 
-    // variables de la tabla examen
-    public $descripcion_examen;
-
-    //lista examenes
-    public $listaExamenes= 0;
-    //id de la prescripcion 
-    public $prescripcion_id;
-    
-    //Muestra el formulario para actualizar
-    public $actualizarPrescripcion=0;
-
-    //Para ek formulario de editar
-    public $editarPrescripcion = 0;
-
-    public $paciente_id;
-    public $consulta;
-
-    // atributos de la prescripcion
-    public $medicamento;
-    public $cantidad_producto;
-    public $indicaciones;
-
-
-    public $diagnostico_id;
-
-    //atributos de diagnostico
-    public $descripcion_medica;
-    public $evolucion_enfermedad;
+    public $formulario              = 0;
+    public $formularioExamen        = 0;
+    public $formularioPrescripcion  = 0;
+    public $formularioDiagnostico   = 0;
 
 
     //muestra el formulario
-    public $actualizarDiagnosico = 0;
+    public $formularioDiagnosicoActualizar = 0;
+    public $formularioPrescripcionActualizar = 0;
+
+    public $searchText ;
+
+    // variables de la tabla examen
+    public $tipoExamen          = null;
+    public $descripcion_examen  = null;
+
+    //atributos de diagnostico
+    public $descripcion_medica   = null;
+    public $evolucion_enfermedad = null;
+    public $diagnostico_id = null;
 
 
-    public $informacionConsulta = 0;
-    public $diagnicosMedico     = 0;
-    public $prescripcion        = 0;
+    // atributos de la prescripcion
+    public $medicamento       = null;
+    public $cantidad_producto = null;
+    public $indicaciones      = null;
+    public $consulta_id       = null;
+    public $prescripcion_id   = null;
 
 
-    // 62046139
-    //public tipo Examen
-    public $tipoExamen;
+
+
+
+    
+    //lista de la prescripcion medica
+    
+    public $paciente = 0;
+    public $user;
+
+
+
+
+
+
+    public $paciente_id;
+
+
+    
+
+
+
+
+
+
+
+
+
+
 
     public function render(){
 
         $searchText = $this->searchText;
         return view('livewire.consultas',[
-            'consultas'=> Consulta::where('consultas.fecha_programada','=',$searchText)->paginate(10),
+            'consultas'=> Consulta::mostrarConsultas($searchText),
         ]);
     }
-
-    public function mostrarFormulario(){
-        $this->formulario= 1;
+    public function mostrarLista(){
+        $this->lista = 1;
+    }
+    public function ocultarLista(){
         $this->lista = 0;
-        $this->paciente = 0;
-
     }
-    //muestra el formulario de consultas
-    public function mostrarFormularioConsulta($id){
-        $this->mostrarFormulario();
-        $this->consulta = $id;
-    }
-    public function mostrarlistaPrescripcion(){
-        $this->listaPrescripcion = 1 ;
-    }
-    
-    public function mostrarFormularioPrescripcion(){
-        $this->resetearPrescripcion();
-        $this->listaPrescripcion = 0 ;
-        $this->actualizarPrescripcion = 0;
-
+    public function mostrarListaExamen(){
+        $this->listaExamen =1;
     }
     public function mostrarlistaDiagnostico(){
-        $this->actualizarDiagnosico = 0;
+        $this->listaDiagnostico = 1;
     }
-    public function mostrarPaciente($paciente_id){
-        $this->paciente_id = $paciente_id;
+    public function mostrarlistaPrescripcion(){
+        $this->listaPrescripcion = 1;
+    }
+    public function ocultarListaExamen(){
+        $this->listaExamen =0;
+    }
+    public function ocultarlistaDiagnostico(){
+        $this->listaDiagnostico = 0;
+    }
+    public function ocultarlistaPrescripcion(){
+        $this->listaPrescripcion = 0;
+    }
+
+
+    public function ocultarFormulario(){
+        $this->formulario= 0;
+    }
+    public function mostrarFormulario(){
+        $this->formulario= 1;
+    }
+    public function mostrarFormularioExamen(){
+        $this->formularioExamen = 1;
+    }
+    public function ocultarFormularioExamen(){
+        $this->formularioExamen = 0;
+    }
+
+    public function mostrarFormularioDiagnostico(){
+        $this->formularioDiagnostico = 1;
+    }
+    public function ocultarFormularioDiagnostico(){
+        $this->formularioDiagnostico = 0;
+    }
+    public function mostrarFormularioPrescripcion(){
+        $this->formularioPrescripcion = 1;
+    }
+    public function ocultarFormularioPrescripcion(){
+        $this->formularioPrescripcion = 0;
+    }
+    public function mostrarFormularioDiagnosticoActualizar(){
+        $this->formularioDiagnosicoActualizar = 1; 
+    }
+    public function ocultarFormularioDiagnosticoActualizar(){
+        $this->formularioDiagnosicoActualizar = 0; 
+    }
+    //Examenes medicos
+    public function examenLista(){
+        $this->mostrarListaExamen();
+        $this->ocultarFormularioExamen();
         
-        $this->paciente= 1;
-        $this->lista = 0;
-        $this->formulario = 0;
-    }
-    public function mostrarLista(){
-        $this->paciente= 0;
-        $this->lista = 1;
-        $this->formulario = 0;
-    }
-    public function authUser(){
-        $user = $this->user;
-    }
-    public function mostrarFormularioInformacion($consulta){
-        $this->informacionConsulta = 1;
-        $this->diagnicosMedico = 0;
-        $this->actualizarDiagnosico = 0;
-        $this->prescripcion = 0 ;
+        $this->ocultarlistaDiagnostico();
+        $this->ocultarFormularioDiagnostico();
 
-        $this->consulta = $consulta;
-    }
-    public function mostrarFormularioDiagnostico($consulta){
-        $this->diagnicosMedico = 1;
-        $this->informacionConsulta = 0;
-        $this->prescripcion         = 0;
-        $this->consulta = $consulta;
-        $this->listaExamenes = 1;
-    }
-    public function mostrarFormularioPrescripcionExiste($consulta){
-        $this->resetearPrescripcion();
 
-        $this->prescripcion         = 1;
-        $this->diagnicosMedico      = 0;
-        $this->informacionConsulta  = 0;
-        $this->actualizarDiagnosico =0;
-        $this->consulta = $consulta;
-        $this->listaExamenes = 1;
-
+        $this->ocultarlistaPrescripcion();
+        $this->ocultarFormularioPrescripcion();
+    }
+    public function examenFormulario(){
+        $this->mostrarFormularioExamen();
+        $this->ocultarListaExamen();
+    }
+    public function guardarExamenMedico(){
         
+            if($this->tipoExamen == "Seleccione un examen medico"){
+                $this->tipoExamen = null;
+            }
+            if($this->tipoExamen != null){
+                $tipoExamen = TipoExamen::where('nombre','=',$this->tipoExamen)->get();
+                $tipo_id = $tipoExamen[0]->id;
+            }
+            $this->validate([
+                'tipoExamen'=>'required',
+                'descripcion_examen'=>'required'
+            ]);
+        
+            $examen = new Examen();
+            $examen->fecha_realizado = date('Y-m-d');
+            $examen->estado = 0;
+            $examen->descripcion = $this->descripcion_examen;
+            $examen->consulta_id = $this->consulta_id;
+            $examen->tipo_id = $tipo_id;
+            $examen->save(); 
 
+            $this->ocultarFormularioExamen();
+            $this->mostrarListaExamen();
+            $this->resetearExamen();
+    }
+    public function resetearExamen(){
+         $this->tipoExamen          = null;
+         $this->descripcion_examen  = null;
+    }
+    public function eliminarExamenMedico($examen_id){
+        $examen =  Examen::findOrFail($examen_id);
+        $examen->delete();
+    }
+    // Diagnosticos
+    public function diagnosticoLista(){
+        $this->mostrarlistaDiagnostico();
+        $this->ocultarFormularioDiagnostico();
+
+        $this->ocultarListaExamen();
+        $this->ocultarFormularioExamen();
+
+        $this->ocultarlistaPrescripcion();
+        $this->ocultarFormularioPrescripcion();
+    }
+    public function diagnosticoFormulario(){
+        
+        $this->mostrarFormularioDiagnostico();
+        $this->ocultarlistaDiagnostico();
+    }
+    public function validarDiagnostico(){
+        $this->validate([
+            'descripcion_medica'   => 'required',
+            'evolucion_enfermedad' => 'required'
+        ]);
     }
     public function guardarDiagnosticoMedico(){
         
+        $this->validarDiagnostico();
+
+
         $diagnostico = new Diagnostico();
         $diagnostico->descripcion = $this->descripcion_medica; 
         $diagnostico->evolucion_enfermedad = $this->evolucion_enfermedad; 
-        $diagnostico->consulta_id = $this->consulta;
+        $diagnostico->consulta_id = $this->consulta_id;
         $diagnostico->save();
-    }
-    public function resetearPrescripcion(){
-        $this->indicaciones = '';
-        $this->cantidad_producto = 0;
-    }
-    public function guardarPrescripcionMedica(){
-        
-        $prescripcion = new Prescripcion();
-        $prescripcion->medicamento= $this->medicamento;
-        $prescripcion->cantidad_producto= $this->cantidad_producto;
-        $prescripcion->indicaciones= $this->indicaciones;
-        $prescripcion->consulta_id= $this->consulta;
-        $prescripcion->save();
 
-        $this->listaPrescripcion = 1;
-        $this->actualizarPrescripcionMedica = 0;
-        $this->resetearPrescripcion();
+        $this->mostrarlistaDiagnostico();
+        $this->ocultarFormularioPrescripcion();
+        $this->ocultarFormularioDiagnostico();
     }
+    public function diagnosticoFormularioActualizar($diagnostico_id){
+
+        $this->diagnostico_id = $diagnostico_id;
+
+        $this->ocultarlistaDiagnostico();
+        $this->mostrarFormularioDiagnostico();
+        $this->mostrarFormularioDiagnosticoActualizar();
+    }
+
     public function actualizarDiagnosticoMedico(){
+        
+        $this->validarDiagnostico();
+
         $diagnostico = Diagnostico::findOrFail($this->diagnostico_id);
         $diagnostico->descripcion = $this->descripcion_medica; 
         $diagnostico->evolucion_enfermedad = $this->evolucion_enfermedad; 
-        $diagnostico->consulta_id = $this->consulta;
+        $diagnostico->consulta_id = $this->consulta_id;
         $diagnostico->update();
 
-        $this->actualizarDiagnosico = 0;
-
+        $this->mostrarlistaDiagnostico();
+        $this->ocultarFormularioDiagnosticoActualizar();
+        $this->ocultarFormularioDiagnostico();
     }
-    //mostrar editar diagnostico
-    public function mostrarEditarDiagnostico($diagnostico_id){
-        $this->actualizarDiagnosico = 1;
-        $this->diagnostico_id = $diagnostico_id;
-
-        $diagnostico = Diagnostico::findOrFail($this->diagnostico_id);
-        $this->descripcion_medica = $diagnostico->descripcion;
-        $this->evolucion_enfermedad = $diagnostico->evolucion_enfermedad;
-
-
-
-
+    //Prescripciones
+    public function mostrarFormularioPrescripcionActualizar(){
+        $this->formularioPrescripcionActualizar = 1; 
     }
-    public function mostrarEditarPrescripcion($prescripcion_id){
-
-        $this->editarPrescripcion = 1;
-        $prescripcion = Prescripcion::findOrFail($prescripcion_id);
-        $this->prescripcion_id = $prescripcion_id; 
-        $this->indicaciones = $prescripcion->indicaciones ;
-        $this->cantidad_producto = $prescripcion->cantidad_producto;
-        $this->listaPrescripcion = 0;
-        $this->actualizarPrescripcion = 1;
+    public function ocultarFormularioPrescripcionActualizar(){
+        $this->formularioPrescripcionActualizar = 0; 
     }
-    public function actualizarPrescripcionMedica(){
 
-        $prescripcion = Prescripcion::findOrFail($this->prescripcion_id);
-        $prescripcion->indicaciones = $this->indicaciones;  
-        $prescripcion->cantidad_producto = $this->cantidad_producto;  
+    public function prescripcionLista(){
+        $this->ocultarFormularioDiagnostico();
+        $this->ocultarlistaDiagnostico();
+
+        $this->ocultarListaExamen();
+        $this->ocultarFormularioExamen();
+
+        $this->mostrarlistaPrescripcion();
+        $this->ocultarFormularioPrescripcion();
+    }
+    public function prescripcionFormulario(){
+        $this->mostrarFormularioPrescripcion();
+        $this->ocultarListaPrescripcion();   
+    }
+    public function validarPrescripcion(){
+        
+        $data = [
+          'medicamento'        => 'required',
+          'cantidad_producto'  => 'required',
+          'indicaciones'       => 'required',
+          'consulta_id'        => 'required'
+        ];
+
+        $this->validate($data);
+    }
+    public function resetearPrescripcion(){
+        $this->medicamento       =  null;
+        $this->cantidad_producto =  null;
+        $this->indicaciones      =  null;
+    }
+    public function guardarPrescripcionMedica(){
+        
+        $this->validarPrescripcion();
+
+        $prescripcion                    = new Prescripcion();
+        $prescripcion->medicamento       = $this->medicamento;
+        $prescripcion->cantidad_producto = $this->cantidad_producto;
+        $prescripcion->indicaciones      = $this->indicaciones;
+        $prescripcion->consulta_id       = $this->consulta_id;
         $prescripcion->save();
-        $this->listaPrescripcion = 1;
-        $this->actualizarPrescripcionMedica = 0;
-        $this->resetearPrescripcion();
 
+
+        $this->resetearPrescripcion();
+        $this->mostrarlistaPrescripcion();
+        $this->ocultarFormularioPrescripcion();
     }
-    public function eliminarPrescripcion($prescripcion_id){
+    public function mostrarFormularioConsulta($consulta_id){
+        $this->mostrarFormulario();
+        $this->ocultarLista();
+        $this->consulta_id = $consulta_id;
+    }
+    public function buscarPrescripcion(){
+        $prescripcion = Prescripcion::findOrFail($this->prescripcion_id);
+        $this->medicamento =  $prescripcion->medicamento;
+        $this->cantidad_producto = $prescripcion->cantidad_producto;
+        $this->indicaciones = $prescripcion->indicaciones;
+    }
+    public function prescripcionFormularioActualizar($prescripcion_id){
+        
+        $this->prescripcion_id = $prescripcion_id;
+        $this->buscarPrescripcion();
+        $this->mostrarFormularioPrescripcionActualizar();
+        $this->mostrarFormularioPrescripcion();
+        $this->ocultarlistaPrescripcion();
+    }
+    public function actualizarPrescripcionMedico(){
+        
+        $prescripcion = Prescripcion::findOrFail($this->prescripcion_id);
+        $prescripcion->medicamento = $this->medicamento;
+        $prescripcion->cantidad_producto = $this->cantidad_producto;
+        $prescripcion->indicaciones = $this->indicaciones;
+        $prescripcion->update();
+
+        $this->mostrarlistaPrescripcion();
+        $this->ocultarFormularioPrescripcion();
+        $this->resetearPrescripcion();
+    }
+    public function eliminarPrescripcionMedica($prescripcion_id){
         $prescripcion = Prescripcion::findOrFail($prescripcion_id);
         $prescripcion->delete();
     }
-
-    public function setTipoExamen( $item_id ){
-       $this->tipoExamen= $item_id;
+    public function finalizarConsultaMedica(){
+        $consulta = Consulta::findOrFail($this->consulta_id);
+        $consulta->estado_consulta = 2;
+        $consulta->update();
+        
+        $this->ocultarFormulario();
+        $this->mostrarLista();
 
     }
-    //guarda los examenes medicos
-    public function guardarExamenMedico(){
-        $examen = new Examen();
-        $examen->fecha_realizado = date('Y-m-d');
-        $examen->estado = 0;
-        $examen->descripcion = $this->descripcion_examen;
-        $examen->consulta_id = $this->consulta;
-        $examen->tipo_id = $this->tipoExamen;
-        $examen->save(); 
-
-        $this->listaExamenes =1;
-    }
-
-    // muestra el formulario de examenes
-    public function mostrarFormularioExamenes(){
-        $this->listaExamenes = 0;
-    }
-
-    
 }
-

@@ -11,7 +11,8 @@ class CreatePacientesTable extends Migration
     {
         Schema::create('pacientes', function (Blueprint $table) {
             $table->increments('id');
-            $table->boolean('estado')->default(0);
+            $table->boolean('internado')->default(0);
+            $table->string('caso')->nullable();
             $table->foreign('id')->references('id')->on('personas')->onDelete('cascade');
             $table->bigInteger('numero_seguro')->nullable();
             $table->timestamps();

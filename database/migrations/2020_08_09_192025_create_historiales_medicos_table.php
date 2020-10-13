@@ -12,11 +12,7 @@ class CreateHistorialesMedicosTable extends Migration
     {
         Schema::create('historiales_medicos', function (Blueprint $table) {
             $table->increments('id');
-            $table->float('altura');
-            $table->float('peso');
-            $table->string('tipo_sangre');
-            $table->string('alergia');
-            $table->string('enfermedad');
+            $table->string('enfermedad')->nullable();
             $table->date('fecha_registro');  
             
             

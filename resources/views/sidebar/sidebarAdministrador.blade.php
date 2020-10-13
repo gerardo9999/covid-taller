@@ -16,7 +16,7 @@
             with font-awesome or any other icon font library -->
           {{-- menu-open --}}
           <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
+            <a href="{{ route('home') }}" class="nav-link">
               <i class="nav-icon fas fa-suitcase"></i>
               <p>
                 Estadisticas
@@ -211,7 +211,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="pages/tables/simple.html" class="nav-link">
+              <a href="{{ route('reporte.diario') }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Reporte Diario</p>
               </a>

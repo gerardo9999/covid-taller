@@ -14,6 +14,7 @@ use App\Hospital;
 use App\Municipio;
 use App\Provincia;
 use App\Consulta;
+use App\Data;
 use App\HistorialMedico;
 use App\TipoExamen;
 use App\User;
@@ -148,114 +149,10 @@ class ApiController extends Controller
         ];
     }
     public function arrayProvincias(){
-        return  [
-            'Provincia Andrés Ibáñez',
-            'Provincia Ángel Sandoval',
-            'Provincia Chiquitos',
-            'Provincia Cordillera',        
-            'Provincia Florida',
-            'Provincia Germán Busch',
-            'Provincia Guarayos',
-            'Provincia Ichilo',
-            'Provincia José Miguel de Velasco',
-            'Provincia Manuel María Caballero',
-            'Provincia Ñuflo de Chávez',
-            'Provincia Obispo Santisteban',
-            'Provincia Sara',
-            'Provincia Vallegrande',
-            'Provincia Warnes',
-        ];
+        return  Data::arrayProvinicia();
     }
     public function arrayMunicipios(){
-        return [
-            [
-                'Santa Cruz de la Sierra',
-                'Cotoca',
-                'El Torno',
-                'La guardia',
-                'Porongo'
-            ],
-            [
-                'San Matías'
-            ],
-            [
-                'San José de Chiquitos',
-                'Pailón',
-                'Roboré',
-            ],
-            [
-                'Lagunillas',
-                'Boyuibe',
-                'Cabezas',
-                'Camiri',
-                'Charagua',
-                'Cuevo',
-                'Gutiérrez'
-            ],
-            [
-                'Samaipata',
-                'Mairana',
-                'Pampa grande',
-                'Quirusillas'
-            ],
-            [
-                'Puerto Suárez',
-                'Carmen Rivero',
-                'Puerto Quijarro'
-            ],
-            [
-                'Ascensión de Guarayos',
-                'El puente',
-                'Urubichá'
-            ],
-            [
-                'Buena vista',
-                'San Carlos',
-                'Yapacani',
-                'San Juan de Yapacaní'
-            ],
-            [
-                'San Ignacio de Velasco',
-                'San Miguel de Velasco',
-                'San Rafael de Velasco'
-            ],
-            [
-                'Comarapa',
-                'Saipina',
-            ],
-            [
-                'Concepción',
-                'Cuatro Cañadas',
-                'San Antonio del Lomerío',
-                'San Julián',
-                'San Ramón',
-                'San Xavier',
-            ],
-             [
-                'General Agustín Saavedra',
-                'Montero',
-                'Minero',
-                'Fernández Alonso',
-                'San Pedro',
-            ],
-             [
-                'Portachuelo',
-                'Colpa Bélgica',
-                'Santa Rosa del Sara',
-            ],
-            [
-                'Moro Moro',
-                'Ballegrande',
-                'el Trigal',
-                'Postrervalle',
-                'Cupará',
-            ],
-            [
-                'Warnes',
-                'Okinawa',
-            ],
-    
-        ];
+        return Data::arrayMunicipio();
     }
     public function arrayDistritosCantidad(){
         return [
@@ -3861,18 +3758,40 @@ class ApiController extends Controller
 
 
 
+
     
 
     public function insertarMedicos(){
 
     }
     public function insertarHospitales(){
-
+        $arrayHospitales=$this->arrayHospitales();
+        $arrayNivel=$this->arrayNivel();
+        $arrayDireccion=$this->arrayDireccion();
+        $arrayDistritos=$this->arrayDistritos();
+        $count=count($this->arrayHospitales());
+        for($i = 0; $i<$count; $i++ ){
+            $direccion=new Direccion();
+            $direccion->avenida_calle=$arrayDireccion[$i];
+            $direccion->numero_domicilio=rand(100 ,9999);
+            $direccion->barrio_zona=$arrayDireccion[$i];
+            $direccion->distrito_id=$arrayDistritos[$i];
+            $direccion->save();
+            $hospital=new Hospital();
+            $hospital->nombre=$arrayHospitales[$i];
+            $hospital->imagen='imagenes/hospital.jpg';
+            $hospital->nivel=$arrayNivel[$i];
+            $hospital->telefono=rand(61111111, 79999999);
+            $hospital->direccion_id=$direccion->id;
+            $hospital->save();
+      }
     }
     public function insertarEspecialidades(){
 
     }
 
+    
+        
 
 
 

@@ -42,6 +42,15 @@
               </p>
             </a>
           </li>
+          
+          <li class="nav-item">
+            <a href="{{ route('medico.paciente.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-suitcase"></i>
+              <p>
+                Mis Pacientes
+              </p>
+            </a>
+          </li>
 
 
           <li class="nav-item">
@@ -62,14 +71,6 @@
             </a>
           </li>
 
-          <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
-              <i class="nav-icon fas fa-suitcase"></i>
-              <p>
-                Hospitales
-              </p>
-            </a>
-          </li>
           
           {{-- Departamentos --}}
           <li class="nav-item has-treeview">

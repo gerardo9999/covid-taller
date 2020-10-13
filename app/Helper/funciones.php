@@ -9,6 +9,7 @@ use App\Hospital;
 use App\Examen;
 use App\Paciente;
 use App\HistorialMedico;
+use App\Medico;
 use App\Pais;
 use App\PDF;
 use App\Persona;
@@ -188,6 +189,7 @@ function getPregunta($id){
         $especialidades = Especialidad::all();
         return $especialidades;
     }
+
     function roles(){
         $roles = Role::all();
         return $roles;
@@ -256,13 +258,32 @@ function getPregunta($id){
     }
 
 
+    function historiales($id){
+        $historial = HistorialMedico::join('pacientes','pacientes.id','=','historiales_medicos.paciente_id')
+        ->where('pacientes.id','=',$id)->get();
 
-
-
-    function examenes(){
-        $examen = Examen::all();
-        return $examen;
+        return $historial;
     }
+
+    function examenes($id){
+        $historial = Paciente::join('consultas','consultas.paciente_id','=','pacientes.id')
+        ->join('medicos','medicos.id','=','consultas.medico_id')
+        ->join('examenes','examenes.consulta_id','=','consultas.id')
+        ->join('tipo_examen','tipo_examen.id','=','examenes.tipo_id')
+        ->select('pacientes.id as paciente_id','pacientes.numero_seguro','consultas.id as consulta_id',
+                 'consultas.fecha_registrada','consultas.fecha_programada','examenes.fecha_realizado as fecha_examen','examenes.fecha_resultado',
+                 'examenes.resultado','tipo_examen.nombre as examen'
+        )
+        ->where('pacientes.id','=',$id)->get();
+
+        return $historial;
+    }
+
+
+
+
+
+
     function consultas(){
         $consultas = Consulta::all();
         return $consultas;
@@ -418,7 +439,7 @@ function getPregunta($id){
     function examenMedico($consulta){
         $examenes = Examen::join('tipo_examen','tipo_examen.id','=','examenes.tipo_id')
         ->join('consultas','consultas.id','=','examenes.consulta_id')
-        ->select('tipo_examen.nombre as tipo_examen','examenes.fecha_realizado','examenes.descripcion')
+        ->select('examenes.id as examen_id','tipo_examen.nombre as tipo_examen','examenes.fecha_realizado','examenes.descripcion')
         ->where('examenes.consulta_id','=',$consulta)
         ->get();
         return $examenes;
@@ -491,5 +512,73 @@ function getPregunta($id){
         $apellidos = $paciente->apellidos;
         $nombreCompleto = $nombre .' '.$apellidos;
         return $nombreCompleto;
+    }
+
+
+
+    function misConsutas(){
+        $id =  Auth::id();
+
+        $paciente = Consulta::join('pacientes','pacientes.id','=','consultas.paciente_id')
+            ->join('medicos','medicos.id','=','consultas.medico_id')
+            ->where('medicos.id','=',$id)
+            ->distinct()->paginate(10);
+
+        return $paciente;
+    }   
+
+    function nombreCompletoPaciente($paciente_id){
+        $nombre = Persona::select(
+            'nombre',
+            'apellidos',
+            'ci',
+            'telefono',
+            'nacionalidad',
+            'fecha_nacimiento',
+            'sexo'
+        )
+        ->where('personas.id','=',$paciente_id)
+        ->get();
+
+        return $nombre;
+    }
+
+
+
+
+    function existeConsulta($paciente_id){
+        $sw = false;
+        $consulta = Consulta::where('paciente_id','=',$paciente_id)->get();
+        $existe = count($consulta);
+
+        if ($existe) {
+            $sw = true;
+        }
+        return $sw;
+    }
+
+    //trae la especialidad de un medico
+    function especialidad($medico_id){
+        $medico = Medico::findOrFail($medico_id);
+        $especialidad = Especialidad::findOrFail($medico->especialidad_id);
+
+        return $especialidad;
+    }
+
+    //trae el hospital de un medico
+    function hospital($medico_id){
+        $medico = Medico::findOrFail($medico_id);
+        $hospital = Hospital::findOrFail($medico->hospital_id);
+        return $hospital;
+    }
+    function usuario($persona_id){
+        $usuario = User::findOrFail($persona_id);
+        return $usuario;
+    }
+
+
+    function consulta($consulta_id){
+        $consulta = Consulta::findOrFail($consulta_id);
+        return $consulta;
     }
 ?>

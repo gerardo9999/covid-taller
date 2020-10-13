@@ -86,7 +86,6 @@
         <div class="card">
             <div class="card-footer">
                 <button type="submit" class="btn btn-success btn-sm">Guardar Registro</button>
-                <button type="reset" class="btn btn-danger btn-sm">Cancelar Registro</button>
             </div>
         </div>
         </form>
@@ -108,7 +107,7 @@
             </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
+    </div><!-- /.container-fluid -->
     </div>
         <form action="{{ route('consulta.store.medico') }}" method="post">
             @csrf
@@ -173,7 +172,8 @@
             <div class="card">
                 <div class="card-footer">
                     <button type="submit" class="btn btn-success btn-sm">Guardar Registro</button>
-                    <button type="reset" class="btn btn-danger btn-sm">Cancelar Registro</button>
+                    <a href="{{ route('consulta.index') }}" class="btn btn-danger btn-sm">Cancelar Registro</a>
+
                 </div>
             </div>
         </form>

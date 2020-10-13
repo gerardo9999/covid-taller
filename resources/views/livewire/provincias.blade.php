@@ -112,7 +112,7 @@
                               <div class="icon">
                                 <i class="ion ion-bag"></i>
                               </div>
-                              <a href="{{ route('provincias.confirmados.pdf', ['id'=>$provincia_id]) }}" class="small-box-footer">Recuperados  &nbsp;<i class="fas fa-file-pdf"></i></a>
+                              <a href="{{ route('provincias.recuperados.pdf', ['id'=>$provincia_id]) }}" class="small-box-footer">Recuperados  &nbsp;<i class="fas fa-file-pdf"></i></a>
                             </div>
                         </div>
                         <div class="col-lg-6 col-6">
@@ -124,7 +124,7 @@
                               <div class="icon">
                                 <i class="ion ion-bag"></i>
                               </div>
-                              <a href="{{ route('provincias.confirmados.pdf', ['id'=>$provincia_id]) }}" class="small-box-footer">Desesos  &nbsp;<i class="fas fa-file-pdf"></i></a>
+                              <a href="{{ route('provincias.desesos.pdf', ['id'=>$provincia_id]) }}" class="small-box-footer">Desesos  &nbsp;<i class="fas fa-file-pdf"></i></a>
                             </div>
                         </div>
                         <div class="col-lg-6 col-6">
@@ -165,10 +165,3 @@
     </div>
     @endif
 </div>
-    <script src="{{ asset('chart/Chart.min.js') }}" >
-            $(document).ready(function () {
-                var ctx = document.getElementById('myChart').getContext('2d');
-                console.log(ctx);
-                console.log('ejemplo')   
-            });
-    </script>

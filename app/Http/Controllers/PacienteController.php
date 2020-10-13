@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Caso;
+use App\Consulta;
 use App\Direccion;
 use App\Distrito;
+use App\Hospital;
+use App\Medico;
 use App\Paciente;
 use App\Persona;
+use App\Ubicacion;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,17 +18,19 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
-class PacienteController extends Controller
-{
+class PacienteController extends Controller{
+    
+    
     public function pacientes(){
-    //     $user = Auth::user();
+        //     $user = Auth::user();
 
-    // $rol = $user->roles->implode('name');
+        // $rol = $user->roles->implode('name');
 
-    // return $rol;
-
-
+        // return $rol;
         return view('sistema.modules.pacientes.index');
+    }
+    public function pacientesMedico(){
+        return view('sistema.modules.pacientes.misPacientes');
     }
     public function pacienteCreate(){
         return view('sistema.modules.pacientes.create');
@@ -74,12 +81,20 @@ class PacienteController extends Controller
 
             $paciente = new Paciente();
             $paciente->id = $user->id;
+            $paciente->internado = 0;
+            $paciente->caso = "sospechosos";
             if($request->get('numero_seguro')){
                 $paciente->numero_seguro = $request->get('numero_seguro'); 
             }else{
                 $paciente->numero_seguro = 0;
             }
             $paciente->save();
+
+            $caso = new Caso();
+            $caso->estado = 'sospechosos';
+            $caso->paciente_id = $paciente->id;
+            $caso->fecha = date('Y-m-y');
+            $caso->save();
 
             DB::commit();
         } catch (\Throwable $th) {
@@ -223,6 +238,8 @@ class PacienteController extends Controller
             $persona->sexo              = $request->get('sexo');
             $persona->direccion_id      = $direccion->id;
             $persona->save();
+
+
                         
             // $user = new User();
             // $user->id        = $persona->id;
@@ -251,4 +268,68 @@ class PacienteController extends Controller
     public function redirecionar(){
         return redirect('some/url')->compact('');
     }
+
+    public function pacienteInternado($paciente_id){
+
+        $data = Paciente::pacienteInternado($paciente_id);
+        return view('sistema\modules\cama\internado',$data);
+    }
+
+    public function pacienteInternarStore(Request $request,$paciente_id){
+
+        $medico_id = Auth::id();
+        $medico = Medico::findOrFail($medico_id);
+        $hospital = Hospital::findOrFail($medico->hospital_id);
+
+        $ubicacion = new Ubicacion();
+        $ubicacion->numero_sala = $request->numero_sala;
+        $ubicacion->numero_cama = $request->numero_cama;
+        $ubicacion->paciente_id = $paciente_id;
+        $ubicacion->hospital_id = $hospital->id;
+        $ubicacion->save();
+
+        $paciente = Paciente::findOrFail($paciente_id);
+        $paciente->internado = 1;
+        $paciente->update();
+
+        return Redirect::to('/misPacientes')->with('create','El paciente ha sido internado');
+    }
+
+    public function miMedico(){
+
+        $usuario = Auth::id();
+        $medico = Consulta::join('medicos','medicos.id','=','consultas.medico_id')
+                            ->join('pacientes','pacientes.id','=','consultas.paciente_id')
+                            ->join('personas','personas.id','=','medicos.id')
+                            ->where('pacientes.id','=',$usuario)
+                            ->select('medicos.id as medico_id','personas.nombre','personas.apellidos','personas.telefono')
+                            ->distinct()
+                            ->get();
+
+
+
+        $data = [
+            "medico"=>$medico
+        ];
+        return view('sistema.modules.mi-informacion.medico',$data);
+    }
+
+    public function misConsultas(){
+
+        return view('sistema.modules.mi-informacion.consulta');
+
+    }
+
+    public function misExamenes(){
+        // $searchText ='';
+        // return Paciente::misExamenes($searchText);
+
+        return view('sistema.modules.mi-informacion.examen');
+    }
+    public function misPrescripciones(){
+       
+        
+        return view('sistema.modules.mi-informacion.prescripcion');
+    } 
+
 }

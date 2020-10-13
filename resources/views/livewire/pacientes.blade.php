@@ -22,7 +22,7 @@
             <div class="card card-info">
                 <div class="card-header">
                     {{-- @include('sistema.modules.pacientes.create') --}}
-                    <a class="btn btn-sm btn-info" href="{{ route('paciente.create') }}">Agregar Medico</a>
+                    <a class="btn btn-sm btn-info" href="{{ route('paciente.create') }}">Agregar Paciente</a>
                     <h3 class="card-title"></h3>
             
                     <div class="card-tools">

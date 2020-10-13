@@ -90,33 +90,17 @@
                 <!-- /.tab-pane -->
                @include('sistema.modules.pacientes.historial')
 
-                <div class="tab-pane" id="examenes">
-                    <div class="card-body">
-                        <table id="tabla1" class="table table-bordered table-hover">
-                          <thead>
-                          <tr>
-                            <th>Tipo Exmane</th>
-                            <th>Resultado</th>
-                            <th>Fecha</th>
-                          </tr>
-                          </thead>
-                          <tbody>
-                              @foreach(@historial() as $historia)
-                                @if($paciente_id == $historia->paciente_id)
-                                <tr>
+               @include('sistema.modules.pacientes.examenes')
 
-                                </tr>
-                                @endif
-                              @endforeach
-                          </tbody>
-                        </table>
-                    </div>  
-                </div>
+              </div>
+              <div class="card-footer">
+                <button wire:click='mostrarListaPacientes()' class="btn btn-sm btn-success" >Volver a la lista</button>
               </div>
             </div><!-- /.card-body -->
           </div>
         </div>
         <!-- /.col -->
       </div>
+
     </div><!-- /.container-fluid -->
 </section>

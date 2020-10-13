@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Provincias</title>
+    <title>Municipios</title>
     <style>
         .titulo{
             text-align: center;
@@ -15,7 +15,7 @@
 </head>
 <body>
     <div class ="titulo">
-        <h1>{{ $provincia }}</h1>
+        <h1>{{ $municipio }}</h1>
     </div>
     <div>
         <div>

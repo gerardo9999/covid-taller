@@ -11,8 +11,7 @@
           </tr>
           </thead>
           <tbody>
-              @foreach(@historial($paciente_id) as $historia)
-                {{-- @if($paciente_id == $historia->paciente_id) --}}
+              @foreach(@historiales($paciente_id) as $historia)
                 <tr>
                     <td>{{$historia->enfermedad}}</td>
                     <td>{{$historia->alergia}}</td>
@@ -20,7 +19,6 @@
                     <td>{{$historia->altura}} m</td>
                     <td>{{$historia->fecha_registro}}</td>
                 </tr>
-                {{-- @endif --}}
               @endforeach
           </tbody>
         </table>

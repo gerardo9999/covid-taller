@@ -160,7 +160,7 @@
         </div>
         
         <div class="card-body">
-            @include('admin.components.select')
+            @include('sistema.components.select')
 
             <div class="row">
                 <div class="col-3">
@@ -252,5 +252,5 @@
 </form>
 @endsection
 @section('hospital-create')
-@include('admin.components.direccion')
+@include('sistema.components.direccion')
 @endsection

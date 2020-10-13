@@ -15,4 +15,13 @@ class Especialidad extends Model
         'nombre',
     ]; 
     public $timestamps=false; 
+
+
+    static function especialidades($searchText){
+            $especialidades = Especialidad::select('id','nombre')->orderBy('id','asc')
+            ->where('nombre','LIKE','%'.$searchText.'%')
+            ->paginate(10);
+
+            return $especialidades;
+    }
 }

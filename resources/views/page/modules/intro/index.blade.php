@@ -8,8 +8,6 @@
         <a href="{{ route('cuestionario.index') }}" class="btn-get-started scrollto">Ingresar</a>
     </div>
     <div class="product-screens">
-        
     </div>
 </section>
-
 @endsection

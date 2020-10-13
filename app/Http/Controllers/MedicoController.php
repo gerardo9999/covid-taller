@@ -17,15 +17,10 @@ use Illuminate\Support\Facades\Hash;
 class MedicoController extends Controller
 {
 
-    public function especialidades(Request $request){
-        if($request){
-            $query = trim($request->get('searchText'));
-            $especialidades = Especialidad::select('id','nombre')->orderBy('id','asc')
-            ->where('nombre','LIKE','%'.$query.'%')
-            ->paginate(10);
-        }
+    public function especialidades(){
+        
 
-        return view('admin.modules.especialidades.index',['especialidades'=>$especialidades,'searchText'=>$query]);
+        return view('sistema.modules.especialidades.index');
     }
     public function especialidadStore(Request $request){
 
@@ -50,29 +45,15 @@ class MedicoController extends Controller
     }
 
 
-    public function medicos(Request $request){
-
-        if($request){
-            $query =  trim($request->get('searchText'));
-                $medicos = Persona::join('medicos','medicos.id','=','personas.id')->paginate(10);
-
-
-            // $medicos = Persona::join('medicos','medicos.id','=','personas.id')
-            //                   ->join('users','users.id','personas.id')
-            //                   ->select('medicos.id','users.id as user_id','personas.id as persona_id','nombre','apellidos','users.avatar')
-            //                   ->where('personas.nombre','LIKE','%'.$query.'%')->paginate(5); 
-        }
-        return view('admin.modules.medicos.index',[
-            'medicos'   => $medicos,
-            'searchText'=> $query
-        ]);
+    public function medicos(){
+        return view('sistema.modules.medicos.index');
     }
     public function medicoCreate(){
         
         $especialidades = Especialidad::all();
         $hospitales = Hospital::all();
 
-        return view('admin.modules.medicos.create',[
+        return view('sistema.modules.medicos.create',[
             'hospitales' => $hospitales,
             'especialidades' => $especialidades
         ]);
@@ -111,7 +92,6 @@ class MedicoController extends Controller
             'email'             => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password'          => ['required', 'string', 'min:8'],
         ];
-        
         
         $this->validate($request,$reglas);
 
@@ -227,7 +207,7 @@ class MedicoController extends Controller
                                      users.id = personas.id AND
                                      personas.id = $id");
 
-        return view('admin.modules.medicos.update',[
+        return view('sistema.modules.medicos.update',[
             'medicos' => $medicos
         ]);
     }

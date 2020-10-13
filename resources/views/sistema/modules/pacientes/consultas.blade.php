@@ -20,12 +20,12 @@
                         <span class="badge badge-info">Espera</span>
                       </td>
                     @endif 
-                    @if ($consulta->estado_consulta == 0)
-                        <span class="badge badge-danger">Espera</span>
-                    @endif
+                    
                     @if ($consulta->estado_consulta == 2)
-                    <span class="badge badge-success">Realizada</span>
-                @endif
+                      <td>
+                        <span class="badge badge-success">Realizada</span>
+                      </td>
+                    @endif
                 </tr>
               @endforeach
           </tbody>

@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Persona;
 use App\Examen;
 use App\Consulta;
+use App\Paciente;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +15,7 @@ class Pacientes extends Component
     public $lista = 1;
     public $perfil = 0;
     public $searchText; 
-    public $paciente_id;
+    public $paciente_id = null;
     public $consultaPacientes;
     use WithPagination;
 
@@ -23,22 +24,14 @@ class Pacientes extends Component
         $paciente_id = $this->paciente_id;
         $searchText = '%'.$this->searchText.'%';
         return view('livewire.pacientes',[
-                'pacientes' => Persona::join('pacientes','pacientes.id','=','personas.id')
-                                    ->join('users','users.id','personas.id')
-                                    ->select('pacientes.id',
-                                             'users.id as user_id',
-                                             'personas.id as persona_id',
-                                             'nombre','apellidos',
-                                             'users.avatar')
-                                    ->where('nombre','LIKE','%'.$searchText.'%')
-                                    ->orWhere('apellidos','LIKE','%'.$searchText.'%')
-                                    ->orWhere('pacientes.numero_seguro','LIKE','%'.$searchText.'%')
-                                    ->orWhere('ci','LIKE','%'.$searchText.'%')
-                                    ->paginate(10)
-                                    
+                'pacientes' => Paciente::pacientes($searchText),
         ]);
     }
 
+
+    public function buscarDatosPaciente(){
+        $paciente = Paciente::findOrFail($this->paciente_id);
+    }
 
     public function mostrarPerfil($id){
         $this->perfil = 1;
@@ -52,9 +45,14 @@ class Pacientes extends Component
     }
     public function consultasPaciente(){
         $consultas= Consulta::join('examenes','examenes.consulta_id','consultas.id')
-                                    ->join('pacientes','pacientes.id','=','consultas.paciente_id')->where('pacientes.id','=',3)->get();
+                                    ->join('pacientes','pacientes.id','=','consultas.paciente_id')
+                                    ->where('pacientes.id','=',$this->paciente_id)->get();
 
         $this->consultaPacientes = $consultas;
                
+    }
+    public function mostrarListaPacientes(){
+        $this->lista=1;
+        $this->perfil=0;
     }
 }
