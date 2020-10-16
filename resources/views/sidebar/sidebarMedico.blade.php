@@ -24,15 +24,14 @@
             </a>
           </li>
 
-          {{-- <li class="nav-item">
-            <a href="pages/gallery.html" class="nav-link">
+          <li class="nav-item">
+            <a href="" class="nav-link">
               <i class="nav-icon fas fa-suitcase"></i>
               <p>
-                Medicos
+                Tratamiento Medico
               </p>
             </a>
-          </li> --}}
-
+          </li>
 
           <li class="nav-item">
             <a href="{{ route('paciente.index') }}" class="nav-link">

@@ -79,17 +79,8 @@ class CuestionarioController extends Controller
     
             $user->assignRole('paciente');
 
-            $paciente = new Paciente();
-            $paciente->id = $user->id;
-            if($request->get('numero_seguro')){
-                $paciente->numero_seguro = $request->get('numero_seguro'); 
-            }else{
-                $paciente->numero_seguro = 0;
-            }
-            $paciente->save();
-
        
-            return Redirect::to('/preguntas')->with('paciente',$paciente);
+            return Redirect::to('/preguntas')->with('persona',$persona);
     }
 
     public function detalleCuestionario(Request $request,$id){

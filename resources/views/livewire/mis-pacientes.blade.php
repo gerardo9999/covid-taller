@@ -68,6 +68,9 @@
                                             <a class="btn btn-sm btn-info" href="{{ route('consulta.paciente.create', ['id'=>$item->paciente_id]) }}">
                                                 <i class="fa fa-h-square"></i>
                                             </a>
+                                            <a class="btn btn-sm btn-success" href="{{ route('consulta.paciente.create', ['id'=>$item->paciente_id]) }}">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
                                         </td>
                                     @else
                                         <td><span class="badge badge-success">No</span></td>
@@ -78,6 +81,9 @@
                                             </a> 
                                              <a class="btn btn-sm btn-danger" href="{{ route('paciente.hospital', ['id'=>$item->paciente_id]) }}">
                                                 <i class="fa fa-hospital"></i>
+                                            </a>
+                                            <a class="btn btn-sm btn-success" href="{{ route('consulta.paciente.create', ['id'=>$item->paciente_id]) }}">
+                                                <i class="fa fa-eye"></i>
                                             </a>
                                         </td>
                                     @endif

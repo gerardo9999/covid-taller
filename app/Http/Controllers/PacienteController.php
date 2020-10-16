@@ -239,6 +239,7 @@ class PacienteController extends Controller{
             $persona->direccion_id      = $direccion->id;
             $persona->save();
 
+            
 
                         
             // $user = new User();

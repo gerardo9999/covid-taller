@@ -16,7 +16,6 @@ class CreateDiagnosticosTable extends Migration
         Schema::create('diagnosticos', function (Blueprint $table) {
             $table->increments('id');
             $table->string('descripcion');
-            $table->string('evolucion_enfermedad');
             $table->integer('consulta_id')->unsigned();
             $table->foreign('consulta_id')->references('id')->on('consultas')->onDelete('cascade');
             $table->timestamps();

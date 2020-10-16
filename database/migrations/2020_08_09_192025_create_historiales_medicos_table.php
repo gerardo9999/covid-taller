@@ -15,7 +15,6 @@ class CreateHistorialesMedicosTable extends Migration
             $table->string('enfermedad')->nullable();
             $table->date('fecha_registro');  
             
-            
             $table->integer('paciente_id')->unsigned();
             $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
             $table->timestamps();

@@ -10,6 +10,7 @@ use App\Examen;
 use App\Paciente;
 use App\HistorialMedico;
 use App\Medico;
+use App\Municipio;
 use App\Pais;
 use App\PDF;
 use App\Persona;
@@ -495,6 +496,31 @@ function getPregunta($id){
         
         return $query;
     }
+    //Cuenta cuantos hay actualmente en una provincia
+    function countCasosActualesProvincias($id,$caso){
+        $fecha = date('Y-m-d');
+        $query =  Caso::join('pacientes','pacientes.id','casos.paciente_id')
+                ->join('personas','personas.id','=','pacientes.id')
+                ->join('direcciones','direcciones.id','=','personas.direccion_id')
+                ->join('distritos','distritos.id','=','direcciones.distrito_id')
+                ->join('municipios','municipios.id','=','distritos.municipio_id')
+                ->join('provincias','provincias.id','=','municipios.provincia_id')
+                ->select( 'casos.estado',
+                        'casos.fecha',
+                        'personas.nombre',
+                        'personas.apellidos',
+                        'direcciones.avenida_calle',
+                        'distritos.nombre as distrito',
+                        'municipios.nombre as municipio',
+                        'provincias.nombre as provincia'
+                        )
+                ->where('provincias.id','=',$id)
+                ->where('casos.estado','=',$caso)
+                ->where('casos.fecha','=',$fecha)
+            ->get();
+        $count = count($query);
+        return $count;
+    }
 
     function totalCasosActuales($data){
         $total = count($data);
@@ -514,6 +540,31 @@ function getPregunta($id){
         return $nombreCompleto;
     }
 
+
+    function covidActuales($estado){
+        $fecha = date('Y-m-d');
+        
+        if($estado == 'confirmados'){
+            $infectados = Caso::where('estado','=',$estado)->where('casos.fecha','=',$fecha)->get();
+        }
+        if($estado == 'sospechosos'){
+            $infectados = Caso::where('estado','=',$estado)->where('casos.fecha','=',$fecha)->get();
+        }
+        if($estado == 'recuperados'){
+            $infectados = Caso::where('estado','=',$estado)->where('casos.fecha','=',$fecha)->get();
+        }
+        if($estado == 'desesos'){
+            $infectados = Caso::where('estado','=',$estado)->where('casos.fecha','=',$fecha)->get();
+        }
+        if($estado == 'descartados'){
+            $infectados = Caso::where('estado','=',$estado)->where('casos.fecha','=',$fecha)->get();
+        }
+        if($estado == 'descartados'){
+            $infectados = Caso::where('estado','=',$estado)->where('casos.fecha','=',$fecha)->get();
+        }
+
+        return count($infectados);
+    }
 
 
     function misConsutas(){
@@ -581,4 +632,61 @@ function getPregunta($id){
         $consulta = Consulta::findOrFail($consulta_id);
         return $consulta;
     }
+
+
+
+
+
+
+
+
+
+    function dataProvincia(){
+        $provincias = Provincia::all();
+        $arrayProvincia=[];
+        foreach ($provincias as $key => $provincia) {
+            array_push($arrayProvincia,$provincia->nombre);
+        }
+
+        return $arrayProvincia;
+    }
+    function dataMunicipio(){
+        $municipios = Municipio::all();
+        $arrayMunicipio=[];
+        foreach ($municipios as $key => $municipio) {
+            array_push($arrayMunicipio,$municipio->nombre);
+
+        }
+        return $arrayMunicipio;
+    }
+
+
+    
+    function countCasosActualesMunicipio($caso,$id){
+        $fecha = date('Y-m-d');
+        $query =  Caso::join('pacientes','pacientes.id','casos.paciente_id')
+                ->join('personas','personas.id','=','pacientes.id')
+                ->join('direcciones','direcciones.id','=','personas.direccion_id')
+                ->join('distritos','distritos.id','=','direcciones.distrito_id')
+                ->join('municipios','municipios.id','=','distritos.municipio_id')
+                ->join('provincias','provincias.id','=','municipios.provincia_id')
+                ->select( 'casos.estado',
+                        'casos.fecha',
+                        'personas.nombre',
+                        'personas.apellidos',
+                        'direcciones.avenida_calle',
+                        'distritos.nombre as distrito',
+                        'municipios.nombre as municipio',
+                        'provincias.nombre as provincia'
+                        )
+                ->where('municipios.id','=',$id)
+                ->where('casos.estado','=',$caso)
+                ->where('casos.fecha','=',$fecha)
+            ->get();
+        $count = count($query);
+        return $count;
+    }
+
+
+    
 ?>

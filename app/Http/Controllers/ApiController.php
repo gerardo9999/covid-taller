@@ -3665,7 +3665,7 @@ class ApiController extends Controller
 
         $formato = 'Y-m-d';
         
-        $fechaCaso    = '2020-10-02';
+        $fechaCaso    = '2020-10-15';
         $numeroCasos = 20;
         $casos = "confirmados";
 
@@ -3721,6 +3721,8 @@ class ApiController extends Controller
             $paciente =  new Paciente();
             $paciente->numero_seguro = rand(555555555,999999999);
             $paciente->id =  $user->id;
+            $paciente->caso =  $casos;
+            $paciente->internado =  false;
             $paciente->save();
 
             $caso = new Caso();
