@@ -45,6 +45,7 @@
                                 @endif
 
 
+                                
                                     @if ($item->internado)
                                         <td><span class="badge badge-danger">Si</span></td>
                                         <td>
