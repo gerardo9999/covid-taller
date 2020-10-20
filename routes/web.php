@@ -63,7 +63,7 @@ Route::get('/consultas/create','ConsultaController@create')->name('consulta.crea
 Route::post('/consultas/store','ConsultaController@storeConsulta')->name('consulta.store');
 Route::get('/consultas/edit/{id}','ConsultaController@editConsulta')->name('consulta.edit');
 
-Route::get('/consultas/create/{id}','ConsultaController@createConsultaPaciente')->name('consulta.paciente.create');
+// Route::get('/consultas/create/{id}','ConsultaController@createConsultaPaciente')->name('consulta.paciente.create');
 
 
 Route::post('/consultas/delete/{id}','ConsultaController@deleteConsultaMedico')->name('consulta.delete.medico');
@@ -112,10 +112,8 @@ Route::get('/paciente/consulta', 'PacienteController@misConsultas')->name('pacie
 Route::get('/paciente/examen', 'PacienteController@misExamenes')->name('paciente.examen.index');
 Route::get('/paciente/prescripcion', 'PacienteController@misPrescripciones')->name('paciente.prescripcion.index');
 
-// paceinte.medico.index
-
-
-Route::get('/pacientes/hospital/{id}', 'PacienteController@pacienteInternado')->name('paciente.hospital');
+// Route::get('/pacientes/hospital/{id}', 'PacienteController@pacienteInternado')->name('paciente.hospital');
+Route::get('/pacientes/tratamiento/{id}', 'PacienteController@pacienteTratamiento')->name('paciente.tratamiento.create');
 
 
 
@@ -172,14 +170,26 @@ Route::name('miPrescripcion.pdf')->get('/miPrescripcion/pdf/{id}', 'GeneradorPDF
 Route::name('miExamen.pdf')->get('/miExamen/pdf/{id}', 'GeneradorPDFController@miExamenPDF');
 
 // 
+//Medicamentos
+Route::name('medicamento.index')->get('/medicamentos', 'MedicamentoController@index');
+Route::name('medicamento.store')->post('/medicamentos/store', 'MedicamentoController@store');
+Route::post('/medicamentos/destroy/{id}', 'MedicamentoController@destroy')->name('medicamento.destroy');
+Route::post('/medicamentos/update/{id}', 'MedicamentoController@update')->name('medicamento.update');
 
 
+// Tratamientos
+Route::name('tratamiento.index')->get('/tratamientos', 'TratamientoController@index');
+Route::post('/tratamientos/destroy/{id}', 'TratamientoController@destroy')->name('tratamiento.destroy');
+Route::post('/tratamientos/create', 'TratamientoController@create')->name('tratamiento.create');
 
-
+// tratamiento.destroy
 
 Route::get('/reporte/diario' ,'ReporteController@reporteDiario')->name('reporte.diario');
 Route::get('/reporte/mensual','ReporteController@reporteMensual')->name('reporte.mensual');
 // reporteDiario()
+
+
+
 
 
 

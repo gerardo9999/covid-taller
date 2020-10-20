@@ -146,7 +146,6 @@
                         <thead>
                             <tr>
                                 <th>Descripcion</th>
-                                <th>Evolucion</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
@@ -154,7 +153,6 @@
                             @foreach (@diagnosticoConsulta($consulta_id) as $item)
                                 <tr>
                                     <td>{{ $item->descripcion }}</td>
-                                    <td>{{ $item->evolucion_enfermedad }}</td>
                                     <td>
                                         <button class="btn btn-sm btn-success" wire:click='diagnosticoFormularioActualizar({{ $item->id }})'><i class="fas fa-edit"></i></button>
                                         <a href="{{ route('diagnostico.pdf', ['id'=>$item->id]) }}" class="btn btn-sm btn-info"><i class="fas fa-file-pdf"></i></a>
@@ -197,13 +195,7 @@
                                 <small><strong><p style="color: red">{{ $message }}</p></strong></small>
                             @enderror
                         </div>
-                        <div class="form-group row">
-                            <label for="evolucion_enfermedad">Evolucion Enfermedad </label>
-                            <input wire:model="evolucion_enfermedad" type="text" id="evolucion_enfermedad"  class="form-control form-control-sm @error('evolucion_enfermedad') is-invalid @enderror" placeholder="Escribe la evolucion de la enfermedad">
-                            @error('evolucion_enfermedad')
-                                <small><strong><p style="color: red">{{ $message }}</p></strong></small>
-                            @enderror
-                        </div>
+                        
 
                         <div class="border">
                             @if ($formularioDiagnosicoActualizar)

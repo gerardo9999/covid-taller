@@ -102,15 +102,15 @@
 
 {{-- Provincia --}}
 <script>
-    var provincia1  = @json(@countCasosActualesProvincias(1,'confirmados'));
-    var provincia2  = @json(@countCasosActualesProvincias(2,'confirmados'));
-    var provincia3  = @json(@countCasosActualesProvincias(3,'confirmados'));
-    var provincia4  = @json(@countCasosActualesProvincias(4,'confirmados'));
-    var provincia5  = @json(@countCasosActualesProvincias(5,'confirmados'));
-    var provincia6  = @json(@countCasosActualesProvincias(6,'confirmados'));
-    var provincia7  = @json(@countCasosActualesProvincias(7,'confirmados'));
-    var provincia8  = @json(@countCasosActualesProvincias(8,'confirmados'));
-    var provincia9  = @json(@countCasosActualesProvincias(9,'confirmados'));
+    var provincia1   = @json(@countCasosActualesProvincias(1,'confirmados'));
+    var provincia2   = @json(@countCasosActualesProvincias(2,'confirmados'));
+    var provincia3   = @json(@countCasosActualesProvincias(3,'confirmados'));
+    var provincia4   = @json(@countCasosActualesProvincias(4,'confirmados'));
+    var provincia5   = @json(@countCasosActualesProvincias(5,'confirmados'));
+    var provincia6   = @json(@countCasosActualesProvincias(6,'confirmados'));
+    var provincia7   = @json(@countCasosActualesProvincias(7,'confirmados'));
+    var provincia8   = @json(@countCasosActualesProvincias(8,'confirmados'));
+    var provincia9   = @json(@countCasosActualesProvincias(9,'confirmados'));
     var provincia10  = @json(@countCasosActualesProvincias(10,'confirmados'));
     var provincia11  = @json(@countCasosActualesProvincias(11,'confirmados'));
     var provincia12  = @json(@countCasosActualesProvincias(12,'confirmados'));
@@ -179,11 +179,8 @@
 
 {{-- Municipio --}}
 <script>
-    var confirmados = @json(@covidActuales('confirmados'));
-    var recuperados = @json(@covidActuales('recuperados'));
-    var sospechosos = @json(@covidActuales('sospechosos'));
-    var descartados = @json(@covidActuales('descartados'));
-    var desesos     = @json(@covidActuales('desesos'));
+    // countCasosActualesMunicipio($caso,$id)
+    var municipio1   = @json(@countCasosActualesMunicipio('confirmados',1));
     var dataMunicipio = @json(@dataMunicipio());
 
     var ctx = document.getElementById('chartMunicipio').getContext('2d');
@@ -212,7 +209,7 @@
                     'rgba(255, 159, 64, 1)'
                 ],
                 borderWidth: 1
-            }]
+            }];
         },
         options: {
             scales: {
@@ -226,71 +223,5 @@
     });
 </script>
 
-<script>
-      var $visitorsChart = $('#visitors-chart')
-  var visitorsChart  = new Chart($visitorsChart, {
-    data   : {
-      labels  : ['18th', '20th', '22nd', '24th', '26th', '28th', '30th'],
-      datasets: [{
-        type                : 'line',
-        data                : [100, 120, 170, 167, 180, 177, 160],
-        backgroundColor     : 'transparent',
-        borderColor         : '#007bff',
-        pointBorderColor    : '#007bff',
-        pointBackgroundColor: '#007bff',
-        fill                : false
-        // pointHoverBackgroundColor: '#007bff',
-        // pointHoverBorderColor    : '#007bff'
-      },
-        {
-          type                : 'line',
-          data                : [60, 80, 70, 67, 80, 77, 100],
-          backgroundColor     : 'tansparent',
-          borderColor         : '#ced4da',
-          pointBorderColor    : '#ced4da',
-          pointBackgroundColor: '#ced4da',
-          fill                : false
-          // pointHoverBackgroundColor: '#ced4da',
-          // pointHoverBorderColor    : '#ced4da'
-        }]
-    },
-    options: {
-      maintainAspectRatio: false,
-      tooltips           : {
-        mode     : mode,
-        intersect: intersect
-      },
-      hover              : {
-        mode     : mode,
-        intersect: intersect
-      },
-      legend             : {
-        display: false
-      },
-      scales             : {
-        yAxes: [{
-          // display: false,
-          gridLines: {
-            display      : true,
-            lineWidth    : '4px',
-            color        : 'rgba(0, 0, 0, .2)',
-            zeroLineColor: 'transparent'
-          },
-          ticks    : $.extend({
-            beginAtZero : true,
-            suggestedMax: 200
-          }, ticksStyle)
-        }],
-        xAxes: [{
-          display  : true,
-          gridLines: {
-            display: false
-          },
-          ticks    : ticksStyle
-        }]
-      }
-    }
-  })
-})
-</script>
+
 @endsection

@@ -1,4 +1,4 @@
 @extends('principal.index')
 @section('content')
-    @livewire('mis-pacientes')
+    @livewire('medicamentos')
 @endsection

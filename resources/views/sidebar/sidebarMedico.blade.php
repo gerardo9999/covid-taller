@@ -25,7 +25,16 @@
           </li>
 
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{ route('medicamento.index') }}" class="nav-link">
+              <i class="nav-icon fas fa-suitcase"></i>
+              <p>
+                Medicamentos
+              </p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ route('tratamiento.index') }}" class="nav-link">
               <i class="nav-icon fas fa-suitcase"></i>
               <p>
                 Tratamiento Medico

@@ -11,6 +11,7 @@ use App\Distrito;
 use App\Especialidad;
 use App\Examen;
 use App\Hospital;
+use App\MedicamentoTratamiento;
 use App\Medico;
 use App\Paciente;
 use App\PDF;
@@ -29,6 +30,31 @@ class PruebaControlle extends Controller
 {
     public function prueba(){
         
+
+
+        $tratamiento_id =1;
+
+        $detalle = MedicamentoTratamiento::join('tratamientos',
+                                                'tratamientos.id','=','medicamento_tratamiento.tratamiento_id')
+                                           ->join('medicamentos',
+                                                'medicamentos.id','=','medicamento_tratamiento.medicamento_id')
+                                           ->select('medicamento_tratamiento.indicaciones as indicacion',
+                                                    'medicamento_tratamiento.cantidad',
+                                                    'medicamentos.nombre as medicamento'
+                                            )->where('medicamento_tratamiento.tratamiento_id','=',$tratamiento_id)->get();
+                                        
+
+        return $detalle;
+        
+
+
+
+
+
+
+
+
+
         $id = 3 ;
         $caso = 'confirmados';
 
@@ -486,10 +512,10 @@ class PruebaControlle extends Controller
 
         $formato = 'Y-m-d';
         
-        $fechaCaso    = '2020-03-19';
+        $fechaCaso    = '2020-10-17';
         $numeroCasos = 2;
         $internados = "si";
-        $casos = "confirmado";
+        $casos = "confirmados";
 
         
        

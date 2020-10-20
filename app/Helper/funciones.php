@@ -3,12 +3,15 @@
 use App\Caso;
 use App\Consulta;
 use App\Departamento;
+use App\Tratamiento;
 use App\Diagnostico;
 use App\Especialidad;
 use App\Hospital;
 use App\Examen;
 use App\Paciente;
 use App\HistorialMedico;
+use App\Medicamento;
+use App\MedicamentoTratamiento;
 use App\Medico;
 use App\Municipio;
 use App\Pais;
@@ -423,7 +426,8 @@ function getPregunta($id){
     function diagnosticoConsulta($consulta){
         
         $diagnostico = Diagnostico::join('consultas','consultas.id','=','diagnosticos.consulta_id')
-        ->select('consultas.id as consulta_id','diagnosticos.descripcion','diagnosticos.evolucion_enfermedad','diagnosticos.id')
+        ->select('consultas.id as consulta_id','diagnosticos.descripcion',
+        'diagnosticos.id')
         ->where('diagnosticos.consulta_id','=',$consulta)
         ->get();
 
@@ -659,8 +663,6 @@ function getPregunta($id){
         }
         return $arrayMunicipio;
     }
-
-
     
     function countCasosActualesMunicipio($caso,$id){
         $fecha = date('Y-m-d');
@@ -688,5 +690,37 @@ function getPregunta($id){
     }
 
 
+
+
+
+    // medicamentos
+    function medicamentos(){
+        return Medicamento::all();
+    }
+
+
+
+
+
+
+    function detalleTratamiento($tratamiento_id){
+        $detalle = MedicamentoTratamiento::join('tratamientos',
+                                                'tratamientos.id','=','medicamento_tratamiento.tratamiento_id')
+                                           ->join('medicamentos',
+                                                'medicamentos.id','=','medicamento_tratamiento.medicamento_id')
+                                           ->select('medicamento_tratamiento.indicaciones as indicacion',
+                                                    'medicamento_tratamiento.cantidad',
+                                                    'medicamentos.nombre as medicamento'
+                                            )->where('medicamento_tratamiento.tratamiento_id','=',$tratamiento_id)->get();
+                                        
+
+        return $detalle;
+
+    }
+
+    function tratamientos(){
+        $tratamiento = Tratamiento::all();
+        return $tratamiento;
+    }
     
 ?>

@@ -1,0 +1,851 @@
+Modelo de Calidad Mc Call
+Es uno de los modelos de calidad más conocidos  que definen factores cualitativos que afectan la calidad del software, este modelo define factores, criterios, y métricas con  estructuras jerárquicas, donde los elementos de nivel superior son mucho más abstractos que los del nivel inferior que son más específicos y pueden ser medidos con facilidad.
+Las ventajas del modelo son:
+
+-          Se enfoca en el modelo final identificando los atributos claves desde el punto de vista del usuario.
+
+-          Identifica una serie de criterios, tales como rastreabilidad, simplicidad, capacidad de expansión, etc.
+
+Las desventajas del modelo son:
+
+-          No siempre existe una relación perfectamente lineal entre los valores métricos y las características que se deben estimar.
+
+La idea del modelo es la descomposición del concepto genérico de calidad en tres capacidades importantes para un producto software y a su vez cada capacidad se descompone en un conjunto de factores y finalmente se definen criterios para evaluar el factor a través de métricas que indican en qué medida el sistema posee una característica dada.
+
+ En la Tabla  se presentan detalladamente las capacidades y factores propuestos por McCall.
+
+CAPACIDAD
+
+FACTOR
+
+Métrica
+
+Operación
+
+Corrección: Grado de cumplimiento de las especificaciones y objetivos del usuario
+
+Compleción
+
+Consistencia
+
+Trazabilidad
+
+Confiabilidad: Grado en el sistema está disponible para usarse.
+
+Complejidad
+
+Consistencia
+
+Exactitud
+
+Modularidad
+
+Simplicidad
+
+Tolerancia a errores
+
+Usabilidad: Grado de esfuerzo necesario que se requiere para aprender a utilizarlo.
+
+ Facilidad de formación
+
+Operatividad
+
+Integridad o Seguridad: Grado en el que se controla el acceso al programa o los datos por usuarios no autorizados.
+
+Facilidad de auditoria
+
+Instrumentación
+
+Seguridad
+
+ 
+
+Eficiencia o Performance: Cantidad de recursos y código requeridos por un programa para realizar una función.
+
+Concisión
+
+Eficiencia de ejecución.
+
+Operatividad
+
+ 
+
+Transición
+
+Portabilidad: Grado que mide el esfuerzo para migrar un programa de un entorno de operación a otro.
+
+Auto documentación
+
+Generalidad
+
+Modularidad
+
+ 
+
+Reusabilidad: Grado de esfuerzo requerido para que el programa o una de sus partes pueda ser utilizado en otro proyecto.
+
+Auto documentación
+
+Generalidad
+
+Independencia hardware
+
+Independencia del sistema
+
+Modularidad
+
+ 
+
+Interoperabilidad: Grado de esfuerzo dedicado para que un sistema o programa pueda operar conjuntamente con otro.
+
+Estd. Comunicaciones
+
+Estandarización de datos
+
+ 
+
+Revisión
+
+Facilidad Mantenimiento: Esfuerzo requerido para localizar y corregir un error en un programa en funcionamiento.
+
+Auto documentación
+
+Concisión
+
+Consistencia
+
+Instrumentación
+
+Modularidad
+
+Simplicidad
+
+ 
+
+Flexibilidad: Esfuerzo requerido para modificar un software en funcionamiento.
+
+Auto documentación
+
+Capacidad de expansión
+
+Complejidad
+
+Concisión
+
+Consistencia
+
+Generalidad
+
+Modularidad
+
+Simplicidad
+
+ 
+
+Facilidad de Prueba: Grado de esfuerzo requerido para probar un programa verificando que realice adecuadamente sus funciones.
+
+Auto documentación
+
+Complejidad
+
+Facilidad de auditoria
+
+Instrumentación
+
+Modularidad
+
+Simplicidad
+
+
+Métrica: Representa medidas indirectas que permiten medir la calidad a través de la manifestación visible de cada factor.
+A continuación se nombra cada uno de los parámetros de la métrica con su significado:
+
+Métrica
+
+Significado
+
+Auto documentación
+
+Grado en que el código fuente brinda información de documentación importante.
+
+Capacidad de expansión
+
+Grado permitido de ampliación del diseño de la arquitectura de datos o procedural.
+
+Compleción de las funciones
+
+Grado en que se pudieron implementar las funciones requeridas.
+
+Complejidad
+
+Complejidad del sistema
+
+Concisión
+
+Densidad del programa en relación a las líneas de código.
+
+Consistencia
+
+Diseño uniforme del programa empleando técnicas de documentación.
+
+Eficiencia de ejecución
+
+Rendimiento en tiempo de ejecución
+
+Estandarización de comunicaciones
+
+Grado de uso de estándares y protocolos.
+
+Estandarización de datos y estructuras
+
+Manejo de tipos de datos y estructuras uniformes a lo largo del programa.
+
+Exactitud de cálculo y de control
+
+Precisión obtenida en los cálculos
+
+Facilidad de auditoría
+
+Facilidad de comprobación
+
+Independencia del hardware
+
+Grado de desacople del software en relación al
+
+Hardware donde opera.
+
+Independencia del software
+
+Grado de independencia del software en relación al sistema operativo, y otras
+
+Limitaciones del entorno.
+
+Instrumentación
+
+Grado de auto-vigilancia en el funcionamiento
+
+e identificaciones de errores.
+
+Modularidad
+
+Independencia funcional de los componentes.
+
+Operatividad
+
+Facilidad de operación
+
+Seguridad
+
+Disponibilidad de elementos de protección del programa y la información.
+
+Simplicidad
+
+Grado de la dificultad para entender el
+
+Software.
+
+Tolerancia a errores
+
+Grado de afectación causado por un error.
+
+Trazabilidad
+
+Capacidad de seguimiento y asociación de los requisitos con los elementos de diseño.
+
+El modelo de Calidad Mc Call esta planteado desde la perspectiva del usuario presentándose cuestionamientos en cada uno de sus capacidades, así:
+OPERACIÓN
+Corrección: El software hace lo que necesito?
+Fiabilidad: Lo Hace de forma exacta siempre?
+Eficiencia: Aprovecha el hardware lo mejor posible?
+Integridad: Es seguro?
+Facilidad de Uso: Lo puedo usar con facilidad?
+REVISION
+Facilidad de prueba: Se puede probar?
+Flexibilidad: Se puede modificar?
+Facilidad de mantenimiento: Que tan difícil es arreglarlo?
+TRANSICION
+Portabilidad: Se puede usar en otra maquina?
+Reusabilidad: Se puede reutilizar parte del Software?
+Interoperabilidad: Se puede comunicar con otros sistemas?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+9. Cómo emplear el modelo de mccall.
+
+Antes de comenzar a utilizar el modelo de McCall hay que seguir las siguientes pautas:
+
+Se aceptan los factores, criterios y métricas que propone el modelo.
+Se aceptan las relaciones entre factores y criterios, y entre criterios y métricas.
+Se selecciona un subconjunto de factores de calidad sobre los que aplicar los requisitos de calidad establecidos para el proyecto.
+Al comienzo del proyecto habrá que especificar los requisitos de calidad del producto software, para lo cual se seleccionarán los aspectos inherentes a la calidad deseada del producto, teniendo que considerarse para ello:
+
+Las características particulares del propio producto que se está diseñando: por ejemplo, su ciclo de vida que si se espera que sea largo implicará un mayor énfasis en la facilidad de mantenimiento y la flexibilidad, o bien si el sistema en desarrollo está destinado a un entorno donde el hardware evoluciona rápidamente implicará como requisito su portabilidad, ...
+La relación calidad-precio, que puede evaluarse a través del coste de cada factor de calidad frente al beneficio que proporciona. La siguiente tabla muestra la relación calidad-precio para cada factor considerado:
+Factor
+
+Beneficio / coste
+
+Corrección
+
+alto
+
+Fiabilidad
+
+alto
+
+Eficiencia
+
+bajo
+
+Integridad
+
+bajo
+
+Facilidad de uso
+
+medio
+
+Facilidad de mantenimiento
+
+alto
+
+Facilidad de prueba
+
+alto
+
+Flexibilidad
+
+medio
+
+Portabilidad
+
+medio
+
+Reusabilidad
+
+medio
+
+Interoperabilidad
+
+bajo
+
+La determinación de las etapas del ciclo de vida donde es necesario evaluar cada factor de calidad para conocer en cuales se dejan sentir más los efectos de una calidad pobre
+ con respecto a cada uno de los factores.
+Las propias interrelaciones entre los factores debido a que algunos factores pueden entrar en conflicto entre sí: por ejemplo, la eficiencia plantea conflictos prácticamente 
+con todos los demás factores de calidad. La interacción entre los diversos factores a evaluar queda reflejada en la tabla I que indica la dependencia entre los factores de 
+McCall.
+También habrá que establecer valores deseables para los criterios, para lo cual se emplearán datos históricos, el promedio en la industria, ....
+ y con ellos se concretarán los valores finales y otros intermedios o predictivos en cada período de medición durante el desarrollo, así como unos valores mínimos aceptables.
+  La explicación para cualquier selección o decisión deberá ser adecuadamente documentada.
+
+En la fase de desarrollo será necesario implementar las métricas elegidas, analizar sus resultados y tomar medidas correctivas cuando los valores obtenidos estén por debajo 
+de los mínimos aceptables.
+
+Una vez finalizado el proyecto será necesario contrastar las medidas predictivas utilizadas y comprobar si, en efecto, se pueden tomar como indicadores de los valores finales.
+
+
+
+10. Conclusiones.
+
+Como se ha visto a lo largo de esta exposición, hoy día se comienza a imponer la obligación de normas de calidad del software donde un fallo en la información,
+ o en el tratamiento de ésta puede llevar a fallos catastróficos y de consecuencias imprevisibles. Por ello las organizaciones están exigiendo controles de calidad 
+ más rigurosos en la confección de su software.
+
+Hoy día el tener implantados sistemas de calidad en la empresa, debe llevar no solo él tener que instalar la metodología del sistema de calidad sino también sistemas 
+de información que controlen y coordinen el sistema, sistemas automáticos, sistemas documentales, etc. Por todo ello la implantación de sistemas de calidad en cualquier 
+empresa u organización debe implicar que también el software que empleen los posea, y ello repercute en la obligación de que sus proveedores de software los hayan empeado
+ en la elaboración de sus productos. De esa forma se evitarían defectos provenientes de los sistemas de información.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TOBIAS AHLIN
+Overview
+Blog
+Tutorials
+Speaking
+Moving Letters TypeSource SpinKit
+ BLOG
+
+ 
+Search…
+10 Chart.js example charts to get you started
+10 Graph.js example graphs
+Chart.js is a powerful data visualization library, but I know from experience that it can be tricky to just get started and get a graph to show up. There are all sorts of things that can wrong, and I often just want to have something working so I can start tweaking it.
+
+This is a list of 10 working graphs (bar chart, pie chart, line chart, etc.) with colors and data set up to render decent looking charts that you can copy and paste into your own projects, and quickly get going with customizing and fine-tuning to make them fit your style and purpose.
+
+To use these examples, make sure to also include Chart.js:
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+These are the graphs that we’ll go through (click to get to the code):
+
+Bar chart
+Bar chart
+Line chart
+Line chart
+Pie chart
+Pie chart
+Radar chart
+Radar chart
+Polar area chart
+Polar area
+Doughnut chart
+Doughnut chart
+Horizontal bar chart
+Horizontal bars
+Grouped bar chart
+Grouped bars
+Mixed chart
+Mixed charts
+Bubble chart
+Bubble chart
+1. Bar chart#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#1-bar-chart
+
+Bar charts are created by setting type to bar (to flip the direction of the bars, set type to horizontalBar). The colors of the bars are set by passing one color to backgroundColor (all bars will have the same color), or an array of colors.
+
+If you’re passing an array (like in the example below), the colors are assigned to the label and number that share the same index in their respective arrays. I.e., below, “Africa” being the first label, will be set to #3e95cd (the first color), and 2478 (the first number).
+
+Bar chart HTML & JavaScript#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#bar-chart-html--javascript
+<canvas id="bar-chart" width="800" height="450"></canvas>
+// Bar chart
+new Chart(document.getElementById("bar-chart"), {
+    type: 'bar',
+    data: {
+      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          data: [2478,5267,734,784,433]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Predicted world population (millions) in 2050'
+      }
+    }
+});
+2. Line chart#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#2-line-chart
+
+Line charts are created by setting type to line. By default, lines come with a dark transparent fill, covering the area between the line and x-axis. I think these fills tend to obfuscate other lines, so I’ve removed them on every dataset in this example (fill: false).
+
+If you want to remove fills for all your line graphs, a more efficiant way of achieving the same effect is to change the global default for fills: Chart.defaults.global.elements.line.fill = false;.
+
+Line chart: HTML & JavaScript#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#line-chart-html--javascript
+<canvas id="line-chart" width="800" height="450"></canvas>
+new Chart(document.getElementById("line-chart"), {
+  type: 'line',
+  data: {
+    labels: [1500,1600,1700,1750,1800,1850,1900,1950,1999,2050],
+    datasets: [{ 
+        data: [86,114,106,106,107,111,133,221,783,2478],
+        label: "Africa",
+        borderColor: "#3e95cd",
+        fill: false
+      }, { 
+        data: [282,350,411,502,635,809,947,1402,3700,5267],
+        label: "Asia",
+        borderColor: "#8e5ea2",
+        fill: false
+      }, { 
+        data: [168,170,178,190,203,276,408,547,675,734],
+        label: "Europe",
+        borderColor: "#3cba9f",
+        fill: false
+      }, { 
+        data: [40,20,10,16,24,38,74,167,508,784],
+        label: "Latin America",
+        borderColor: "#e8c3b9",
+        fill: false
+      }, { 
+        data: [6,3,2,2,7,26,82,172,312,433],
+        label: "North America",
+        borderColor: "#c45850",
+        fill: false
+      }
+    ]
+  },
+  options: {
+    title: {
+      display: true,
+      text: 'World population per region (in millions)'
+    }
+  }
+});
+3. Pie chart#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#3-pie-chart
+
+Pie charts are created by setting type to pie. They are almost identical to doughnut charts, and will work with the same configurations (part from changing the type).
+
+Pie chart: HTML & JavaScript#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#pie-chart-html--javascript
+<canvas id="pie-chart" width="800" height="450"></canvas>
+new Chart(document.getElementById("pie-chart"), {
+    type: 'pie',
+    data: {
+      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+      datasets: [{
+        label: "Population (millions)",
+        backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+        data: [2478,5267,734,784,433]
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Predicted world population (millions) in 2050'
+      }
+    }
+});
+4. Radar chart#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#4-radar-chart
+
+Radar chart: HTML & JavaScript#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#radar-chart-html--javascript
+Radar charts—also known as web charts, spider charts, star charts—are created by setting type to radar. Radar charts typically require more vertical space than other graphs to be legible, so you might have to tweak the graph proportions.
+
+<canvas id="radar-chart" width="800" height="600"></canvas>
+new Chart(document.getElementById("radar-chart"), {
+    type: 'radar',
+    data: {
+      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+      datasets: [
+        {
+          label: "1950",
+          fill: true,
+          backgroundColor: "rgba(179,181,198,0.2)",
+          borderColor: "rgba(179,181,198,1)",
+          pointBorderColor: "#fff",
+          pointBackgroundColor: "rgba(179,181,198,1)",
+          data: [8.77,55.61,21.69,6.62,6.82]
+        }, {
+          label: "2050",
+          fill: true,
+          backgroundColor: "rgba(255,99,132,0.2)",
+          borderColor: "rgba(255,99,132,1)",
+          pointBorderColor: "#fff",
+          pointBackgroundColor: "rgba(255,99,132,1)",
+          pointBorderColor: "#fff",
+          data: [25.48,54.16,7.61,8.06,4.45]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Distribution in % of world population'
+      }
+    }
+});
+5. Polar area chart#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#5-polar-area-chart
+
+A polar area chart is created by setting type to polarArea. Polar area charts are closely related to pie charts, with the difference that in addition to the angles representing the relative size of the data points, the radius of each element is set in relation to its value.
+
+Polar chart: HTML & JavaScript#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#polar-chart-html--javascript
+<canvas id="polar-chart" width="800" height="450"></canvas>
+new Chart(document.getElementById("polar-chart"), {
+    type: 'polarArea',
+    data: {
+      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          data: [2478,5267,734,784,433]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Predicted world population (millions) in 2050'
+      }
+    }
+});
+6. Doughnut chart#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#6-doughnut-chart
+
+Doughnut charts are created by setting type to doughnut. They are almost identical to pie charts, and will work the same configurations.
+
+Doughnut chart: HTML & JavaScript#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#doughnut-chart-html--javascript
+<canvas id="doughnut-chart" width="800" height="450"></canvas>
+new Chart(document.getElementById("doughnut-chart"), {
+    type: 'doughnut',
+    data: {
+      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          data: [2478,5267,734,784,433]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Predicted world population (millions) in 2050'
+      }
+    }
+});
+7. Horizontal bar chart#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#7-horizontal-bar-chart
+
+Horizontal bar charts are created by setting type to horizontalBar. They are identical to regular bar charts in every other aspect, and will work with the same configurations.
+
+Horizontal bar chart: HTML & JavaScript#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#horizontal-bar-chart-html--javascript
+<canvas id="bar-chart-horizontal" width="800" height="450"></canvas>
+new Chart(document.getElementById("bar-chart-horizontal"), {
+    type: 'horizontalBar',
+    data: {
+      labels: ["Africa", "Asia", "Europe", "Latin America", "North America"],
+      datasets: [
+        {
+          label: "Population (millions)",
+          backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+          data: [2478,5267,734,784,433]
+        }
+      ]
+    },
+    options: {
+      legend: { display: false },
+      title: {
+        display: true,
+        text: 'Predicted world population (millions) in 2050'
+      }
+    }
+});
+8. Grouped bar chart#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#8-grouped-bar-chart
+
+A grouped bar chart is not a unique chart type per say, but it requires you to setup your data a bit differently compared to the bar charts we’ve seen so far.
+
+type is still set to bar, but as soon as you pass more than one object to datasets, Chart.js will create a new group of bars for every object. Setting the color for that group of bars is then done by passing a color to backgroundColor.
+
+Grouped bar chart: HTML & JavaScript#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#grouped-bar-chart-html--javascript
+<canvas id="bar-chart-grouped" width="800" height="450"></canvas>
+new Chart(document.getElementById("bar-chart-grouped"), {
+    type: 'bar',
+    data: {
+      labels: ["1900", "1950", "1999", "2050"],
+      datasets: [
+        {
+          label: "Africa",
+          backgroundColor: "#3e95cd",
+          data: [133,221,783,2478]
+        }, {
+          label: "Europe",
+          backgroundColor: "#8e5ea2",
+          data: [408,547,675,734]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Population growth (millions)'
+      }
+    }
+});
+9. Mixed chart#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#9-mixed-chart
+
+You can mix several charts and overlay them on top of each other. This is done by setting type to bar (not to e.g. mixed or line—it has to be bar), and then setting the bar type for every dataset object in your datasets array.
+
+To produce the graph above, for example, we have four data objects: two set to bar, and two set to line, while the type for the Chart object is set to bar.
+
+Mixed chart: HTML & JavaScript#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#mixed-chart-html--javascript
+<canvas id="mixed-chart" width="800" height="450"></canvas>
+new Chart(document.getElementById("mixed-chart"), {
+    type: 'bar',
+    data: {
+      labels: ["1900", "1950", "1999", "2050"],
+      datasets: [{
+          label: "Europe",
+          type: "line",
+          borderColor: "#8e5ea2",
+          data: [408,547,675,734],
+          fill: false
+        }, {
+          label: "Africa",
+          type: "line",
+          borderColor: "#3e95cd",
+          data: [133,221,783,2478],
+          fill: false
+        }, {
+          label: "Europe",
+          type: "bar",
+          backgroundColor: "rgba(0,0,0,0.2)",
+          data: [408,547,675,734],
+        }, {
+          label: "Africa",
+          type: "bar",
+          backgroundColor: "rgba(0,0,0,0.2)",
+          backgroundColorHover: "#3e95cd",
+          data: [133,221,783,2478]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Population growth (millions): Europe & Africa'
+      },
+      legend: { display: false }
+    }
+});
+10. Bubble chart#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#10-bubble-chart
+
+Last but not least, there’s the bubble chart, a favorite of Hans Rosling. Bubble charts can be great for visualizing a lot of different data points simultaneously. In this example, every bubble is made up of three values: x position, y position, and size (r)—showing the GDP, happiness, and population, respectively, of each country.
+
+In the example above, I’m using the happiness index from the World Happiness Report for a country’s Y position, GDP estimates from International Monetary Fund to set the X position, and the population size to set the size of the bubble. (Note that I’ve removed some of the data in the example code to reduce the amount of code you have to copy.)
+
+You can pass several objects (setting x, y, and x) to each data array within every dataset object (each object will create a new bubble), but in this example I’m using only one object per array since I want every bubble to have a unique color and label.
+
+Bubble chart: HTML & JavaScript#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#bubble-chart-html--javascript
+<canvas id="bubble-chart" width="800" height="800"></canvas>
+new Chart(document.getElementById("bubble-chart"), {
+    type: 'bubble',
+    data: {
+      labels: "Africa",
+      datasets: [
+        {
+          label: ["China"],
+          backgroundColor: "rgba(255,221,50,0.2)",
+          borderColor: "rgba(255,221,50,1)",
+          data: [{
+            x: 21269017,
+            y: 5.245,
+            r: 15
+          }]
+        }, {
+          label: ["Denmark"],
+          backgroundColor: "rgba(60,186,159,0.2)",
+          borderColor: "rgba(60,186,159,1)",
+          data: [{
+            x: 258702,
+            y: 7.526,
+            r: 10
+          }]
+        }, {
+          label: ["Germany"],
+          backgroundColor: "rgba(0,0,0,0.2)",
+          borderColor: "#000",
+          data: [{
+            x: 3979083,
+            y: 6.994,
+            r: 15
+          }]
+        }, {
+          label: ["Japan"],
+          backgroundColor: "rgba(193,46,12,0.2)",
+          borderColor: "rgba(193,46,12,1)",
+          data: [{
+            x: 4931877,
+            y: 5.921,
+            r: 15
+          }]
+        }
+      ]
+    },
+    options: {
+      title: {
+        display: true,
+        text: 'Predicted world population (millions) in 2050'
+      }, scales: {
+        yAxes: [{ 
+          scaleLabel: {
+            display: true,
+            labelString: "Happiness"
+          }
+        }],
+        xAxes: [{ 
+          scaleLabel: {
+            display: true,
+            labelString: "GDP (PPP)"
+          }
+        }]
+      }
+    }
+});
+Next steps#https://tobiasahlin.com/blog/chartjs-charts-to-get-you-started/#next-steps
+I hope you’ll be able to kick-start your process and quickly get started with these template graphs. Chart.js is highly customizable, so if you want to change the design of the graphs I recommend digging into the official documentation to explore all the parameters that you can tweak.
+
+If you’re new to Chart.js and want to get a better overview of the library, I recommend reading my earlier post: Data visualization with Chart.js: An introduction.
+
+Published in:
+javascript / data / tutorial
+03/05/2017
+Subscribe.
+Get new posts delivered to your inbox
+They're not frequent, promise ✌️ you can also subscribe to the RSS feed.
+
+email@example.com
+Say hi.
+hello@
+tobiasahlin.com
+I love to design and make things. I speak, teach, and consult at tech companies and startups, e.g. Spotify, Minecraft, GitHub, and Hyper Island. Say hi!
+
+Tobias Ahlin Bjerrome
+Stockholm, Sweden
+
+ 

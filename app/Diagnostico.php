@@ -9,7 +9,6 @@ class Diagnostico extends Model
 
     protected $fillable = [
         'descripcion',
-        'evolucion_enfermedad',
         'consulta_id'
     ];
 }

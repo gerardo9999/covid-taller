@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Medico extends Model
 {
@@ -16,4 +17,10 @@ class Medico extends Model
     ];
 
     public $timestamps=false; 
+
+
+    static function autenticado(){
+        $medico = Auth::id();
+        return $medico;
+    }
 }

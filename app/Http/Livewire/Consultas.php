@@ -37,7 +37,6 @@ class Consultas extends Component{
 
     //atributos de diagnostico
     public $descripcion_medica   = null;
-    public $evolucion_enfermedad = null;
     public $diagnostico_id = null;
 
 
@@ -211,7 +210,6 @@ class Consultas extends Component{
     public function validarDiagnostico(){
         $this->validate([
             'descripcion_medica'   => 'required',
-            'evolucion_enfermedad' => 'required'
         ]);
     }
     public function guardarDiagnosticoMedico(){
@@ -221,7 +219,6 @@ class Consultas extends Component{
 
         $diagnostico = new Diagnostico();
         $diagnostico->descripcion = $this->descripcion_medica; 
-        $diagnostico->evolucion_enfermedad = $this->evolucion_enfermedad; 
         $diagnostico->consulta_id = $this->consulta_id;
         $diagnostico->save();
 
@@ -244,7 +241,6 @@ class Consultas extends Component{
 
         $diagnostico = Diagnostico::findOrFail($this->diagnostico_id);
         $diagnostico->descripcion = $this->descripcion_medica; 
-        $diagnostico->evolucion_enfermedad = $this->evolucion_enfermedad; 
         $diagnostico->consulta_id = $this->consulta_id;
         $diagnostico->update();
 

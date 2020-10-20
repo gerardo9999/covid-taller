@@ -270,32 +270,8 @@ class PacienteController extends Controller{
         return redirect('some/url')->compact('');
     }
 
-    public function pacienteInternado($paciente_id){
 
-        $data = Paciente::pacienteInternado($paciente_id);
-        return view('sistema\modules\cama\internado',$data);
-    }
-
-    public function pacienteInternarStore(Request $request,$paciente_id){
-
-        $medico_id = Auth::id();
-        $medico = Medico::findOrFail($medico_id);
-        $hospital = Hospital::findOrFail($medico->hospital_id);
-
-        $ubicacion = new Ubicacion();
-        $ubicacion->numero_sala = $request->numero_sala;
-        $ubicacion->numero_cama = $request->numero_cama;
-        $ubicacion->paciente_id = $paciente_id;
-        $ubicacion->hospital_id = $hospital->id;
-        $ubicacion->save();
-
-        $paciente = Paciente::findOrFail($paciente_id);
-        $paciente->internado = 1;
-        $paciente->update();
-
-        return Redirect::to('/misPacientes')->with('create','El paciente ha sido internado');
-    }
-
+    //vistas del paciente
     public function miMedico(){
 
         $usuario = Auth::id();
@@ -314,16 +290,11 @@ class PacienteController extends Controller{
         ];
         return view('sistema.modules.mi-informacion.medico',$data);
     }
-
     public function misConsultas(){
-
         return view('sistema.modules.mi-informacion.consulta');
-
     }
-
     public function misExamenes(){
-        // $searchText ='';
-        // return Paciente::misExamenes($searchText);
+
 
         return view('sistema.modules.mi-informacion.examen');
     }
@@ -332,5 +303,15 @@ class PacienteController extends Controller{
         
         return view('sistema.modules.mi-informacion.prescripcion');
     } 
+
+    public function PacienteTratamiento($paciente_id){
+        $paciente = Paciente::findOrFail($paciente_id);
+        $personaPaciente = Persona::findOrFail($paciente_id);
+
+        return view('sistema.modules.pacientes.tratamiento',[
+            "paciente" => $paciente,
+            "personaPaciente" => $personaPaciente
+        ]);
+    }
 
 }
