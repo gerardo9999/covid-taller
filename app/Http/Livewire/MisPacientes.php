@@ -19,6 +19,7 @@ class MisPacientes extends Component{
     public $internadoFormulario   = 0;
     public $tratamientoFormulario = 0;
 
+
     public $medico_id = null;
     public $medico_nombre    =  null;
     public $medico_apellido  =  null;
@@ -71,10 +72,10 @@ class MisPacientes extends Component{
     }
 
     public function mostrarFormularioTratamiento(){
-        $this->consultaFormulario = 1;
+        $this->tratamientoFormulario = 1;
     }
     public function ocultarFormularioTratamiento(){
-        $this->consultaFormulario = 0;
+        $this->tratamientoFormulario = 0;
     }
 
     public function datosPaciente($paciente_id){
@@ -85,7 +86,6 @@ class MisPacientes extends Component{
     }
 
     public function datosMedico(){
-
 
         $medico = Medico::find($this->medico_id);
         $this->hospital_id = $medico->hospital_id;
@@ -213,6 +213,17 @@ class MisPacientes extends Component{
         $this->mostrarListaPacientes();
         $this->resetearDatosPaciente();
         $this->resetearInternado();
+    }
+
+    public function formularioTratamiento($paciente_id){
+        $this->medico_id = Medico::autenticado();
+        $this->datosMedico();
+        $this->datosHospital();
+
+
+        $this->ocultarListaPacientes();
+        $this->mostrarFormularioTratamiento();
+        $this->datosPaciente($paciente_id); 
     }
 
 }

@@ -45,7 +45,7 @@
                                 @endif
 
 
-                                
+
                                     @if ($item->internado)
                                         <td><span class="badge badge-danger">Si</span></td>
                                         <td>
@@ -75,7 +75,7 @@
                                                 <i class="fa fa-hospital"></i>&nbsp; Internar
                                             </button>
                                             @if ($item->caso=='sospechosos')
-                                                <a class="btn btn-sm btn-success" >
+                                                <a wire:click='formularioTratamiento({{ $item->paciente_id }})' class="btn btn-sm btn-success" >
                                                 {{-- href="{{ route('consulta.paciente.create', ['id'=>$item->paciente_id]) }}" --}}
                                                     <i class="fa fa-eye"></i>&nbsp; Tratamiento
                                                 </a>

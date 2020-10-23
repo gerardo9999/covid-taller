@@ -14,9 +14,7 @@
         </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
-
     @include('sistema.components.flash')
-    
     @if ($listaMisPacientes)
         @include('sistema.modules.medicos.misPacientes.tableMisPaciente')
     @endif
@@ -26,5 +24,9 @@
 
     @if ($internadoFormulario)
         @include('sistema.modules.medicos.misPacientes.formularioInternar')
+    @endif
+
+    @if ($tratamientoFormulario)
+        @include('sistema.modules.medicos.misPacientes.formularioTratamiento')
     @endif
 </div>
