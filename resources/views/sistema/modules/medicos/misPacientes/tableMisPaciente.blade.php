@@ -41,7 +41,7 @@
                                     <td><span class="badge badge-secondary">Deseso</span></td>
                                 @endif
                                 @if ($item->caso=='descartados')
-                                    <td><span class="badge badge-secondary">Descartado</span></td>
+                                    <td><span class="badge badge-info">Descartado</span></td>
                                 @endif
 
 
@@ -49,37 +49,81 @@
                                     @if ($item->internado)
                                         <td><span class="badge badge-danger">Si</span></td>
                                         <td>
-                                            <a class="btn btn-sm btn-info" wire:click='formularioConsulta({{$item->paciente_id}})'>
-                                            {{-- href="{{ route('consulta.paciente.create', ['id'=>$item->paciente_id]) }}" --}}
-                                                <i class="fa fa-h-square"></i>&nbsp; Consulta
-                                            </a>
-
+                                            <button class="btn btn-sm btn-info" wire:click='formularioInternar({{$item->paciente_id}})'>
+                                                   <i class="fa fa-hospital"></i>&nbsp; Hospital
+                                            </button>
 
                                             @if ($item->caso=='confirmados')
-                                                <a class="btn btn-sm btn-success" >
-                                                {{-- href="{{ route('consulta.paciente.create', ['id'=>$item->paciente_id]) }}" --}}
-                                                    <i class="fa fa-eye"></i>&nbsp; Tratamiento
-                                                </a>
+                                                @if (@existeTratamiento($item->paciente_id))
+                                                    <a class="btn btn-sm btn-success" 
+                                                    wire:click='formularioSeguimiento({{$item->paciente_id}})'>
+                                                    {{-- href="{{ route('consulta.paciente.create', ['id'=>$item->paciente_id]) }}" --}}
+                                                        <i class="fa fa-eye"></i>&nbsp; Seguimiento
+                                                    </a>
+                                                @else
+                                                    <a class="btn btn-sm btn-success" >
+                                                    {{-- href="{{ route('consulta.paciente.create', ['id'=>$item->paciente_id]) }}" --}}
+                                                        <i class="fa fa-eye"></i>&nbsp; Tratamiento
+                                                    </a>
+                                                @endif
+                                               
+
                                             @endif
 
                                         </td>
                                     @else
                                         <td><span class="badge badge-success">No</span></td>
                                         <td>
-                                            <button class="btn btn-sm btn-info" wire:click='formularioConsulta({{$item->paciente_id}})'>
-                                            {{-- href="{{ route('consulta.paciente.create', ['id'=>$item->paciente_id]) }}" --}}
-                                                <i class="fa fa-h-square"></i>&nbsp; Consulta
-                                            </button>
-                                             <button class="btn btn-sm btn-warning" wire:click='formularioInternar({{$item->paciente_id}})'>
-                                             {{-- href="{{ route('paciente.hospital', ['id'=>$item->paciente_id]) }}" --}}
-                                                <i class="fa fa-hospital"></i>&nbsp; Internar
-                                            </button>
+
+
                                             @if ($item->caso=='sospechosos')
-                                                <a wire:click='formularioTratamiento({{ $item->paciente_id }})' class="btn btn-sm btn-success" >
-                                                {{-- href="{{ route('consulta.paciente.create', ['id'=>$item->paciente_id]) }}" --}}
-                                                    <i class="fa fa-eye"></i>&nbsp; Tratamiento
+                                                <a class="btn btn-sm btn-info" wire:click='formularioConsulta({{$item->paciente_id}})'>
+                                                    <i class="fa fa-address-book"></i>&nbsp; Consulta
                                                 </a>
+
                                             @endif
+
+                                            @if ($item->caso =='desesos')
+                                                <button class="btn btn-sm btn-secondary" wire:click='formularioInformePaciente({{$item->paciente_id}})'>
+                                                    <i class="fa fa-address-book"></i>&nbsp; Informe 
+                                                </button>
+                                            @endif
+
+                                            @if ($item->caso=='descartados')
+                                                <button class="btn btn-sm btn-info" wire:click='formularioInformePaciente({{$item->paciente_id}})'>
+                                                    <i class="fa fa-address-book"></i>&nbsp; Informe 
+                                                </button>                                                
+                                            @endif
+
+                                            @if ($item->caso =='recuperados')
+                                                <button class="btn btn-sm btn-success" wire:click='formularioInformePaciente({{$item->paciente_id}})'>
+                                                    <i class="fa fa-address-book"></i>&nbsp; Informe 
+                                                </button>
+                                            @endif
+
+                                            @if ($item->caso=='confirmados')
+                                                
+                                                @if (@existeTratamiento($item->paciente_id))
+                                                 
+                                                @else
+                                                <button class="btn btn-sm btn-info" 
+                                                wire:click='formularioConsulta({{$item->paciente_id}})'>
+                                            <i class="fa fa-h-square"></i>&nbsp; Consulta
+                                        </button>
+                                                @endif
+
+
+                                                    <button class="btn btn-sm btn-warning" wire:click='formularioInternar({{$item->paciente_id}})'>
+                                                    <i class="fa fa-hospital"></i>&nbsp; Internar
+                                                    </button>
+                                                    <button wire:click='formularioTratamiento({{ $item->paciente_id }})' class="btn btn-sm btn-success" >
+                                                        <i class="fa fa-edit"></i>&nbsp; Tratamiento
+                                                    </button>
+                                                    <a class="btn btn-sm btn-primary" 
+                                                    wire:click='formularioSeguimiento({{$item->paciente_id}})'>
+                                                        <i class="fa fa-eye"></i>&nbsp; Seguimiento
+                                                    </a>
+                                            @endif 
                                         </td>
                                     @endif
                             </tr>

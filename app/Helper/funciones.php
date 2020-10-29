@@ -14,12 +14,16 @@ use App\Medicamento;
 use App\MedicamentoTratamiento;
 use App\Medico;
 use App\Municipio;
+use App\PacienteTratamiento;
 use App\Pais;
 use App\PDF;
 use App\Persona;
 use App\Pregunta;
 use App\Prescripcion;
 use App\Provincia;
+use App\Registro;
+use App\Seguimiento;
+use App\SeguimientoRegistro;
 use App\TipoExamen;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -349,9 +353,9 @@ function getPregunta($id){
         return $consultasMedico;
     }
 
-    function consultasPaciente($id){
+    function consultasPaciente($paciente_id){
          
-        $consultasPaciente = DB::select("SELECT consultas.id,
+        $consultas = DB::select("SELECT consultas.id,
                                                 consultas.motivo_consulta,
                                                 consultas.fecha_registrada,
                                                 consultas.fecha_programada,
@@ -360,9 +364,9 @@ function getPregunta($id){
                                                 FROM consultas,medicos,pacientes 
                                                 WHERE consultas.medico_id = medicos.id 
                                                 AND consultas.paciente_id =  pacientes.id
-                                                AND pacientes.id = $id");
+                                                AND pacientes.id = $paciente_id");
 
-        return $consultasPaciente;
+        return $consultas;
     }
 
     function informacionConsulta($consulta){
@@ -722,5 +726,94 @@ function getPregunta($id){
         $tratamiento = Tratamiento::all();
         return $tratamiento;
     }
+
+
+    function seguimientos($seguimiento){
+        $seguimiento = SeguimientoRegistro::where('seguimiento_id','=',$seguimiento)->paginate(1);
+        return $seguimiento;
+    }
+
+    function fechaRegistro($seguimiento_id){
+        $seguimiento = Registro::findOrFail($seguimiento_id);
+        return $seguimiento->fecha;
+    }
     
+    //Para buscar el nombre de un tratamiento dato su id
+    function nombreTratamiento($tratamiento_id){
+        $tratamiento = Tratamiento::findOrFail($tratamiento_id);
+        return $tratamiento->nombre;
+    }
+    function existeTratamiento( $paciente_id){
+
+        $sw= false;
+        $paciente_tratamiento = PacienteTratamiento::where('paciente_id','=',$paciente_id)
+        ->where('estado','=',1)->get();
+
+        $count = count($paciente_tratamiento);
+
+        if($count){
+            $sw = true;
+        }
+        return $sw;
+    }
+
+
+    //todos los tratamientos de un paciente
+    function tratamientosPaciente($paciente_id){
+        $tratamiento = PacienteTratamiento::join('pacientes','pacientes.id','=','paciente_tratamiento.paciente_id')
+        ->join('tratamientos','tratamientos.id','=','paciente_tratamiento.tratamiento_id')
+        ->select(
+            "tratamientos.id",
+            "fecha",
+            "dias",
+            "tratamiento_id",
+            "paciente_id",
+            "estado",
+            "internado",
+            "caso",
+            "numero_seguro",
+            "nombre",
+            "paciente_tratamiento.id as paciente_tratamiento_id"
+        )
+        ->where('pacientes.id','=',$paciente_id)->get();
+
+        return $tratamiento;
+    }
+    //todos los seguimientos medicos de un paciente
+    function seguimientosPaciente($paciente_id){
+        $seguimiento = Seguimiento::join('paciente_tratamiento','paciente_tratamiento.id','=','seguimientos.paciente_tratamiento_id')
+        ->join('pacientes','pacientes.id','=','paciente_tratamiento.paciente_id')
+        ->join('tratamientos','tratamientos.id','=','paciente_tratamiento.tratamiento_id')
+        ->where('pacientes.id','=',$paciente_id)->get();
+
+        return $seguimiento;
+    }
+
+    //los registros de un seguimiento de un paciente
+    function registrosSeguimientos($seguimiento_id){
+        $registroSeguimiento = SeguimientoRegistro::join('registros','registros.id','=','seguimiento_registro.registro_id')
+        ->where('seguimiento_id','=',$seguimiento_id)->get();
+        return $registroSeguimiento;
+    }
+
+    //todas las consultas medicas de un paciente
+    function consultasPacient($paciente_id){
+        $medico_id = Auth::id();
+        $consultas = Consulta::join('pacientes','pacientes.id','=','consultas.paciente_id')
+        ->join('medicos','medicos.id','=','consultas.medico_id')
+        ->where('pacientes.id','=', $paciente_id)->where('medicos.id','=',$medico_id)->get(); 
+        return $consultas;
+    }
+
+    //todos los examenes medicos de un paciente
+    function examenesPaciente($paciente_id){
+        $medico_id = Auth::id();
+        $consultas = Consulta::join('pacientes','pacientes.id','=','consultas.paciente_id')
+        ->join('medicos','medicos.id','=','consultas.medico_id')
+        ->join('examenes','examenes.consulta_id','=','consultas.id')
+        ->join('tipo_examen','tipo_examen.id','=','examenes.tipo_id')
+        ->where('pacientes.id','=', $paciente_id)->where('medicos.id','=',$medico_id)->get(); 
+        return $consultas;   
+    }
+
 ?>

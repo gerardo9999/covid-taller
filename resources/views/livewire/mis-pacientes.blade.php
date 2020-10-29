@@ -29,4 +29,12 @@
     @if ($tratamientoFormulario)
         @include('sistema.modules.medicos.misPacientes.formularioTratamiento')
     @endif
+
+    @if ($seguimientoFormulario)
+        @include('sistema.modules.medicos.misPacientes.formularioSeguimiento')
+    @endif
+
+    @if ($informeFormulario)
+        @include('sistema.modules.medicos.misPacientes.formularioInformePaciente')
+    @endif
 </div>

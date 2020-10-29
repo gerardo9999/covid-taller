@@ -49,9 +49,18 @@ Route::get('/getBarrio','ApiController@getBarrio');
 Route::get('/insertar/pacientes','ApiController@insertarPacientes');
 
 
+
 // Genera los usuarios para loguearse
 
 Route::get('/insertar/usuarios','ApiController@generarUsuarios');
+
+
+Route::get('/insertar/examenes','ApiController@generarExamenes');
+
+
+
+
+
 
 
 Route::get('/prueba','PruebaControlle@prueba');

@@ -26,6 +26,8 @@ use PhpParser\Node\Expr\Cast\Object_;
 class ApiController extends Controller
 {
     
+
+
     public function generarUsuarios(){
 
         $arrayCalle = [
@@ -42,6 +44,7 @@ class ApiController extends Controller
         ];
 
         $countDireccion = count($arrayCalle);
+
         for( $i = 0 ; $i < $countDireccion; $i++ ){
             $direccion = new Direccion();
             $direccion->avenida_calle = $arrayCalle[$i]; 
@@ -65,15 +68,19 @@ class ApiController extends Controller
             'Gerardo','Eldy','Leonor'
         ];
         $arraySexo = ["hombre","mujer","mujer"];
+
         $arrayApellido = [
             'Arias','Maldonado','Maldonado'
         ];
+
         $arrayRoles=[
             'administrador','medico','paciente'
         ];
+
         $arrayFechas = [
             '1993-02-23', '1997-04-23', '2007-04-23'
         ];
+        
         $arrayAvatar = [
           'imagenes/avatar-hombre.jpg',
           'imagenes/avatar-mujer.png',
@@ -113,6 +120,7 @@ class ApiController extends Controller
             if($arrayRoles[$i]=='paciente'){
                 $paciente = new Paciente();
                 $paciente->id = $persona->id;
+                $paciente->caso = 'sospechosos';
                 $paciente->numero_seguro = rand(5000000,70000000);
                 $paciente->save(); 
 
@@ -141,6 +149,8 @@ class ApiController extends Controller
             }
         } 
     }
+
+
     public function arrayDepartamentos(){
         return [
             
@@ -3858,6 +3868,28 @@ class ApiController extends Controller
       }
 
       return $tipo;
+    }
+
+
+    public function generarExamenes(){
+      
+      $descripcion = [
+        'descripcion del examen A',
+        'descripcion del examen B',
+        'descripcion del examen C'
+      ];
+      $examen = [
+        'A','B','C'
+      ];
+      $length = count($examen);
+
+      for ($i=0; $i < $length; $i++) { 
+        $tipoExamen = new TipoExamen();
+        $tipoExamen->nombre = $examen[$i];
+        $tipoExamen->descripcion = $descripcion[$i];
+        $tipoExamen->save();
+      }
+
     }
 }
 

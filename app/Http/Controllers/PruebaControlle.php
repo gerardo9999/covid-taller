@@ -14,10 +14,13 @@ use App\Hospital;
 use App\MedicamentoTratamiento;
 use App\Medico;
 use App\Paciente;
+use App\PacienteTratamiento;
 use App\PDF;
 use App\Persona;
 use App\Prescripcion;
 use App\Provincia;
+use App\Seguimiento;
+use App\SeguimientoRegistro;
 use App\TipoExamen;
 use App\User;
 use Carbon\Carbon;
@@ -29,7 +32,61 @@ use Illuminate\Support\Facades\Hash;
 class PruebaControlle extends Controller
 {
     public function prueba(){
+
+
+        $seguimiento = Seguimiento::where('paciente_tratamiento_id','=',1)->get();
+        return $seguimiento[0]->id;
+
+
+        $tratamiento = PacienteTratamiento::join('pacientes','pacientes.id','=','paciente_tratamiento.paciente_id')
+        ->join('tratamientos','tratamientos.id','=','paciente_tratamiento.tratamiento_id')
+        ->select(
+            "tratamientos.id",
+            "fecha",
+            "dias",
+            "tratamiento_id",
+            "paciente_id",
+            "estado",
+            "internado",
+            "caso",
+            "numero_seguro",
+            "nombre",
+            "paciente_tratamiento.id as paciente_tratamiento_id"
+        )
+        ->where('pacientes.id','=',3)->get();
+
+        return $tratamiento;
+
+        $seguimiento_id = 1;
+
+        $registroSeguimiento = SeguimientoRegistro::where('seguimiento_id','=',$seguimiento_id)->get();
+        return $registroSeguimiento;
         
+
+        $paciente_id = 5;
+
+        $tratamiento = PacienteTratamiento::join('pacientes','pacientes.id','=','paciente_tratamiento.paciente_id')
+        ->join('tratamientos','tratamientos.id','=','paciente_tratamiento.tratamiento_id')
+        ->where('pacientes.id','=',$paciente_id)->get();
+
+        return $tratamiento;
+
+
+        $paciente_id = 4;
+        $sw= false;
+        $paciente_tratamiento = PacienteTratamiento::where('paciente_id','=',$paciente_id)
+        ->where('estado','=',1)->get();
+
+        $count = count($paciente_tratamiento);
+
+        if($count){
+            $sw = true;
+        }
+
+
+        return [
+            'resultado '=>$sw
+        ];
 
 
         $tratamiento_id =1;

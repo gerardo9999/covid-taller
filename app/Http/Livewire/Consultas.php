@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Consulta;
 use App\Diagnostico;
 use App\Examen;
+use App\Medicamento;
 use App\Prescripcion;
 use App\TipoExamen;
 use Livewire\Component;
@@ -297,6 +298,10 @@ class Consultas extends Component{
         $prescripcion->consulta_id       = $this->consulta_id;
         $prescripcion->save();
 
+        $medicamento = new Medicamento();
+        $medicamento->nombre = $this->medicamento;
+        $medicamento->save();
+
 
         $this->resetearPrescripcion();
         $this->mostrarlistaPrescripcion();
@@ -344,6 +349,5 @@ class Consultas extends Component{
         
         $this->ocultarFormulario();
         $this->mostrarLista();
-
     }
 }

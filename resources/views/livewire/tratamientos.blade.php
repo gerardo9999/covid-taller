@@ -145,7 +145,10 @@
                                                                             <td>{{ $medicamento->nombre }}</td>
                                                                             <td>
                                                                                 {{-- @include('sistema.modules.tratamientos.destroy') --}}
-                                                                                <button wire:click='formularioIndicaciones({{ $medicamento->id }})' class="btn btn-sm btn-success"><i class="fa fa-check"></i>&nbsp; Agregar</button>
+                                                                                <button wire:click='formularioIndicaciones({{ $medicamento->id }})' class="btn btn-sm btn-success">
+                                                                                    <i class="fa fa-check"></i>
+                                                                                    &nbsp; Agregar
+                                                                                </button>
                                                                             </td>
                                                                         </tr>                            
                                                                     @endforeach    

@@ -15,10 +15,8 @@ class CreateUbicacionTable extends Migration
             $table->string('numero_sala');
             $table->string('numero_cama');
 
-            $table->integer('paciente_id')->unsigned();
             $table->integer('hospital_id')->unsigned();
 
-            $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');
             $table->foreign('hospital_id')->references('id')->on('hospitales')->onDelete('cascade');
 
             $table->timestamps();

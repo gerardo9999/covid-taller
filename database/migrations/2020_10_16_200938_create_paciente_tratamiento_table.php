@@ -22,6 +22,7 @@ class CreatePacienteTratamientoTable extends Migration
 
             $table->integer('tratamiento_id')->unsigned();
             $table->integer('paciente_id')->unsigned();
+            $table->boolean('estado')->default(1);
 
             $table->foreign('tratamiento_id')->references('id')->on('tratamientos')->onDelete('cascade');  
             $table->foreign('paciente_id')->references('id')->on('pacientes')->onDelete('cascade');

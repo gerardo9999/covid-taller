@@ -1,4 +1,9 @@
         @role('medico')
+        <div class="row">
+            <div class="col-12 text-center p-3">
+                <label for="apellidos" class ="form-control">Paciente : {{ $paciente_nombre }} {{ $paciente_apellido }}</label> 
+            </div> 
+        </div>
                 <div class="card card-success">
                     <div class="card-header">
                         <h3 class="card-title">
