@@ -107,9 +107,9 @@
                                                  
                                                 @else
                                                 <button class="btn btn-sm btn-info" 
-                                                wire:click='formularioConsulta({{$item->paciente_id}})'>
-                                            <i class="fa fa-h-square"></i>&nbsp; Consulta
-                                        </button>
+                                                        wire:click='formularioConsulta({{$item->paciente_id}})'>
+                                                    <i class="fa fa-h-square"></i>&nbsp; Consulta
+                                                </button>
                                                 @endif
 
 
@@ -121,7 +121,7 @@
                                                     </button>
                                                     <a class="btn btn-sm btn-primary" 
                                                     wire:click='formularioSeguimiento({{$item->paciente_id}})'>
-                                                        <i class="fa fa-eye"></i>&nbsp; Seguimiento
+                                                        <i class="fa fa-eye"></i>&nbsp; Seguimiento 
                                                     </a>
                                             @endif 
                                         </td>

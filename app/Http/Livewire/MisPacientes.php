@@ -39,9 +39,13 @@ class MisPacientes extends Component{
     public $listaTratamientosModal   = 1;
 
 
-    public $medico_id = null;
+    public $medico_id        =  null;
     public $medico_nombre    =  null;
     public $medico_apellido  =  null;
+
+
+    // atributo tabla paciente
+    public $estado_paciente = null;
 
     public $hospital_id  = null;
     public $hospital     = null;
@@ -426,9 +430,10 @@ class MisPacientes extends Component{
         // $this->paciente_tratamiento = $paciente_tratamiento[0]->id;
         // $seguimiento = Seguimiento::where('paciente_tratamiento_id','=',$this->paciente_tratamiento)->get();
         // $this->seguimiento_id = $seguimiento[0]->id;
-
+        
         $this->mostrarFormularioSeguimiento();
         $this->ocultarListaPacientes();
+        $this->ocultarVerSeguimientoPaciente();
         
         $this->mostrarListaSeguimientoPaciente();
 
@@ -550,5 +555,16 @@ class MisPacientes extends Component{
         $this->ocultarListaSeguimientoPaciente();
         $this->ocultarVerSeguimientoPaciente();
         $this->mostrarActSeguimientoPaciente();
+
+    }
+
+    public function verSeguimientoPaciente($paciente_tratamiento_id){
+        $this->paciente_tratamiento = $paciente_tratamiento_id;
+        $seguimiento = Seguimiento::where('paciente_tratamiento_id','=',$paciente_tratamiento_id)->get();
+        $this->seguimiento_id = $seguimiento[0]->id;
+
+        $this->ocultarListaSeguimientoPaciente();
+        $this->mostrarVerSeguimientoPaciente();
+        $this->ocultarActSeguimientoPaciente();
     }
 }

@@ -57,10 +57,41 @@
                         </tbody>
                     </table>
                 </div>
-            </div>            
+            </div> 
+
+            <div class="card-footer">
+                <button wire:click='ocultarSeguimientoMedico()' class="btn btn-danger btn-sm">Volver a la lista</button>
+            </div>           
         @endif
         @if ($verSeguimiento)
+            <table class="table table-hover text-nowrap">
+                <thead>
+                    <tr>
+                        <th >Fecha</th>
+                        <th >Evolucion Enfermedad</th>
+                        <th >Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tbody>
+                        @foreach (@seguimientos($seguimiento_id) as $seguimiento)
+                            
+                            <tr>
             
+                                <td>{{ @fechaRegistro($seguimiento->registro_id) }}</td>
+                                <td>{{ $seguimiento->evolucion_enfermedad }}</td>
+                                <td>{{ $seguimiento->estado }}</td>
+                                <td>                        </td>
+                            </tr>                                        
+                        @endforeach
+                    </tbody>
+                </tbody>
+            </table>
+
+            <div class="card-footer">
+                <button wire:click='ocultarSeguimientoMedico()' class="btn btn-danger btn-sm">Volver a la lista</button>
+            </div>
+
         @endif
         @if ($actSeguimiento)
             <table class="table table-hover text-nowrap">
@@ -95,7 +126,7 @@
                         <div class="modal-content">
                                 <div class="modal-header alert-default-info">
                                     <h5 class="modal-title" id="exampleModalLabel">
-                                        Registre el seguimiento  
+                                        Registre el seguimiento
                                     </h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">×</span>
@@ -108,12 +139,13 @@
                                         <label for="">Estado </label>
                                         <input wire:model='estado_seguimiento' type="text" class="form-control form-control-sm">
                                     </div>
-            
                                     <div class="form-group">
                                         <label for="">Evolucion de Enfermedad </label>
                                         <input wire:model='evolucion_enfermedad' type="text" class="form-control form-control-sm">
                                     </div>
+                                
                                 </div>
+
                                 <div class="modal-footer">
                                     <button type="button" wire:click.prevent='actualizarSeguimiento()' class="btn btn-secondary" data-dismiss="modal">
                                         Actualizar 
@@ -132,13 +164,55 @@
                     </tbody>
                 </tbody>
             </table>
+           
+            <div class="card-footer">                
+                <button wire:click='finalizarSeguimiento({{ $seguimiento_id }})' 
+                data-toggle="modal" data-target="#finseguimiento" class="btn btn-success btn-sm">Finalizar Seguimiento
+                
+                </button>
+                   
+                
+                <div wire:ignore.self class="modal fade" id="finseguimiento" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                                <div class="modal-header alert-default-info">
+                                    <h5 class="modal-title" id="exampleModalLabel">
+                                        Terminar el seguimiento  
+                                    </h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+            
+                                </div>
+                                
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="">Estado {{ $estado_paciente }}</label>
+                                        <select class="form-control form-control-sm" wire:model='estado_paciente'>
+                                            <option>Confirmado</option>
+                                            <option>Recuperado</option>
+                                            <option>Deceso</option>
+                                        </select>
+                                    </div>
+            
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" wire:click.prevent='actualizarSeguimiento()' class="btn btn-secondary" data-dismiss="modal">
+                                        Actualizar 
+                                    </button>
+            
+                                </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button wire:click='ocultarSeguimientoMedico()' class="btn btn-danger btn-sm">Volver a la lista</button>
+            </div>
+
         @endif
 
 
-        <div class="card-footer">
-            {{-- <button wire:click='finalizarSeguimiento({{ $seguimiento_id }})' class="btn btn-success btn-sm">Finalizar Seguimiento</button> --}}
-            <button wire:click='ocultarSeguimientoMedico()' class="btn btn-danger btn-sm">Volver a la lista</button>
-        </div>
+        
     </div>
     </div>
 </div>
