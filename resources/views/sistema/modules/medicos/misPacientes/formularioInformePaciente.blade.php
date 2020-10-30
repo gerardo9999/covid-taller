@@ -335,7 +335,7 @@
                 </div>
                 <div class="card-body">
                     {{-- {{ @examenesPaciente($paciente_id) }} --}}
-                    @if (@examenesPaciente($paciente_id))
+                    @if (@examenesPaciente($paciente_id)->count())
                         <div class="card-body table-responsive p-0">
                             <table class="table table-hover text-nowrap">
                                 <thead>

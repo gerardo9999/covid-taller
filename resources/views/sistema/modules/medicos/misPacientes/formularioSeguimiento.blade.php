@@ -166,7 +166,7 @@
             </table>
            
             <div class="card-footer">                
-                <button wire:click='finalizarSeguimiento({{ $seguimiento_id }})' 
+                <button  
                 data-toggle="modal" data-target="#finseguimiento" class="btn btn-success btn-sm">Finalizar Seguimiento
                 
                 </button>
@@ -198,8 +198,9 @@
             
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" wire:click.prevent='actualizarSeguimiento()' class="btn btn-secondary" data-dismiss="modal">
-                                        Actualizar 
+                                    <button type="button" wire:click='finalizarSeguimiento({{ $seguimiento_id }})' 
+                                    class="btn btn-secondary" data-dismiss="modal">
+                                        Finalizar
                                     </button>
             
                                 </div>

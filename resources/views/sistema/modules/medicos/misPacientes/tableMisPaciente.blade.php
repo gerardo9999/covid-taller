@@ -103,26 +103,33 @@
 
                                             @if ($item->caso=='confirmados')
                                                 
+                                                    <button class="btn btn-sm btn-warning" wire:click='formularioInternar({{$item->paciente_id}})'>
+                                                       <i class="fa fa-hospital"></i>&nbsp; Internar
+                                                    </button>
+
                                                 @if (@existeTratamiento($item->paciente_id))
-                                                 
+                                                <a class="btn btn-sm btn-primary" 
+                                                    wire:click='formularioSeguimiento({{$item->paciente_id}})'>
+                                                    <i class="fa fa-eye"></i>&nbsp; Seguimiento 
+                                                </a>
+
+
+
                                                 @else
-                                                <button class="btn btn-sm btn-info" 
-                                                        wire:click='formularioConsulta({{$item->paciente_id}})'>
-                                                    <i class="fa fa-h-square"></i>&nbsp; Consulta
-                                                </button>
+
                                                 @endif
 
 
-                                                    <button class="btn btn-sm btn-warning" wire:click='formularioInternar({{$item->paciente_id}})'>
-                                                    <i class="fa fa-hospital"></i>&nbsp; Internar
-                                                    </button>
+
                                                     <button wire:click='formularioTratamiento({{ $item->paciente_id }})' class="btn btn-sm btn-success" >
                                                         <i class="fa fa-edit"></i>&nbsp; Tratamiento
                                                     </button>
-                                                    <a class="btn btn-sm btn-primary" 
-                                                    wire:click='formularioSeguimiento({{$item->paciente_id}})'>
-                                                        <i class="fa fa-eye"></i>&nbsp; Seguimiento 
-                                                    </a>
+                                                    <button class="btn btn-sm btn-info" 
+                                                            wire:click='formularioConsulta({{$item->paciente_id}})'>
+                                                        <i class="fa fa-h-square"></i>&nbsp; Consulta
+                                                    </button>
+
+
                                             @endif 
                                         </td>
                                     @endif
@@ -137,6 +144,4 @@
             </div>
         </div>
         </div>
-        
     </div>
-    

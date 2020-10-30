@@ -475,7 +475,23 @@ class MisPacientes extends Component{
     }
 
     public function finalizarSeguimiento( $seguimiento_id ){
+            $seguimiento =Seguimiento::findOrFail($seguimiento_id);
+            $paciente_tratamiento_id = $seguimiento->paciente_tratamiento_id;    
 
+            $paciente_tratamiento = PacienteTratamiento::findOrFail($paciente_tratamiento_id);
+            $paciente_id = $paciente_tratamiento->paciente_id; 
+
+            $paciente = Paciente::findOrFail($paciente_id);
+            $paciente->caso = $this->estado_paciente;
+            $paciente->update();
+
+
+            $buscarCaso = Caso::where('idPaciente','=',$paciente_id)->get();
+            $caso = Caso::findOrFail($buscarCaso[0]->id);
+            $caso->estado = $this->estado_paciente;
+            $caso->update();   
+            $this->ocultarActSeguimientoPaciente();
+            $this->mostrarListaSeguimientoPaciente();         
     }
 
 

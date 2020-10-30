@@ -729,7 +729,7 @@ function getPregunta($id){
 
 
     function seguimientos($seguimiento){
-        $seguimiento = SeguimientoRegistro::where('seguimiento_id','=',$seguimiento)->paginate(1);
+        $seguimiento = SeguimientoRegistro::where('seguimiento_id','=',$seguimiento)->get();
         return $seguimiento;
     }
 
