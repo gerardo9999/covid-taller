@@ -74,8 +74,7 @@
                 </thead>
                 <tbody>
                     <tbody>
-                        @foreach (@seguimientos($seguimiento_id) as $seguimiento)
-                            
+                        @foreach (@seguimientos($seguimiento_id) as $seguimiento)     
                             <tr>
             
                                 <td>{{ @fechaRegistro($seguimiento->registro_id) }}</td>
@@ -211,10 +210,7 @@
                 <button wire:click='ocultarSeguimientoMedico()' class="btn btn-danger btn-sm">Volver a la lista</button>
             </div>
 
-        @endif
-
-
-        
+        @endif        
     </div>
     </div>
 </div>

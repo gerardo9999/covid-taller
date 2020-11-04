@@ -269,8 +269,6 @@ class PacienteController extends Controller{
     public function redirecionar(){
         return redirect('some/url')->compact('');
     }
-
-
     //vistas del paciente
     public function miMedico(){
 
@@ -312,6 +310,9 @@ class PacienteController extends Controller{
             "paciente" => $paciente,
             "personaPaciente" => $personaPaciente
         ]);
+    }
+    public function miInforme(){
+        return view('sistema.modules.pacientes.miInforme');
     }
 
 }

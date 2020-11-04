@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'WebController@intro')->name('intro.index');
 
 Route::get('/covid', 'WebController@covid')->name('covid.index');
-
+Route::get('/dashboard','webController@dashboard')->name('dashboard.index');
 
 
 Route::get('/cuestionario', 'WebController@cuestionario')->name('cuestionario.index');
@@ -108,6 +108,7 @@ Route::post('/pacientes/update/{id}', 'PacienteController@pacienteUpdate')->name
 Route::post('/internar/paciente/{id}', 'PacienteController@pacienteInternarStore')->name('internar.store');
 
 Route::get('/paciente/medico', 'PacienteController@miMedico')->name('paciente.medico.index');
+Route::get('/paciente/informe', 'PacienteController@miInforme')->name('paciente.informe');
 Route::get('/paciente/consulta', 'PacienteController@misConsultas')->name('paciente.consulta.index');
 Route::get('/paciente/examen', 'PacienteController@misExamenes')->name('paciente.examen.index');
 Route::get('/paciente/prescripcion', 'PacienteController@misPrescripciones')->name('paciente.prescripcion.index');

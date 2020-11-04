@@ -115,6 +115,10 @@ class Paciente extends Model
         return $examenes;
     }
 
+    static function autenticado(){
+        $medico = Auth::id();
+        return $medico;
+    }
 
 }
 

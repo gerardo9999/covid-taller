@@ -35,6 +35,7 @@
             </div>
                     <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
+                @if ($consultas->count())
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
@@ -84,7 +85,13 @@
                                 </tr>  
                         @endforeach    
                         </tbody>
-                    </table>
+                    </table>                    
+                @else
+                    <div class="borde p-4 text-center">
+                        <h6 class="title">{{Auth::user()->name}} Usted no tiene ninguna consulta programada</h6>
+                    </div>
+                @endif    
+
             </div>
             <div class="card-footer">
                 {{ $consultas->render() }}

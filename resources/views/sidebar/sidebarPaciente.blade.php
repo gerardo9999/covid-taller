@@ -6,7 +6,7 @@
     </div>
     
     <div class="info">
-      <a href="#" class="d-block">{{ @getUsuario(Auth::user()->id)[0]->nombre }} {{ @getUsuario(Auth::user()->id)[0]->apellidos }}</a>
+      <a href="{{ route('paciente.informe') }}" class="d-block">{{ @getUsuario(Auth::user()->id)[0]->nombre }} {{ @getUsuario(Auth::user()->id)[0]->apellidos }}</a>
     </div>
 </div>
     <!-- Sidebar Menu -->

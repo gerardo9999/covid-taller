@@ -702,11 +702,6 @@ function getPregunta($id){
         return Medicamento::all();
     }
 
-
-
-
-
-
     function detalleTratamiento($tratamiento_id){
         $detalle = MedicamentoTratamiento::join('tratamientos',
                                                 'tratamientos.id','=','medicamento_tratamiento.tratamiento_id')
@@ -796,7 +791,7 @@ function getPregunta($id){
         return $registroSeguimiento;
     }
 
-    //todas las consultas medicas de un paciente
+    //todas las consultas medicas de un paciente cuando el usuario sea un medico
     function consultasPacient($paciente_id){
         $medico_id = Auth::id();
         $consultas = Consulta::join('pacientes','pacientes.id','=','consultas.paciente_id')
@@ -805,7 +800,26 @@ function getPregunta($id){
         return $consultas;
     }
 
-    //todos los examenes medicos de un paciente
+    // Todas la consultas medicas cuando el usuario sea un paciente
+    function misConsultasPaciente(){
+        $paciente_id = Auth::id();
+        $consultas = Consulta::join('pacientes','pacientes.id','=','consultas.paciente_id')
+        ->join('medicos','medicos.id','=','consultas.medico_id')
+        ->where('pacientes.id','=', $paciente_id)->get(); 
+        return $consultas;
+    }
+
+    // todos los examenes cuando el usuario logueado sea un paciente
+    function misExamenesPaciente(){
+        $paciente_id = Auth::id();
+        $consultas = Consulta::join('pacientes','pacientes.id','=','consultas.paciente_id')
+        ->join('medicos','medicos.id','=','consultas.medico_id')
+        ->join('examenes','examenes.consulta_id','=','consultas.id')
+        ->join('tipo_examen','tipo_examen.id','=','examenes.tipo_id')
+        ->where('pacientes.id','=', $paciente_id)->get(); 
+        return $consultas; 
+    }
+    //todos los examenes medicos de un paciente cuando el usuario sea un medico
     function examenesPaciente($paciente_id){
         $medico_id = Auth::id();
         $consultas = Consulta::join('pacientes','pacientes.id','=','consultas.paciente_id')
@@ -814,6 +828,57 @@ function getPregunta($id){
         ->join('tipo_examen','tipo_examen.id','=','examenes.tipo_id')
         ->where('pacientes.id','=', $paciente_id)->where('medicos.id','=',$medico_id)->get(); 
         return $consultas;   
+    }
+
+
+
+    function casosprovincia($provincia_id){
+        $casos= Provincia::
+        join('municipios','municipios.provincia_id','=','provincias.id')
+        ->join('distritos','distritos.municipio_id','=','municipios.id')
+        ->join('direcciones','direcciones.distrito_id','=','distritos.id')
+        ->join('personas','personas.direccion_id','=','direcciones.id')
+        ->join('pacientes','pacientes.id','=','personas.id')
+        ->join('casos','casos.paciente_id','=','pacientes.id')
+        ->where('provincias.id','=',$provincia_id)
+        ->where('casos.estado','=','confirmados')->get();
+        return $casos;
+
+    }
+
+
+
+    function dashboardtotal($caso){
+       
+        $query =  Caso::join('pacientes','pacientes.id','casos.paciente_id')
+                ->join('personas','personas.id','=','pacientes.id')
+                ->join('direcciones','direcciones.id','=','personas.direccion_id')
+                ->join('distritos','distritos.id','=','direcciones.distrito_id')
+                ->join('municipios','municipios.id','=','distritos.municipio_id')
+                ->join('provincias','provincias.id','=','municipios.provincia_id')
+                
+                ->where('casos.estado','=',$caso)
+            ->get();
+        $count = count($query);
+        return $count;
+    }
+
+
+    function dashboardactual($caso){
+
+        $fecha = date('Y-m-d');
+        $query =  Caso::join('pacientes','pacientes.id','casos.paciente_id')
+                ->join('personas','personas.id','=','pacientes.id')
+                ->join('direcciones','direcciones.id','=','personas.direccion_id')
+                ->join('distritos','distritos.id','=','direcciones.distrito_id')
+                ->join('municipios','municipios.id','=','distritos.municipio_id')
+                ->join('provincias','provincias.id','=','municipios.provincia_id')
+                
+                ->where('casos.estado','=',$caso)
+                ->where('casos.fecha','=',$fecha)
+            ->get();
+        $count = count($query);
+        return $count;
     }
 
 ?>

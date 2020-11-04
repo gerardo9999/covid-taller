@@ -16,4 +16,7 @@ class WebController extends Controller
     public function cuestionario(){
         return view('page.modules.cuestionario.index',['formulario'=>'formulario']);
     }
+    public function dashboard(){
+        return view('page.modules.dashboard.index');
+    }
 }

@@ -6,6 +6,7 @@ use App\Consulta;
 use App\Persona;
 use App\Paciente;
 use App\Medico;
+use App\Caso;
 use App\Ubicacion;
 use App\Hospital;
 use App\PacienteTratamiento;
@@ -59,7 +60,6 @@ class MisPacientes extends Component{
     public $fecha_registro =null;
 
     // variables del seguimiento 
-
     public $dias = null; 
 
 
@@ -67,8 +67,8 @@ class MisPacientes extends Component{
     public $tratamiento_id = null;
     public $tratamiento = null;
 
-    // variables de consulta
 
+    // variables de consulta
     public $hora_programada  = null;
     public $fecha_programada = null;
     public $motivo_consulta  = null;
@@ -83,8 +83,8 @@ class MisPacientes extends Component{
     public $numero_sala = null;
 
 
-    //Variable de seguimientos
 
+    //Variable de seguimientos
     public $seguiemientos = null;
     public $seguimiento_id = null;
     public $etapa =null;
@@ -117,6 +117,7 @@ class MisPacientes extends Component{
     public function mostrarFormularioInternado(){
         $this->internadoFormulario = 1;
     }
+    
     public function ocultarFormularioInternado(){
         $this->internadoFormulario = 0;
     }
@@ -475,6 +476,17 @@ class MisPacientes extends Component{
     }
 
     public function finalizarSeguimiento( $seguimiento_id ){
+
+            if($this->estado_paciente=='Confirmado'){
+                $this->estado_paciente ='confirmados';
+            }
+            if ($this->estado_paciente=='Recuperado') {
+                $this->estado_paciente ='recuperados';
+            }
+            if ($this->estado_paciente=='Deceso') {
+                $this->estado_paciente ='desesos';
+            }
+
             $seguimiento =Seguimiento::findOrFail($seguimiento_id);
             $paciente_tratamiento_id = $seguimiento->paciente_tratamiento_id;    
 
@@ -486,10 +498,11 @@ class MisPacientes extends Component{
             $paciente->update();
 
 
-            $buscarCaso = Caso::where('idPaciente','=',$paciente_id)->get();
+            $buscarCaso = Caso::where('paciente_id','=',$paciente_id)->get();
             $caso = Caso::findOrFail($buscarCaso[0]->id);
             $caso->estado = $this->estado_paciente;
             $caso->update();   
+            
             $this->ocultarActSeguimientoPaciente();
             $this->mostrarListaSeguimientoPaciente();         
     }

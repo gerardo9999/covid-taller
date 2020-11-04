@@ -55,7 +55,6 @@ class GeneradorPDFController extends Controller
             'provincia'        => $nombreProvincia
 
         ]);
-
         return $pdf->download('casos-confirmados.pdf');
     }
     public function provinciaRecuperadosPDF($provincia_id){

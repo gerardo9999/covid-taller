@@ -89,6 +89,7 @@
       format: 'LT'
     })
 </script>
+@yield('charts')
     </body>
 </html>
 

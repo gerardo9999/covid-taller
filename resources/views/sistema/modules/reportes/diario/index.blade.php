@@ -3,9 +3,7 @@
 @include('sistema.components.header')
 <div class="row">
     <div class="card col-lg-12">
-        <div class="card-header border-0">
-            <button onclick='' class="btn btn-info btn-sm">Provincia</button>
-            <button onclick='' class="btn btn-info btn-sm">Municipio</button>
+        <div class="card-header border-0">          
             {{-- <div class="d-flex justify-content-between"> 
 
                 @role('administrador')
@@ -13,31 +11,115 @@
                 @endrole
             </div> --}}
         </div>
-        <div class="card-body">
-            
+        <div class="card-body">         
             <div class="d-flex">
                 <p class="d-flex flex-column">
                 </p>
                 <p class="ml-auto d-flex flex-column text-right">
                 </p>
+            </div>                
+            <div class="d-flex flex-row justify-content-end">               
             </div>
-
-         
-            <div class="position-relative mb-4">
-                <canvas id="chartTotal"  height="100"></canvas>
+            <div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-2 border text-center" style='color:white; background-color: #FF2E00;'>
+                            COVID
+                        </div>
+                        <div class="col-lg-10 border text-center" style='color:white; background-color: #FF2E00;'>
+                            REPORTE EPIDEMIOLOGICO DEPARTAMENTAL
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 border text-center" style='color:white; background-color: #0059FF;'>
+                            FECHA
+                        </div>
+                        <div class="col-lg-10 border text-center" style='color:white; background-color: #0059FF;'>
+                            DATOS POR PROVINCIAS
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 border text-center" style='color:white; background-color: #28B463;'>
+                            <div class="row">
+                                <div class="col-lg-12 border text-center">  
+                                    <div class="row">
+                                        <div class="col-lg-12 border text-center" style='color:white; background-color: #28B463'>
+                                            CASOS HOY
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 border text-center" style='color:black; background-color: white'>
+                                            1111111
+                                        </div>                            
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 border text-center overflow-auto">
+                                    @foreach ( @provincias() as $provincia )                                                             
+                                    <div class="row">
+                                        <div class="col-lg-8 border text-center" style='color:white; background-color: #28B463; font-size: 13px;'>
+                                            {{$provincia->nombre}}
+                                        </div>
+                                        <div class="col-lg-4 border text-center" style='color:black; background-color: white'>
+                                          {{@casosprovincia($provincia->id) }}                                       
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                            </div>                          
+                        </div>
+                        <div class="col-lg-8 border text-center" style='color:white; background-color: white;'>                         
+                                <div class="row">
+                                    <div class="col-lg-12 border text-center height:100%">
+                                        <div class="position-relative mb-4 p-3">
+                                            <canvas id="chartTotal"  height="200"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 border text-center" style='color:white; background-color: #FFEC00;'>
+                                        <div class="row">
+                                            <div class="col-lg-12 p-1 border text-center" style='color:white; background-color: #EA5109'>
+                                                CONFIRMADOS
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12 border text-center" style='color:black; background-color: white'>
+                                                111
+                                            </div>                            
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 border text-center" style='color:white; background-color: #FFEC00;'>
+                                        <div class="row">
+                                            <div class="col-lg-12 p-1 border text-center" style='color:white; background-color: #EA5109'>
+                                                RECUPERADOS
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12 border text-center" style='color:black; background-color: white'>
+                                                111
+                                            </div>                            
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 border text-center" style='color:white; background-color: #FFEC00;'>
+                                        <div class="row">
+                                            <div class="col-lg-12 p-1 border text-center" style='color:white; background-color: #EA5109'>
+                                                DECESOS
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12 border text-center" style='color:black; background-color: white'>
+                                                111
+                                            </div>                            
+                                        </div>
+                                    </div>
+                                </div>                          
+                        </div>
+                        <div class="col-lg-2 border text-center" style='color:white; background-color: #424949;'>
+                            
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="position-relative mb-4">
-                <canvas id="chartMunicipio"  height="100"></canvas>
-            </div>
-
-            <div class="position-relative mb-4">
-                <canvas id="chartProvincia"  height="100"></canvas>
-            </div>
-
-
-        <div class="d-flex flex-row justify-content-end">               
-        </div>
         </div>
     </div>
 </div>
