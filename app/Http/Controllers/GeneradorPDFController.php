@@ -122,6 +122,83 @@ class GeneradorPDFController extends Controller
         return $pdf->download('casos-descartados.pdf');
     }
 
+    //Genera la lista de infectados por provincia en la actualidad
+    public function provinciaReporteDiarioDecesosPDF($provincia_id){
+        $provincia = Provincia::findOrFail($provincia_id);
+        $nombreProvincia = $provincia->nombre;
+
+        $fecha = date('Y-m-d');
+        $query =  Caso::join('pacientes','pacientes.id','casos.paciente_id')
+                ->join('personas','personas.id','=','pacientes.id')
+                ->join('direcciones','direcciones.id','=','personas.direccion_id')
+                ->join('distritos','distritos.id','=','direcciones.distrito_id')
+                ->join('municipios','municipios.id','=','distritos.municipio_id')
+                ->join('provincias','provincias.id','=','municipios.provincia_id')
+                ->select( 'casos.estado',
+                        'casos.fecha',
+                        'personas.nombre',
+                        'personas.apellidos',
+                        'direcciones.avenida_calle',
+                        'distritos.nombre as distrito',
+                        'municipios.nombre as municipio',
+                        'provincias.nombre as provincia'
+                        )
+                ->where('provincias.id','=',$provincia_id)
+                ->where('casos.estado','=','desesos')
+                ->where('casos.fecha','=',$fecha)
+            ->get();
+        
+            $pdf = PDF::loadView('sistema.modules.pdf.provincias.reporte-diario-desesos',[
+                'desesos'   => $query,
+                'provincia'        => $nombreProvincia
+
+    
+            ]);
+    
+            return $pdf->download('casos-reporte-diario-confirmados.pdf');
+
+
+    }
+    //Genera la lista de infectados por provincia en la actualidad
+    public function provinciaReporteDiarioConfirmadosPDF($provincia_id){
+        $provincia = Provincia::findOrFail($provincia_id);
+        $nombreProvincia = $provincia->nombre;
+
+        $fecha = date('Y-m-d');
+        $query =  Caso::join('pacientes','pacientes.id','casos.paciente_id')
+                ->join('personas','personas.id','=','pacientes.id')
+                ->join('direcciones','direcciones.id','=','personas.direccion_id')
+                ->join('distritos','distritos.id','=','direcciones.distrito_id')
+                ->join('municipios','municipios.id','=','distritos.municipio_id')
+                ->join('provincias','provincias.id','=','municipios.provincia_id')
+                ->select( 'casos.estado',
+                        'casos.fecha',
+                        'personas.nombre',
+                        'personas.apellidos',
+                        'direcciones.avenida_calle',
+                        'distritos.nombre as distrito',
+                        'municipios.nombre as municipio',
+                        'provincias.nombre as provincia'
+                        )
+                ->where('provincias.id','=',$provincia_id)
+                ->where('casos.estado','=','confirmados')
+                ->where('casos.fecha','=',$fecha)
+            ->get();
+        
+            $pdf = PDF::loadView('sistema.modules.pdf.provincias.reporte-diario-confirmados',[
+                'confirmados'   => $query,
+                'provincia'        => $nombreProvincia
+
+    
+            ]);
+    
+            return $pdf->download('casos-reporte-diario-confirmados.pdf');
+
+
+
+
+    }
+
     
 
 

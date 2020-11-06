@@ -190,7 +190,7 @@
                               <thead>
                                   <tr>
                                       <th >Motivo</th>
-                                      <th >Fecha Realizada</th>
+                                      <th >Fecha Registrada</th>
                                       <th >FechaProgramada</th>
                                       <th >Hora Programada</th>
                                   </tr>
@@ -200,7 +200,7 @@
                                       @foreach (@misConsultasPaciente() as $consulta)
                                           <tr>
                                               <td>{{ $consulta->motivo_consulta }}</td>
-                                              <td>{{ $consulta->fecha_realizada }}</td>
+                                              <td>{{ $consulta->fecha_registrada }}</td>
                                               <td>{{ $consulta->fecha_programada }}</td>
                                               <td>{{ $consulta->hora_programada }}</td>
                                           </tr> 

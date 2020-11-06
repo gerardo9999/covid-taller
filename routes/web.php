@@ -142,7 +142,13 @@ Route::name('pdf')->get('/imprimir', 'GeneradorPDFController@imprimir');
     Route::name('provincias.descartados.pdf')->get('/provincia/descartados/pdf/{id}', 'GeneradorPDFController@provinciaDescartadosPDF');
     Route::name('provincias.sospechosos.pdf')->get('/provincia/sospechosos/pdf/{id}', 'GeneradorPDFController@provinciaSospechososPDF');
 // PDF
+//DIARIO
+Route::name('provincia.reporte-diario-confirmados.pdf')->get('/provincia/reportediarioConfirmados/pdf/{id}', 'GeneradorPDFController@provinciaReporteDiarioConfirmadosPDF');
+Route::name('provincia.reporte-diario-desesos.pdf')->get('/provincia/reportediarioDecesos/pdf/{id}', 'GeneradorPDFController@provinciaReporteDiarioDecesosPDF');
 
+
+
+//
 
 //PDF MUNICIPIO
     Route::name('municipios.confirmados.pdf')->get('/municipio/confirmados/pdf/{id}', 'GeneradorPDFController@municipioConfirmadosPDF');

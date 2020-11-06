@@ -32,6 +32,105 @@ use Illuminate\Support\Facades\Hash;
 class PruebaControlle extends Controller
 {
     public function prueba(){
+
+        $paciente_id = 3;
+        $medico_id = 2;
+        $consultas = Consulta::join('pacientes','pacientes.id','=','consultas.paciente_id')
+        ->join('medicos','medicos.id','=','consultas.medico_id')
+        ->where('pacientes.id','=', $paciente_id)->where('medicos.id','=',$medico_id)->get(); 
+        return $consultas;
+
+
+        $caso = 'desesos';
+        $id = 4;
+        $fecha = date('Y-m-d');
+        $query =  Caso::join('pacientes','pacientes.id','casos.paciente_id')
+                ->join('personas','personas.id','=','pacientes.id')
+                ->join('direcciones','direcciones.id','=','personas.direccion_id')
+                ->join('distritos','distritos.id','=','direcciones.distrito_id')
+                ->join('municipios','municipios.id','=','distritos.municipio_id')
+                ->join('provincias','provincias.id','=','municipios.provincia_id')
+                ->select( 'casos.estado',
+                        'casos.fecha',
+                        'personas.nombre',
+                        'personas.apellidos',
+                        'direcciones.avenida_calle',
+                        'distritos.nombre as distrito',
+                        'municipios.nombre as municipio',
+                        'provincias.nombre as provincia'
+                        )
+                ->where('provincias.id','=',$id)
+                ->where('casos.estado','=',$caso)
+                ->where('casos.fecha','=',$fecha)
+            ->get();
+        
+            $count = count($query);
+        return $count;
+ 
+
+
+        $caso ='confirmados';
+        $id = 3;
+        $fecha = date('Y-m-d');
+        $query =  Caso::join('pacientes','pacientes.id','casos.paciente_id')
+                ->join('personas','personas.id','=','pacientes.id')
+                ->join('direcciones','direcciones.id','=','personas.direccion_id')
+                ->join('distritos','distritos.id','=','direcciones.distrito_id')
+                ->join('municipios','municipios.id','=','distritos.municipio_id')
+                ->join('provincias','provincias.id','=','municipios.provincia_id')
+                ->select( 'casos.estado',
+                        'casos.fecha',
+                        'personas.nombre',
+                        'personas.apellidos',
+                        'direcciones.avenida_calle',
+                        'distritos.nombre as distrito',
+                        'municipios.nombre as municipio',
+                        'provincias.nombre as provincia'
+                        )
+                ->where('provincias.id','=',$id)
+                ->where('casos.estado','=',$caso)
+                ->where('casos.fecha','=',$fecha)
+            ->get();
+        
+        return $query;
+
+        $fecha = date('Y-m-d');
+        return $fecha;
+        $estado ='sospechosos';
+        $hoy = date('Y-m-d');
+        $casos = Caso::where('estado','=',$estado)
+        ->where('fecha','=',$hoy)
+        ->get();
+
+
+        return count($casos);
+        $caso ='confirmados';
+        $id = 3;
+        $fecha = date('Y-m-d');
+        $query =  Caso::join('pacientes','pacientes.id','casos.paciente_id')
+                ->join('personas','personas.id','=','pacientes.id')
+                ->join('direcciones','direcciones.id','=','personas.direccion_id')
+                ->join('distritos','distritos.id','=','direcciones.distrito_id')
+                ->join('municipios','municipios.id','=','distritos.municipio_id')
+                ->join('provincias','provincias.id','=','municipios.provincia_id')
+                ->select( 'casos.estado',
+                        'casos.fecha',
+                        'personas.nombre',
+                        'personas.apellidos',
+                        'direcciones.avenida_calle',
+                        'distritos.nombre as distrito',
+                        'municipios.nombre as municipio',
+                        'provincias.nombre as provincia'
+                        )
+                ->where('provincias.id','=',$id)
+                ->where('casos.estado','=',$caso)
+                ->where('casos.fecha','=',$fecha)
+            ->get();
+        
+            $count = count($query);
+
+        return $count;
+
         $id =1;
         $caso ='confirmados';
 

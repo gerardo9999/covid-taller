@@ -311,21 +311,21 @@
 
 {{-- Provincia --}}
 <script>
-    var provincia1   = @json(@countCasosActualesProvincias(1,'confirmados'));
-    var provincia2   = @json(@countCasosActualesProvincias(2,'confirmados'));
-    var provincia3   = @json(@countCasosActualesProvincias(3,'confirmados'));
-    var provincia4   = @json(@countCasosActualesProvincias(4,'confirmados'));
-    var provincia5   = @json(@countCasosActualesProvincias(5,'confirmados'));
-    var provincia6   = @json(@countCasosActualesProvincias(6,'confirmados'));
-    var provincia7   = @json(@countCasosActualesProvincias(7,'confirmados'));
-    var provincia8   = @json(@countCasosActualesProvincias(8,'confirmados'));
-    var provincia9   = @json(@countCasosActualesProvincias(9,'confirmados'));
-    var provincia10  = @json(@countCasosActualesProvincias(10,'confirmados'));
-    var provincia11  = @json(@countCasosActualesProvincias(11,'confirmados'));
-    var provincia12  = @json(@countCasosActualesProvincias(12,'confirmados'));
-    var provincia13  = @json(@countCasosActualesProvincias(13,'confirmados'));
-    var provincia14  = @json(@countCasosActualesProvincias(14,'confirmados'));
-    var provincia15  = @json(@countCasosActualesProvincias(15,'confirmados'));
+    var provincia1   = @json(@countCasosProvincias(1,'confirmados'));
+    var provincia2   = @json(@countCasosProvincias(2,'confirmados'));
+    var provincia3   = @json(@countCasosProvincias(3,'confirmados'));
+    var provincia4   = @json(@countCasosProvincias(4,'confirmados'));
+    var provincia5   = @json(@countCasosProvincias(5,'confirmados'));
+    var provincia6   = @json(@countCasosProvincias(6,'confirmados'));
+    var provincia7   = @json(@countCasosProvincias(7,'confirmados'));
+    var provincia8   = @json(@countCasosProvincias(8,'confirmados'));
+    var provincia9   = @json(@countCasosProvincias(9,'confirmados'));
+    var provincia10  = @json(@countCasosProvincias(10,'confirmados'));
+    var provincia11  = @json(@countCasosProvincias(11,'confirmados'));
+    var provincia12  = @json(@countCasosProvincias(12,'confirmados'));
+    var provincia13  = @json(@countCasosProvincias(13,'confirmados'));
+    var provincia14  = @json(@countCasosProvincias(14,'confirmados'));
+    var provincia15  = @json(@countCasosProvincias(15,'confirmados'));
 
     var dataProvincia = @json(@dataProvincia());
 

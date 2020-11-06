@@ -13,7 +13,6 @@ class MisInformes extends Component
     public $informeSeguimiento = 0;
     public $informeExamen      = 0;
 
-
     public function render(){
         return view('livewire.mis-informes');
     }

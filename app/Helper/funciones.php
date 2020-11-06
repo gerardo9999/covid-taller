@@ -213,6 +213,10 @@ function getPregunta($id){
         $provincias = Provincia::all();
         return $provincias;
     }
+    function municipios(){
+        $municipios = Municipio::all();
+        return $municipios;
+    }
 
     // Trae las provincias de un departamento
     function buscar_provincias($departamento_id){
@@ -477,7 +481,6 @@ function getPregunta($id){
         $count = count($total);
         return $count;
     }
-
     // casos actuales provinciales
     function casosActuales($id,$caso){
         
@@ -526,8 +529,56 @@ function getPregunta($id){
                 ->where('casos.estado','=',$caso)
                 ->where('casos.fecha','=',$fecha)
             ->get();
-        $count = count($query);
+        
+            $count = count($query);
         return $count;
+    }
+    function countCasosProvincias($id,$caso){
+        $query =  Caso::join('pacientes','pacientes.id','casos.paciente_id')
+                ->join('personas','personas.id','=','pacientes.id')
+                ->join('direcciones','direcciones.id','=','personas.direccion_id')
+                ->join('distritos','distritos.id','=','direcciones.distrito_id')
+                ->join('municipios','municipios.id','=','distritos.municipio_id')
+                ->join('provincias','provincias.id','=','municipios.provincia_id')
+                ->select( 'casos.estado',
+                        'casos.fecha',
+                        'personas.nombre',
+                        'personas.apellidos',
+                        'direcciones.avenida_calle',
+                        'distritos.nombre as distrito',
+                        'municipios.nombre as municipio',
+                        'provincias.nombre as provincia'
+                        )
+                ->where('provincias.id','=',$id)
+                ->where('casos.estado','=',$caso)
+            ->get();
+        
+            $count = count($query);
+        return $count;
+    }
+    function casosActualesProvincias($id,$caso){
+        $fecha = date('Y-m-d');
+        $query =  Caso::join('pacientes','pacientes.id','casos.paciente_id')
+                ->join('personas','personas.id','=','pacientes.id')
+                ->join('direcciones','direcciones.id','=','personas.direccion_id')
+                ->join('distritos','distritos.id','=','direcciones.distrito_id')
+                ->join('municipios','municipios.id','=','distritos.municipio_id')
+                ->join('provincias','provincias.id','=','municipios.provincia_id')
+                ->select( 'casos.estado',
+                        'casos.fecha',
+                        'personas.nombre',
+                        'personas.apellidos',
+                        'direcciones.avenida_calle',
+                        'distritos.nombre as distrito',
+                        'municipios.nombre as municipio',
+                        'provincias.nombre as provincia'
+                        )
+                ->where('provincias.id','=',$id)
+                ->where('casos.estado','=',$caso)
+                ->where('casos.fecha','=',$fecha)
+            ->get();
+        
+        return $query;
     }
 
     function totalCasosActuales($data){
@@ -574,7 +625,6 @@ function getPregunta($id){
         return count($infectados);
     }
 
-
     function misConsutas(){
         $id =  Auth::id();
 
@@ -602,8 +652,13 @@ function getPregunta($id){
         return $nombre;
     }
 
-
-
+    function casosHoy($estado){
+        $hoy = date('Y-m-d');
+        $casos = Caso::where('estado','=',$estado)
+        ->where('fecha','=',$hoy)
+        ->get();
+        return count($casos);
+    }
 
     function existeConsulta($paciente_id){
         $sw = false;
@@ -763,7 +818,7 @@ function getPregunta($id){
             "dias",
             "tratamiento_id",
             "paciente_id",
-            "estado",
+            "tratamientos.estado",
             "internado",
             "caso",
             "numero_seguro",
@@ -846,8 +901,6 @@ function getPregunta($id){
 
     }
 
-
-
     function dashboardtotal($caso){
        
         $query =  Caso::join('pacientes','pacientes.id','casos.paciente_id')
@@ -882,3 +935,4 @@ function getPregunta($id){
     }
 
 ?>
+

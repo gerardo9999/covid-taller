@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Provincias</title>
+    <style>
+        .titulo{
+            text-align: center;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+        .tabla{
+            border: seagreen solid 2px;
+            box-shadow: #000 ;
+            text-decoration: double;
+            align-self: center;
+            text-align: center;            
+        }
+      
+    </style>
+</head>
+<body>
+    <div class ="titulo">
+        <h1>Andres Ibañez</h1>
+    </div>
+    <div>
+        <div>
+            100
+        </div>
+        <table class="tabla">
+            <thead class="head">
+                <tr class="text">
+                    <th>Persona</th>
+                    <th>Municipio</th>
+                    <th>Caso</th>
+                    <th>Fecha</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ $confirmado->nombre }} {{ $confirmado->apellidos }}</td>
+                    <td>{{ $confirmado->municipio }}</td>
+                    <td>{{ $confirmado->estado }}</td>
+                    <td>{{ $confirmado->fecha }}</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

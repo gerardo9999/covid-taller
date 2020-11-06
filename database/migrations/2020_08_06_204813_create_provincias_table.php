@@ -25,21 +25,21 @@ class CreateProvinciasTable extends Migration
         });
 
 
-        DB::table('provincias')->insert(array('id'=>1, 'nombre'=>'Provincia Andrés Ibáñez','departamento_id'=>1));
-        DB::table('provincias')->insert(array('id'=>2, 'nombre'=>'Provincia Ángel Sandoval','departamento_id'=>1));
-        DB::table('provincias')->insert(array('id'=>3, 'nombre'=>'Provincia Chiquitos','departamento_id'=>1));
-        DB::table('provincias')->insert(array('id'=>4, 'nombre'=>'Provincia Cordillera','departamento_id'=>1));        
-        DB::table('provincias')->insert(array('id'=>5, 'nombre'=>'Provincia Florida','departamento_id'=>1));
-        DB::table('provincias')->insert(array('id'=>6, 'nombre'=>'Provincia Germán Busch','departamento_id'=>1));
-        DB::table('provincias')->insert(array('id'=>7, 'nombre'=>'Provincia Guarayos','departamento_id'=>1));
-        DB::table('provincias')->insert(array('id'=>8, 'nombre'=>'Provincia Ichilo','departamento_id'=>1));
-        DB::table('provincias')->insert(array('id'=>9, 'nombre'=>'Provincia José Miguel de Velasco','departamento_id'=>1));
-        DB::table('provincias')->insert(array('id'=>10,'nombre'=>'Provincia Manuel María Caballero','departamento_id'=>1));
-        DB::table('provincias')->insert(array('id'=>11,'nombre'=>'Provincia Ñuflo de Chávez','departamento_id'=>1));
-        DB::table('provincias')->insert(array('id'=>12,'nombre'=>'Provincia Obispo Santisteban','departamento_id'=>1));
-        DB::table('provincias')->insert(array('id'=>13,'nombre'=>'Provincia Sara','departamento_id'=>1));
-        DB::table('provincias')->insert(array('id'=>14,'nombre'=>'Provincia Vallegrande','departamento_id'=>1));
-        DB::table('provincias')->insert(array('id'=>15,'nombre'=>'Provincia Warnes','departamento_id'=>1));
+        DB::table('provincias')->insert(array('id'=>1, 'nombre'=>'Andrés Ibáñez','departamento_id'=>1));
+        DB::table('provincias')->insert(array('id'=>2, 'nombre'=>'Ángel Sandoval','departamento_id'=>1));
+        DB::table('provincias')->insert(array('id'=>3, 'nombre'=>'Chiquitos','departamento_id'=>1));
+        DB::table('provincias')->insert(array('id'=>4, 'nombre'=>'Cordillera','departamento_id'=>1));        
+        DB::table('provincias')->insert(array('id'=>5, 'nombre'=>'Florida','departamento_id'=>1));
+        DB::table('provincias')->insert(array('id'=>6, 'nombre'=>'Germán Busch','departamento_id'=>1));
+        DB::table('provincias')->insert(array('id'=>7, 'nombre'=>'Guarayos','departamento_id'=>1));
+        DB::table('provincias')->insert(array('id'=>8, 'nombre'=>'Ichilo','departamento_id'=>1));
+        DB::table('provincias')->insert(array('id'=>9, 'nombre'=>'José Miguel de Velasco','departamento_id'=>1));
+        DB::table('provincias')->insert(array('id'=>10,'nombre'=>'Manuel María Caballero','departamento_id'=>1));
+        DB::table('provincias')->insert(array('id'=>11,'nombre'=>'Ñuflo de Chávez','departamento_id'=>1));
+        DB::table('provincias')->insert(array('id'=>12,'nombre'=>'Obispo Santisteban','departamento_id'=>1));
+        DB::table('provincias')->insert(array('id'=>13,'nombre'=>'Sara','departamento_id'=>1));
+        DB::table('provincias')->insert(array('id'=>14,'nombre'=>'Vallegrande','departamento_id'=>1));
+        DB::table('provincias')->insert(array('id'=>15,'nombre'=>'Warnes','departamento_id'=>1));
 
     }
 

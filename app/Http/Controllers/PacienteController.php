@@ -93,7 +93,7 @@ class PacienteController extends Controller{
             $caso = new Caso();
             $caso->estado = 'sospechosos';
             $caso->paciente_id = $paciente->id;
-            $caso->fecha = date('Y-m-y');
+            $caso->fecha = date('Y-m-d');
             $caso->save();
 
             DB::commit();
